@@ -1,0 +1,75 @@
+// js/firebase-sync.js
+import { appData, setAppData, currentMonthKey, defaultMonthData } from './state.js';
+
+let db = null;
+let unsubscribeFirestore = null;
+
+export function initFirebase(firebaseConfig, onDataSynced) {
+  try {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    db = firebase.firestore();
+    
+    if (unsubscribeFirestore) unsubscribeFirestore();
+
+    unsubscribeFirestore = db.collection('hogar').doc('data').onSnapshot(
+      (doc) => {
+        if (doc.exists) {
+          const remoteData = doc.data();
+          // Fusión inteligente básica o actualización directa controlada
+          if (JSON.stringify(appData) !== JSON.stringify(remoteData)) {
+            setAppData(remoteData);
+            if (typeof onDataSynced === 'function') onDataSynced();
+          }
+          updateSyncStatus('ok', 'Sincronizado');
+        } else {
+          saveToFirebase();
+        }
+      },
+      (err) => {
+        console.error('Error de Firestore:', err);
+        updateSyncStatus('error', 'Error de conexión');
+      }
+    );
+  } catch (err) {
+    console.error('Error al inicializar Firebase:', err);
+    updateSyncStatus('error', 'Error de configuración');
+  }
+}
+
+export function saveToFirebase() {
+  if (!db) return;
+  updateSyncStatus('syncing', 'Guardando...');
+  db.collection('hogar').doc('data').set(appData)
+    .then(() => updateSyncStatus('ok', 'Sincronizado'))
+    .catch(err => {
+      console.error('Error al guardar:', err);
+      updateSyncStatus('error', 'Error al guardar');
+    });
+}
+
+function updateSyncStatus(status, text) {
+  const el = document.getElementById('syncStatus');
+  const txt = document.getElementById('syncText');
+  if (!el || !txt) return;
+  el.className = 'sync-status sync-' + status;
+  txt.textContent = text;
+}
+export function initAuth(onUserReady) {
+  const auth = firebase.auth();
+  auth.signInAnonymously()
+    .then((userCredential) => {
+      const uid = userCredential.user.uid;
+      // Asignar rol basado en UID guardado en localStorage o por defecto
+      let role = localStorage.getItem('userRole');
+      if (!role) {
+        role = 'A'; // Por defecto Raul (A) o Marta (B)
+        localStorage.setItem('userRole', role);
+      }
+      if (typeof onUserReady === 'function') onUserReady(uid, role);
+    })
+    .catch((error) => {
+      console.error("Error en autenticación anónima:", error);
+    });
+}
