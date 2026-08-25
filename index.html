@@ -1,393 +1,351 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="theme-color" content="#6366f1">
+<meta name="theme-color" content="#121212">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Finanzas Hogar">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>🏠</text></svg>">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Finanzas del Hogar · Raul & Marta</title>
+<title>Finanzas Hogar · Tricount Style</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#f8fafc; --card:#ffffff; --text:#1e293b; --muted:#64748b;
-    --primary:#6366f1; --primary-dark:#4f46e5; --accent:#10b981;
-    --danger:#ef4444; --warning:#f59e0b; --border:#e2e8f0;
-    --raul:#3b82f6; --marta:#ec4899;
-    --shadow:0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -1px rgba(0,0,0,.03);
-    --radius:12px;
+    --bg:#121212; --card:#1e1e1e; --card-hover:#2a2a2a; --text:#ffffff; --muted:#9ca3af;
+    --primary:#3b82f6; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
+    --border:#2d2d2d; --raul:#3b82f6; --marta:#ec4899;
+    --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html{font-size:16px}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:90px}
-  .container{max-width:1280px;margin:0 auto}
-  
-  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;background:var(--card);padding:16px 20px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
-  h1{font-size:1.5rem;font-weight:800;display:flex;align-items:center;gap:8px}
-  h1 span{background:linear-gradient(135deg,var(--raul),var(--marta));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .sync-status{font-size:.75rem;padding:6px 12px;border-radius:20px;font-weight:600;display:flex;align-items:center;gap:6px}
-  .sync-ok{background:#d1fae5;color:#065f46}
-  .sync-syncing{background:#fef3c7;color:#92400e}
-  .sync-error{background:#fee2e2;color:#991b1b}
-  .sync-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.5s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  
-  .actions{display:flex;gap:8px;flex-wrap:wrap}
-  button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;transition:all .2s ease;background:var(--card);color:var(--text);border:1px solid var(--border);min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-  button:hover{background:#f1f5f9}
-  button:active{transform:scale(.97)}
-  .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-  .btn-primary:hover{background:var(--primary-dark)}
-  .btn-danger{background:var(--danger);color:#fff;border-color:var(--danger)}
-  .btn-success{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .btn-small{padding:6px 12px;font-size:.8rem;min-height:36px}
+    background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:110px}
+  .container{max-width:768px;margin:0 auto}
 
-  .month-nav{display:flex;align-items:center;justify-content:space-between;background:var(--card);padding:12px 20px;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:16px;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow)}
-  .month-nav-controls{display:flex;align-items:center;gap:8px}
-  .month-label{font-size:1.1rem;font-weight:800;min-width:160px;text-align:center;text-transform:capitalize}
+  /* Header estilo Tricount */
+  .tricount-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0}
+  .tricount-logo{font-size:1.8rem;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:6px;color:#fff}
+  .tricount-logo span{color:var(--primary)}
+  .sync-badge{font-size:.7rem;padding:4px 10px;border-radius:12px;font-weight:600;background:#1f2937;color:#9ca3af;display:flex;align-items:center;gap:4px}
+  .sync-badge.ok{background:rgba(16,185,129,0.15);color:#34d399}
+  .sync-badge.syncing{background:rgba(245,158,11,0.15);color:#fbbf24}
 
-  .tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:2px solid var(--border);padding-bottom:4px}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{padding:10px 18px;cursor:pointer;border:none;background:none;color:var(--muted);font-weight:600;border-bottom:3px solid transparent;margin-bottom:-6px;transition:all .2s;white-space:nowrap;font-size:.9rem;min-height:44px;border-radius:8px 8px 0 0}
-  .tab:hover{color:var(--primary);background:rgba(99,102,241,0.05)}
-  .tab.active{color:var(--primary);border-bottom-color:var(--primary);background:var(--card);box-shadow:var(--shadow)}
+  /* Selector de Meses estilo Listas Tricount */
+  .month-card-selector{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .2s}
+  .month-card-selector:hover{background:var(--card-hover)}
+  .month-info{display:flex;align-items:center;gap:14px}
+  .month-icon{font-size:1.8rem;background:#2d2d2d;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+  .month-title{font-size:1.1rem;font-weight:700;color:#fff;text-transform:capitalize}
+  .month-subtitle{font-size:.85rem;color:var(--muted)}
+
+  /* Barra de acciones superior para el mes activo */
+  .active-month-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .active-month-title{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
-  .tab-content{display:none;animation:fadeIn .25s ease}
+  button{padding:8px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.85rem;background:#2d2d2d;color:#fff;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+  button:hover{background:#3d3d3d}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-primary:hover{background:#2563eb}
+  .btn-danger{background:rgba(239,68,68,0.2);color:#f87171}
+  .btn-danger:hover{background:rgba(239,68,68,0.3)}
+  .btn-success{background:rgba(16,185,129,0.2);color:#34d399}
+  .btn-success:hover{background:rgba(16,185,129,0.3)}
+
+  /* Vistas (Tabs) */
+  .tab-content{display:none;animation:fadeIn .2s ease}
   .tab-content.active{display:block}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:16px}
-  .card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:16px}
-  .card h3{font-size:.8rem;margin-bottom:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-  .stat-value{font-size:1.8rem;font-weight:800;color:var(--primary)}
-  .stat-sub{font-size:.85rem;color:var(--muted);margin-top:4px}
+  /* Tarjetas y Grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:16px}
+  .card{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);margin-bottom:16px}
+  .card h3{font-size:.75rem;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .stat-value{font-size:1.7rem;font-weight:800;color:#fff}
+  .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:0 20px}
-  table{width:100%;border-collapse:collapse;min-width:600px}
-  th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.9rem;vertical-align:middle}
-  th{font-size:.75rem;text-transform:uppercase;color:var(--muted);font-weight:700;position:sticky;top:0;background:var(--card);z-index:1}
-  td input, td select{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-size:.9rem;min-height:42px;transition:border-color .2s}
-  td input:focus, td select:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,0.1)}
-  td input[type="number"]{min-width:90px;text-align:right}
-  td input[type="date"]{min-width:130px}
-  
-  .row-actions button{padding:6px 10px;font-size:.85rem;min-height:36px;min-width:36px}
-  .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;padding:10px 0;min-height:44px;display:flex;align-items:center;gap:6px}
-  .add-row:hover{text-decoration:underline}
+  /* Tablas estilo app */
+  .table-wrap{overflow-x:auto;margin:0 -20px;padding:0 20px}
+  table{width:100%;border-collapse:collapse;min-width:580px}
+  th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
+  th{font-size:.7rem;text-transform:uppercase;color:var(--muted);font-weight:700}
+  td input, td select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#121212;color:#fff;font-size:.85rem}
+  td input:focus, td select:focus{outline:none;border-color:var(--primary)}
+  td input[type="number"]{text-align:right}
 
-  .chart-container{position:relative;height:260px;margin-top:12px}
-  .chart-container-lg{position:relative;height:320px;margin-top:12px}
-  .progress-bar{height:24px;background:var(--bg);border-radius:12px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--raul),var(--marta));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem;font-weight:700;transition:width .5s ease}
+  .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0}
   
-  .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.75rem;font-weight:700;margin-left:4px}
-  .badge-raul{background:#dbeafe;color:#1e40af}
-  .badge-marta{background:#fce7f3;color:#9d174d}
-  
-  .section-title{font-size:1.1rem;font-weight:800;color:var(--text);margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-  
-  .debt-summary{background:linear-gradient(135deg,var(--warning),#f59e0b);color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px;text-align:center;box-shadow:var(--shadow)}
-  .debt-summary h3{color:#fff;margin-bottom:8px;font-size:1rem}
-  .debt-amount{font-size:2.2rem;font-weight:800}
-  .debt-detail{margin-top:8px;font-size:.9rem;opacity:.95}
-  
-  .info-box{background:#e0f2fe;border-left:4px solid #0284c7;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.9rem;color:#0369a1}
-  .info-box b{color:#0c4a6e}
-  
-  .footer-note{margin-top:24px;padding:16px;background:var(--card);border-radius:var(--radius);font-size:.85rem;color:var(--muted);text-align:center;border:1px dashed var(--border)}
-  
-  .income-row{display:flex;gap:12px;align-items:center;padding:16px;background:var(--card);border-radius:var(--radius);margin-bottom:16px;flex-wrap:wrap;border:1px solid var(--border);box-shadow:var(--shadow)}
-  .income-row label{font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:8px}
+  /* Navegación Inferior flotante estilo Tricount */
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;z-index:999;backdrop-filter:blur(10px)}
+  .nav-item{background:none;border:none;color:var(--muted);font-size:.75rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:4px 0}
+  .nav-item span.icon{font-size:1.3rem}
+  .nav-item.active{color:var(--primary)}
 
-  .cuenta-comun-box{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px;box-shadow:var(--shadow)}
-  .cuenta-comun-box h3{color:#fff;margin-bottom:12px;font-size:1.1rem}
-  .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  .cuenta-inputs label{font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:6px}
-  .cuenta-inputs input{width:90px;padding:8px;border-radius:8px;border:none;font-size:1rem;font-weight:700;min-height:40px;color:var(--text);text-align:right}
-  .restante-box{margin-top:12px;padding:12px 16px;background:rgba(255,255,255,0.15);border-radius:8px;backdrop-filter:blur(4px)}
-  .restante-value{font-size:1.4rem;font-weight:800;margin-top:4px}
+  /* Botón flotante central tipo Tricount (+) */
+  .fab-container{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);z-index:1000}
+  .fab{background:var(--primary);color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 8px 20px rgba(59,130,246,0.4);cursor:pointer;border:none;transition:transform .2s}
+  .fab:active{transform:scale(.95)}
 
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px;backdrop-filter:blur(4px)}
+  /* Cuenta común y cajas especiales */
+  .cuenta-comun-box{background:linear-gradient(135deg,#1e3a8a,#172554);border:1px solid #1d4ed8;color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px}
+  .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  .cuenta-inputs input{width:90px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px;border-radius:8px;text-align:right;font-weight:700}
+  
+  .section-title{font-size:1rem;font-weight:700;color:#fff;margin:20px 0 10px;display:flex;justify-content:space-between;align-items:center}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px}
   .modal-overlay.active{display:flex}
-  .modal{background:#fff;border-radius:16px;padding:24px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1)}
-  .modal h2{font-size:1.3rem;margin-bottom:12px;font-weight:800}
-  .modal p{font-size:.9rem;color:var(--muted);margin-bottom:12px}
-  .modal textarea{width:100%;min-height:160px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:.85rem;margin-bottom:16px}
-  .modal-buttons{display:flex;gap:10px;justify-content:flex-end}
+  .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:500px;width:100%}
+  .modal textarea{width:100%;height:140px;background:#121212;border:1px solid var(--border);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
 
-  @media(max-width:640px){
-    body{padding:8px;padding-bottom:80px}
-    header{padding:12px}
-    h1{font-size:1.3rem}
-    .stat-value{font-size:1.5rem}
-    .month-label{font-size:1rem;min-width:130px}
-    .grid{grid-template-columns:1fr 1fr;gap:10px}
-    .card{padding:14px}
-    .cuenta-comun-box{padding:14px}
-    .income-row{padding:12px;flex-direction:column;align-items:stretch}
-    .income-row label{justify-content:space-between}
-    .income-row input{width:120px!important}
-  }
-  @media(max-width:400px){.grid{grid-template-columns:1fr}}
+  .chart-container{position:relative;height:240px;margin-top:10px}
 </style>
 </head>
 <body>
 
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h2>🔧 Configurar Sincronización</h2>
-    <p>Introduce la configuración de Firebase:</p>
+    <h3 style="color:#fff;margin-bottom:10px">⚙️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
-    <div class="modal-buttons">
+    <div style="display:flex;justify-content:flex-end;gap:8px">
       <button onclick="closeConfigModal()">Cancelar</button>
-      <button class="btn-primary" onclick="saveFirebaseConfig()">Conectar</button>
+      <button class="btn-primary" onclick="saveFirebaseConfig()">Guardar</button>
     </div>
   </div>
 </div>
 
 <div class="container">
 
-<header>
-  <h1>🏠 <span>Raul & Marta</span></h1>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-    <div class="sync-status sync-syncing" id="syncStatus">
-      <span class="sync-dot"></span>
-      <span id="syncText">Conectando...</span>
-    </div>
-    <div class="actions">
-      <button onclick="openConfigModal()" class="btn-small">⚙️ Config</button>
-      <button onclick="resetData()" class="btn-danger btn-small">🗑️ Reset Total</button>
-    </div>
-  </div>
-</header>
-
-<div class="month-nav">
-  <div class="month-nav-controls">
-    <button onclick="prevMonth()">◀</button>
-    <div class="month-label" id="monthLabel">-</div>
-    <button onclick="nextMonth()">▶</button>
-  </div>
-  <div class="month-nav-controls">
-    <button onclick="goToCurrentMonth()" class="btn-primary btn-small">📅 Hoy</button>
-    <button onclick="createNewMonth()" class="btn-success btn-small">➕ Nuevo Mes</button>
-    <button onclick="deleteCurrentMonth()" class="btn-danger btn-small" title="Borrar mes actual">🗑️ Borrar Mes</button>
-  </div>
-</div>
-
-<div class="tabs">
-  <button class="tab active" onclick="switchTab(event,'resumen')">📊 Resumen</button>
-  <button class="tab" onclick="switchTab(event,'fijos')">🏠 Fijos</button>
-  <button class="tab" onclick="switchTab(event,'variables')">🛒 Variables</button>
-  <button class="tab" onclick="switchTab(event,'deudas')">💳 Deudas</button>
-  <button class="tab" onclick="switchTab(event,'ahorro')">💰 Ahorro</button>
-</div>
-
-<!-- RESUMEN -->
-<div id="resumen" class="tab-content active">
-  <div class="cuenta-comun-box">
-    <h3>💼 Cuenta Común del Mes</h3>
-    <div class="cuenta-inputs">
-      <label>Raul: <input type="number" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
-      <label>Marta: <input type="number" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
-      <label style="margin-left:auto">Modo:
-        <select id="splitMode" onchange="updateMonthSplit()" style="padding:6px 10px;border-radius:8px;border:none;font-size:.9rem;min-height:40px;background:#fff;color:var(--text)">
-          <option value="5050">50% / 50%</option>
-          <option value="proporcional">Proporcional</option>
-        </select>
-      </label>
-    </div>
-    <div class="restante-box">
-      <div style="font-size:.9rem;opacity:.95">Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes: <b id="gastosComunes">0 €</b></div>
-      <div class="restante-value">Restante: <span id="restanteAhorro">1200 €</span></div>
+  <div class="tricount-header">
+    <div class="tricount-logo">tri<span>count</span> <span style="font-size:.8rem;color:var(--muted);font-weight:400">· Hogar</span></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
+      <button onclick="openConfigModal()" style="padding:6px 10px;font-size:.75rem">⚙️</button>
     </div>
   </div>
 
-  <div class="income-row">
-    <label>💼 Ingresos Raul: <input type="number" id="incomeA" value="1500" style="width:110px" oninput="updateMonthIncome()"></label>
-    <label>💼 Ingresos Marta: <input type="number" id="incomeB" value="1500" style="width:110px" oninput="updateMonthIncome()"></label>
+  <!-- Barra de control del mes activo -->
+  <div class="active-month-bar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button onclick="prevMonth()">◀</button>
+      <div class="active-month-title" id="monthLabel">-</div>
+      <button onclick="nextMonth()">▶</button>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button onclick="goToCurrentMonth()" class="btn-primary" style="padding:6px 12px;font-size:.8rem">📅 Hoy</button>
+      <button onclick="createNewMonth()" class="btn-success" style="padding:6px 12px;font-size:.8rem">➕ Mes</button>
+      <button onclick="deleteCurrentMonth()" class="btn-danger" style="padding:6px 12px;font-size:.8rem">🗑️ Borrar</button>
+    </div>
   </div>
 
-  <div class="grid">
+  <!-- RESUMEN -->
+  <div id="resumen" class="tab-content active">
+    <div class="cuenta-comun-box">
+      <div style="font-weight:700;font-size:1.05rem">💼 Cuenta Común del Mes</div>
+      <div class="cuenta-inputs">
+        <label>Raul: <input type="number" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
+        <label>Marta: <input type="number" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
+        <label style="margin-left:auto">Modo: 
+          <select id="splitMode" onchange="updateMonthSplit()" style="background:#121212;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:6px;border-radius:8px">
+            <option value="5050">50 / 50</option>
+            <option value="proporcional">Proporcional</option>
+          </select>
+        </label>
+      </div>
+      <div style="margin-top:12px;font-size:.85rem;opacity:.9">
+        Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes: <b id="gastosComunes">0 €</b><br>
+        Restante común: <b id="restanteAhorro" style="font-size:1.1rem">1200 €</b>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <label style="font-size:.85rem">💼 Ingresos Raul: <input type="number" id="incomeA" value="1500" style="width:90px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
+      <label style="font-size:.85rem">💼 Ingresos Marta: <input type="number" id="incomeB" value="1500" style="width:90px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Gasto personal Raul</h3>
+        <div class="stat-value" id="gastoPersonalRaul" style="color:var(--raul)">0 €</div>
+        <div class="stat-sub">Fijos + Variables</div>
+      </div>
+      <div class="card">
+        <h3>Gasto personal Marta</h3>
+        <div class="stat-value" id="gastoPersonalMarta" style="color:var(--marta)">0 €</div>
+        <div class="stat-sub">Fijos + Variables</div>
+      </div>
+      <div class="card">
+        <h3>Ahorro del mes</h3>
+        <div class="stat-value" id="ahorroMes" style="color:var(--accent)">0 €</div>
+        <div class="stat-sub" id="pctAhorro">0% meta</div>
+      </div>
+      <div class="card">
+        <h3>Deuda acumulada</h3>
+        <div class="stat-value" id="deudaAcumulada" style="color:var(--warning)">0 €</div>
+        <div class="stat-sub" id="deudaDetalle">Sin deudas</div>
+      </div>
+    </div>
+
     <div class="card">
-      <h3>Gasto personal Raul <span class="badge badge-raul">R</span></h3>
-      <div class="stat-value" id="gastoPersonalRaul">0 €</div>
-      <div class="stat-sub">Suscripciones + Fijos + Variables</div>
-    </div>
-    <div class="card">
-      <h3>Gasto personal Marta <span class="badge badge-marta">M</span></h3>
-      <div class="stat-value" id="gastoPersonalMarta">0 €</div>
-      <div class="stat-sub">Suscripciones + Fijos + Variables</div>
-    </div>
-    <div class="card">
-      <h3>Ahorro del mes</h3>
-      <div class="stat-value" id="ahorroMes" style="color:var(--accent)">0 €</div>
-      <div class="stat-sub" id="pctAhorro">0% de la meta</div>
-    </div>
-    <div class="card">
-      <h3>Deuda acumulada</h3>
-      <div class="stat-value" id="deudaAcumulada" style="color:var(--warning)">0 €</div>
-      <div class="stat-sub" id="deudaDetalle">Sin deudas</div>
-    </div>
-  </div>
-
-  <div class="grid" style="grid-template-columns:1fr">
-    <div class="card">
-      <h3>Gastos personales por persona</h3>
+      <h3>Gastos personales</h3>
       <div class="chart-container"><canvas id="chartPersonales"></canvas></div>
     </div>
+  </div>
+
+  <!-- FIJOS -->
+  <div id="fijos" class="tab-content">
+    <div class="section-title">🏡 Alquiler y Facturas</div>
     <div class="card">
-      <h3>Cuenta común</h3>
-      <div class="chart-container"><canvas id="chartCuenta"></canvas></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th>Aporta R</th><th>Aporta M</th><th>Est.</th><th></th></tr></thead>
+          <tbody id="tbodyAlquiler"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('alquiler')">➕ Añadir alquiler/factura</button>
+    </div>
+
+    <div class="section-title">📺 Suscripciones</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Servicio</th><th>Importe</th><th>Titular</th><th>Est.</th><th></th></tr></thead>
+          <tbody id="tbodySuscripciones"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('suscripciones')">➕ Añadir suscripción</button>
+    </div>
+
+    <div class="section-title">💪 Fijos Personales</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concepto</th><th>Importe</th><th>Persona</th><th>Est.</th><th></th></tr></thead>
+          <tbody id="tbodyFijos"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('fijos')">➕ Añadir gasto fijo</button>
     </div>
   </div>
+
+  <!-- VARIABLES -->
+  <div id="variables" class="tab-content">
+    <div class="section-title">🛒 Alimentación</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Establecimiento</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <tbody id="tbodyAlimentacion"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('alimentacion')">➕ Añadir compra</button>
+    </div>
+
+    <div class="section-title">🎬 Ocio y Cenas</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <tbody id="tbodyOcio"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('ocio')">➕ Añadir ocio/cena</button>
+    </div>
+
+    <div class="section-title">🛵 Delivery</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Restaurante</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <tbody id="tbodyDelivery"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('delivery')">➕ Añadir delivery</button>
+    </div>
+  </div>
+
+  <!-- DEUDAS -->
+  <div id="deudas" class="tab-content">
+    <div class="card" style="background:linear-gradient(135deg,#78350f,#451a03);border:1px solid #b45309">
+      <h3 style="color:#fbbf24">💳 Estado de Deudas</h3>
+      <div class="stat-value" id="deudaTotalDisplay" style="color:#fff;margin-top:6px">0 €</div>
+      <div class="stat-sub" id="deudaTotalDetalle" style="color:#fde68a">Sin deudas</div>
+    </div>
+
+    <div class="section-title">📊 Desglose de Alquiler</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mes</th><th>Concepto</th><th>Total</th><th>Corr. R</th><th>Corr. M</th><th>Dif.</th></tr></thead>
+          <tbody id="tbodyDeudaAuto"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-title">💸 Préstamos / Pagos</div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Deudor</th><th>Acreedor</th><th>Importe</th><th>Desc.</th><th></th></tr></thead>
+          <tbody id="tbodyDeudas"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('deudas')">➕ Registrar préstamo</button>
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Paga</th><th>Recibe</th><th>Importe</th><th></th></tr></thead>
+          <tbody id="tbodyPagos"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('pagos')">➕ Registrar abono/pago</button>
+    </div>
+  </div>
+
+  <!-- AHORRO -->
+  <div id="ahorro" class="tab-content">
+    <div class="card">
+      <h3>💰 Ahorro Común</h3>
+      <div style="margin:10px 0;font-size:.85rem">
+        Meta mensual: <input type="number" id="metaAhorro" value="500" style="width:100px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMetaAhorro()"> €
+      </div>
+      <div style="background:#121212;border:1px solid var(--border);border-radius:12px;height:22px;overflow:hidden;margin:12px 0">
+        <div id="progressFill" style="background:var(--accent);height:100%;width:0%;text-align:center;font-size:.75rem;font-weight:700;line-height:22px">0%</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Importe</th><th>Persona</th><th></th></tr></thead>
+          <tbody id="tbodyAhorro"></tbody>
+        </table>
+      </div>
+      <button class="add-row" onclick="addRow('ahorro')">➕ Añadir ahorro</button>
+    </div>
+  </div>
+
 </div>
 
-<!-- FIJOS -->
-<div id="fijos" class="tab-content">
-  <div class="section-title">🏡 Alquiler y Facturas</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Concepto</th><th>Importe</th><th>Compartido</th><th>Aporta Raul</th><th>Aporta Marta</th><th>Estable</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyAlquiler"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('alquiler')">➕ Añadir concepto</button>
-  </div>
-
-  <div class="section-title">📺 Suscripciones <span style="font-size:.8rem;color:var(--muted);font-weight:400">(gasto personal)</span></div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Servicio</th><th>Importe</th><th>Titular</th><th>Estable</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodySuscripciones"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('suscripciones')">➕ Añadir suscripción</button>
-  </div>
-
-  <div class="section-title">💪 Fijos adicionales <span style="font-size:.8rem;color:var(--muted);font-weight:400">(gasto personal)</span></div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Concepto</th><th>Importe</th><th>Persona</th><th>Estable</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyFijos"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('fijos')">➕ Añadir gasto</button>
-  </div>
-</div>
-
-<!-- VARIABLES -->
-<div id="variables" class="tab-content">
-  <div class="section-title">🛒 Alimentación</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fecha</th><th>Establecimiento</th><th>Importe</th><th>Pagado por</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyAlimentacion"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('alimentacion')">➕ Añadir compra</button>
-  </div>
-
-  <div class="section-title">🎬 Ocio y Cenas</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Pagado por</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyOcio"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('ocio')">➕ Añadir gasto</button>
-  </div>
-
-  <div class="section-title">🛵 Delivery</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fecha</th><th>Restaurante</th><th>Importe</th><th>Pagado por</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyDelivery"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('delivery')">➕ Añadir delivery</button>
-  </div>
-</div>
-
-<!-- DEUDAS -->
-<div id="deudas" class="tab-content">
-  <div class="debt-summary">
-    <h3>💳 Deuda Total</h3>
-    <div class="debt-amount" id="deudaTotalDisplay">0 €</div>
-    <div class="debt-detail" id="deudaTotalDetalle">Sin deudas registradas</div>
-  </div>
-
-  <div class="section-title">📈 Evolución de la deuda</div>
-  <div class="card">
-    <div class="chart-container-lg"><canvas id="chartDeuda"></canvas></div>
-  </div>
-
-  <div class="section-title">📊 Desglose por alquiler</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Mes</th><th>Concepto</th><th>Total</th><th>Corresp. R</th><th>Corresp. M</th><th>Aportó R</th><th>Aportó M</th><th>Diferencia</th></tr></thead>
-      <tbody id="tbodyDeudaAuto"></tbody>
-    </table>
-    </div>
-  </div>
-
-  <div class="section-title">💸 Préstamos manuales</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fecha</th><th>Deudor</th><th>Acreedor</th><th>Total</th><th>Descripción</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyDeudas"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('deudas')">➕ Registrar préstamo</button>
-  </div>
-
-  <div class="section-title">💰 Pagos / Abonos</div>
-  <div class="card">
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fecha</th><th>Concepto</th><th>Paga</th><th>Recibe</th><th>Importe</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyPagos"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('pagos')">➕ Registrar pago</button>
-  </div>
-</div>
-
-<!-- AHORRO -->
-<div id="ahorro" class="tab-content">
-  <div class="card">
-    <h3>💰 Ahorro común del mes</h3>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:center">
-      <label>Meta mensual: <input type="number" id="metaAhorro" value="500" style="width:120px;display:inline-block" oninput="updateMetaAhorro()"> €</label>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width:0%">0%</div>
-    </div>
-    <div class="table-wrap">
-    <table style="margin-top:16px">
-      <thead><tr><th>Fecha</th><th>Concepto</th><th>Importe</th><th>Aportado por</th><th>Acciones</th></tr></thead>
-      <tbody id="tbodyAhorro"></tbody>
-    </table>
-    </div>
-    <button class="add-row" onclick="addRow('ahorro')">➕ Registrar aportación</button>
-  </div>
-</div>
-
-<div class="footer-note">💡 Sincronización en tiempo real activa entre dispositivos.</div>
-
+<!-- Barra de Navegación Inferior Estilo Tricount -->
+<div class="bottom-nav">
+  <button class="nav-item active" onclick="switchTab(event,'resumen')">
+    <span class="icon">📊</span>
+    <span>Resumen</span>
+  </button>
+  <button class="nav-item" onclick="switchTab(event,'fijos')">
+    <span class="icon">🏠</span>
+    <span>Fijos</span>
+  </button>
+  <button class="nav-item" onclick="switchTab(event,'variables')">
+    <span class="icon">🛒</span>
+    <span>Variables</span>
+  </button>
+  <button class="nav-item" onclick="switchTab(event,'deudas')">
+    <span class="icon">💳</span>
+    <span>Deudas</span>
+  </button>
+  <button class="nav-item" onclick="switchTab(event,'ahorro')">
+    <span class="icon">💰</span>
+    <span>Ahorro</span>
+  </button>
 </div>
 
 <script>
@@ -411,16 +369,14 @@ function closeConfigModal(){
   document.getElementById('configModal').classList.remove('active');
 }
 function saveFirebaseConfig(){
-  const raw = document.getElementById('firebaseConfigInput').value.trim();
-  if(!raw){alert('Pega la configuración');return;}
   try{
-    let config = JSON.parse(raw);
-    if(!config.projectId) throw new Error('Falta projectId');
+    let config = JSON.parse(document.getElementById('firebaseConfigInput').value);
+    if(!config.projectId) throw new Error();
     firebaseConfig = config;
     localStorage.setItem('firebaseConfig', JSON.stringify(config));
     initFirebase();
     closeConfigModal();
-  }catch(err){alert('Configuración inválida');}
+  }catch(e){alert('Configuración inválida');}
 }
 
 function initFirebase(){
@@ -429,11 +385,11 @@ function initFirebase(){
     db = firebase.firestore();
     setSyncStatus('syncing','Conectando...');
     if(unsubscribeFirestore) unsubscribeFirestore();
-    unsubscribeFirestore = db.collection('hogar').doc('data').onSnapshot((doc) => {
+    unsubscribeFirestore = db.collection('hogar').doc('data').onSnapshot((doc)=>{
       if(doc.exists){
-        const remoteData = doc.data();
-        if(JSON.stringify(data) !== JSON.stringify(remoteData)){
-          data = remoteData;
+        const remote = doc.data();
+        if(JSON.stringify(data)!==JSON.stringify(remote)){
+          data = remote;
           ensureDataStructure();
           renderAll();
         }
@@ -442,32 +398,30 @@ function initFirebase(){
         saveToFirebase();
         setSyncStatus('ok','Sincronizado');
       }
-    }, (err) => { setSyncStatus('error','Error'); });
-  }catch(err){ setSyncStatus('error','Error'); }
+    },()=>setSyncStatus('error','Error'));
+  }catch(e){setSyncStatus('error','Error');}
 }
 
 function saveToFirebase(){
   if(!db) return;
   setSyncStatus('syncing','Guardando...');
   db.collection('hogar').doc('data').set(data)
-    .then(() => setSyncStatus('ok','Sincronizado'))
-    .catch(err => setSyncStatus('error','Error'));
+    .then(()=>setSyncStatus('ok','Sincronizado'))
+    .catch(()=>setSyncStatus('error','Error'));
 }
 
 function setSyncStatus(cls, text){
   const el = document.getElementById('syncStatus');
-  const txt = document.getElementById('syncText');
-  if(!el || !txt) return;
-  el.className = 'sync-status sync-' + cls;
-  txt.textContent = text;
+  if(!el) return;
+  el.className = 'sync-badge ' + (cls==='ok'?'ok':'syncing');
+  el.textContent = '● ' + text;
 }
 
 let saveTimeout = null;
 function debouncedSave(){
   clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(() => {
-    save();
-    saveToFirebase();
+  saveTimeout = setTimeout(()=>{
+    save(); saveToFirebase();
   }, 400);
 }
 
@@ -492,7 +446,7 @@ function defaultMonthData(){
       {nombre:'Spotify',importe:14.99,titular:'A',estable:true}
     ],
     fijos:[
-      {nombre:'Internet',importe:35,persona:'compartido',estable:true}
+      {nombre:'Internet',importe:35,persona:'A',estable:true}
     ],
     alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:500
   };
@@ -500,34 +454,35 @@ function defaultMonthData(){
 
 let data = { meses:{}, deudas:[], pagos:[], mesActivo: currentMonthKey() };
 
-function save(){localStorage.setItem('hogarDataV8',JSON.stringify(data))}
+function save(){localStorage.setItem('hogarDataTricount',JSON.stringify(data))}
 
 function ensureDataStructure(){
-  if(!data.meses || typeof data.meses !== 'object') data.meses = {};
-  if(!Array.isArray(data.deudas)) data.deudas = [];
-  if(!Array.isArray(data.pagos)) data.pagos = [];
+  if(!data.meses || typeof data.meses!=='object') data.meses={};
+  if(!Array.isArray(data.deudas)) data.deudas=[];
+  if(!Array.isArray(data.pagos)) data.pagos=[];
   if(!data.mesActivo || !data.meses[data.mesActivo]){
-    const keys = Object.keys(data.meses).sort();
-    data.mesActivo = keys.length > 0 ? keys[keys.length-1] : currentMonthKey();
-    if(!data.meses[data.mesActivo]) data.meses[data.mesActivo] = defaultMonthData();
+    const keys=Object.keys(data.meses).sort();
+    data.mesActivo = keys.length>0 ? keys[keys.length-1] : currentMonthKey();
+    if(!data.meses[data.mesActivo]) data.meses[data.mesActivo]=defaultMonthData();
   }
 }
 
 function loadLocal(){
-  const s=localStorage.getItem('hogarDataV8');
+  const s=localStorage.getItem('hogarDataTricount');
   if(s){try{data=JSON.parse(s)}catch(e){}}
   if(!data.meses || Object.keys(data.meses).length===0){
     data.meses={[currentMonthKey()]:defaultMonthData()};
-    data.mesActivo = currentMonthKey();
+    data.mesActivo=currentMonthKey();
   }
   ensureDataStructure();
 }
 
 function getMonthLabel(key){
-  const parts = key.split('-');
+  const parts=key.split('-');
   if(parts.length!==2) return key;
   return MONTH_NAMES[parseInt(parts[1])-1]+' '+parts[0];
 }
+
 function updateMonthLabel(){
   document.getElementById('monthLabel').textContent=getMonthLabel(data.mesActivo);
 }
@@ -536,13 +491,11 @@ function prevMonth(){
   const keys=Object.keys(data.meses).sort();
   const idx=keys.indexOf(data.mesActivo);
   if(idx>0){data.mesActivo=keys[idx-1];save();saveToFirebase();renderAll()}
-  else alert('No hay meses anteriores');
 }
 function nextMonth(){
   const keys=Object.keys(data.meses).sort();
   const idx=keys.indexOf(data.mesActivo);
   if(idx<keys.length-1){data.mesActivo=keys[idx+1];save();saveToFirebase();renderAll()}
-  else alert('No hay meses siguientes.');
 }
 function goToCurrentMonth(){
   const cur=currentMonthKey();
@@ -567,35 +520,29 @@ function createNewMonth(){
   };
   data.mesActivo=key;save();saveToFirebase();renderAll();
 }
-
 function deleteCurrentMonth(){
-  const keys = Object.keys(data.meses);
-  if(keys.length <= 1){
-    alert('No puedes borrar el único mes disponible.');
-    return;
-  }
-  if(confirm(`¿Estás seguro de borrar por completo los datos del mes de ${getMonthLabel(data.mesActivo)}?`)){
+  if(Object.keys(data.meses).length<=1){alert('No puedes borrar el único mes.');return;}
+  if(confirm(`¿Borrar definitivamente ${getMonthLabel(data.mesActivo)}?`)){
     delete data.meses[data.mesActivo];
-    const remainingKeys = Object.keys(data.meses).sort();
-    data.mesActivo = remainingKeys[remainingKeys.length - 1];
-    save();
-    saveToFirebase();
-    renderAll();
+    data.mesActivo=Object.keys(data.meses).sort()[0];
+    save();saveToFirebase();renderAll();
   }
 }
 
 function curMonth(){
-  if(!data.meses[data.mesActivo]) data.meses[data.mesActivo] = defaultMonthData();
+  if(!data.meses[data.mesActivo]) data.meses[data.mesActivo]=defaultMonthData();
   return data.meses[data.mesActivo];
 }
 
 function switchTab(e,id){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  e.target.classList.add('active');
+  // Encontrar el botón de la barra inferior
+  const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(id));
+  if(btn) btn.classList.add('active');
   document.getElementById(id).classList.add('active');
   if(id==='resumen') recalcAll();
-  if(id==='deudas'){renderDebtChart();updateDebtDisplay();}
+  if(id==='deudas') updateDebtDisplay();
 }
 
 function updateCuentaComun(){
@@ -639,169 +586,122 @@ function renderAll(){
 function renderAlquiler(){
   const tb=document.getElementById('tbodyAlquiler'); tb.innerHTML='';
   curMonth().alquiler.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();recalcAll()" style="width:20px;height:20px;cursor:pointer"></td>
+      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();recalcAll()"></td>
       <td><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
+      <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderSuscripciones(){
   const tb=document.getElementById('tbodySuscripciones'); tb.innerHTML='';
   curMonth().suscripciones.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()">
-        <option value="A" ${r.titular==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.titular==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('suscripciones',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select></td>
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"></td>
+      <td><button class="btn-danger" onclick="delRow('suscripciones',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderFijos(){
   const tb=document.getElementById('tbodyFijos'); tb.innerHTML='';
   curMonth().fijos.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input value="${r.nombre}" oninput="curMonth().fijos[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()">
-        <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('fijos',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()"></td>
+      <td><button class="btn-danger" onclick="delRow('fijos',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderAlimentacion(){
   const tb=document.getElementById('tbodyAlimentacion'); tb.innerHTML='';
   curMonth().alimentacion.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="curMonth().alimentacion[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.establecimiento}" oninput="curMonth().alimentacion[${i}].establecimiento=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()">
-        <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('alimentacion',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><button class="btn-danger" onclick="delRow('alimentacion',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderOcio(){
   const tb=document.getElementById('tbodyOcio'); tb.innerHTML='';
   curMonth().ocio.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="curMonth().ocio[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto}" oninput="curMonth().ocio[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave()">
-        <option value="ocio" ${r.tipo==='ocio'?'selected':''}>Ocio</option>
-        <option value="cenas" ${r.tipo==='cenas'?'selected':''}>Cena</option>
-      </select></td>
+      <td><select onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave()"><option value="ocio" ${r.tipo==='ocio'?'selected':''}>Ocio</option><option value="cenas" ${r.tipo==='cenas'?'selected':''}>Cena</option></select></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()">
-        <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('ocio',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><button class="btn-danger" onclick="delRow('ocio',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderDelivery(){
   const tb=document.getElementById('tbodyDelivery'); tb.innerHTML='';
   curMonth().delivery.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="curMonth().delivery[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.restaurante}" oninput="curMonth().delivery[${i}].restaurante=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()">
-        <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('delivery',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><button class="btn-danger" onclick="delRow('delivery',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderDeudas(){
   const tb=document.getElementById('tbodyDeudas'); tb.innerHTML='';
   data.deudas.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()"></td>
       <td><select onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
       <td><select onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
       <td><input type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()"></td>
       <td><input value="${r.descripcion||''}" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()"></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('deudas',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><button class="btn-danger" onclick="delRow('deudas',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderPagos(){
   const tb=document.getElementById('tbodyPagos'); tb.innerHTML='';
   data.pagos.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto||''}" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()"></td>
       <td><select onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
       <td><select onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()"></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('pagos',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><button class="btn-danger" onclick="delRow('pagos',${i})">✕</button></td>
+    </tr>`;
   });
 }
-
 function renderAhorro(){
   const tb=document.getElementById('tbodyAhorro'); tb.innerHTML='';
   curMonth().ahorro.forEach((r,i)=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
+    tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()">
-        <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td class="row-actions"><button class="btn-danger" onclick="delRow('ahorro',${i})">✕</button></td>
-    `;
-    tb.appendChild(tr);
+      <td><select onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><button class="btn-danger" onclick="delRow('ahorro',${i})">✕</button></td>
+    </tr>`;
   });
-  updateSavings();
+  updateSavingsBar();
 }
 
 function addRow(cat){
   const m=curMonth();
   const today=new Date().toISOString().slice(0,10);
-  const defaults={
+  const defs={
     alquiler:{nombre:'Nuevo',importe:0,compartido:true,aportaA:0,aportaB:0,estable:true},
     suscripciones:{nombre:'Nuevo',importe:0,titular:'A',estable:true},
     fijos:{nombre:'Nuevo',importe:0,persona:'A',estable:true},
@@ -812,185 +712,125 @@ function addRow(cat){
     deudas:{fecha:today,deudor:'A',acreedor:'B',total:0,descripcion:''},
     pagos:{fecha:today,concepto:'Abono',deudor:'A',acreedor:'B',importe:0}
   };
-  if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)){
-    m[cat].push(defaults[cat]);
-  } else {
-    data[cat].push(defaults[cat]);
-  }
+  if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)) m[cat].push(defs[cat]);
+  else data[cat].push(defs[cat]);
   debouncedSave(); renderAll();
 }
-
 function delRow(cat,i){
-  if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)){
-    curMonth()[cat].splice(i,1);
-  } else {
-    data[cat].splice(i,1);
-  }
+  if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)) curMonth()[cat].splice(i,1);
+  else data[cat].splice(i,1);
   debouncedSave(); renderAll();
 }
 
-function calcAlquilerDebt(monthKey){
-  const m=data.meses[monthKey];
+function calcAlquilerDebt(k){
+  const m=data.meses[k];
   if(!m) return [];
-  const results=[];
-  let pctRaul=0.5, pctMarta=0.5;
+  const res=[];
+  let pA=0.5, pB=0.5;
   if(m.splitMode==='proporcional'){
-    const totInc=m.ingresosA+m.ingresosB||1;
-    pctRaul=m.ingresosA/totInc; pctMarta=m.ingresosB/totInc;
+    const tot=m.ingresosA+m.ingresosB||1;
+    pA=m.ingresosA/tot; pB=m.ingresosB/tot;
   }
   m.alquiler.forEach(r=>{
     if(!r.compartido){
-      const correspondeRaul=r.importe*pctRaul;
-      const correspondeMarta=r.importe*pctMarta;
-      const diffRaul=(r.aportaA||0)-correspondeRaul;
-      results.push({mes:monthKey, concepto:r.nombre, total:r.importe, correspondeRaul, correspondeMarta, aportaA:r.aportaA||0, aportaB:r.aportaB||0, diff:diffRaul});
+      const cA=r.importe*pA, cB=r.importe*pB;
+      const diff=(r.aportaA||0)-cA;
+      res.push({mes:k, concepto:r.nombre, total:r.importe, corrA:cA, corrB:cB, diff});
     }
   });
-  return results;
+  return res;
 }
 
 function calcDeudaTotal(){
   let auto=0;
-  Object.keys(data.meses).forEach(k=>{ calcAlquilerDebt(k).forEach(d=>{ auto+=d.diff; }); });
-  let manualRaulDebe=0, manualMartaDebe=0;
-  data.deudas.forEach(d=>{ if(d.deudor==='A') manualRaulDebe+=d.total; else manualMartaDebe+=d.total; });
-  let pagosRaulAMarta=0, pagosMartaARaul=0;
+  Object.keys(data.meses).forEach(k=>calcAlquilerDebt(k).forEach(d=>auto+=d.diff));
+  let manA=0, manB=0;
+  data.deudas.forEach(d=>{if(d.deudor==='A') manA+=d.total; else manB+=d.total;});
+  let pagAM=0, pagMA=0;
   data.pagos.forEach(p=>{
-    if(p.deudor==='A' && p.acreedor==='B') pagosRaulAMarta+=p.importe;
-    if(p.deudor==='B' && p.acreedor==='A') pagosMartaARaul+=p.importe;
+    if(p.deudor==='A'&&p.acreedor==='B') pagAM+=p.importe;
+    if(p.deudor==='B'&&p.acreedor==='A') pagMA+=p.importe;
   });
-  const deudaNeta = auto + manualMartaDebe - manualRaulDebe - pagosMartaARaul + pagosRaulAMarta;
-  return {neto: deudaNeta, abs: Math.abs(deudaNeta)};
+  const neto = auto + manB - manA - pagMA + pagAM;
+  return {neto, abs:Math.abs(neto)};
 }
 
 function updateDebtDisplay(){
-  const deuda=calcDeudaTotal();
-  const el1=document.getElementById('deudaTotalDisplay');
-  const el2=document.getElementById('deudaTotalDetalle');
-  if(el1) el1.textContent=deuda.abs.toFixed(2)+' €';
-  if(el2){
-    if(deuda.neto>0.01) el2.innerHTML='<b>Marta</b> debe a <b>Raul</b>: '+deuda.abs.toFixed(2)+' €';
-    else if(deuda.neto<-0.01) el2.innerHTML='<b>Raul</b> debe a <b>Marta</b>: '+deuda.abs.toFixed(2)+' €';
-    else el2.textContent='Cuentas equilibradas';
-  }
-  const deudaEl=document.getElementById('deudaAcumulada');
-  const deudaDet=document.getElementById('deudaDetalle');
-  if(deudaEl && deudaDet){
-    deudaEl.textContent=deuda.abs.toFixed(2)+' €';
-    if(deuda.neto>0.01){deudaEl.style.color='var(--marta)';deudaDet.innerHTML='<b style="color:var(--marta)">Marta</b> debe a <b style="color:var(--raul)">Raul</b>';}
-    else if(deuda.neto<-0.01){deudaEl.style.color='var(--raul)';deudaDet.innerHTML='<b style="color:var(--raul)">Raul</b> debe a <b style="color:var(--marta)">Marta</b>';}
-    else {deudaEl.style.color='var(--accent)';deudaDet.textContent='Cuentas equilibradas';}
-  }
-  renderDeudaAuto();
+  const d=calcDeudaTotal();
+  document.getElementById('deudaTotalDisplay').textContent=d.abs.toFixed(2)+' €';
+  const el=document.getElementById('deudaTotalDetalle');
+  if(d.neto>0.01) el.innerHTML='Marta debe a Raul: <b>'+d.abs.toFixed(2)+' €</b>';
+  else if(d.neto<-0.01) el.innerHTML='Raul debe a Marta: <b>'+d.abs.toFixed(2)+' €</b>';
+  else el.textContent='Cuentas equilibradas';
+
+  document.getElementById('deudaAcumulada').textContent=d.abs.toFixed(2)+' €';
+  document.getElementById('deudaDetalle').innerHTML=d.neto>0.01?'Marta debe a Raul':(d.neto<-0.01?'Raul debe a Marta':'Equilibrado');
 }
 
 function renderDeudaAuto(){
   const tb=document.getElementById('tbodyDeudaAuto'); tb.innerHTML='';
-  let hasData=false;
   Object.keys(data.meses).sort().forEach(k=>{
     calcAlquilerDebt(k).forEach(d=>{
-      hasData=true;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td><b>${getMonthLabel(k)}</b></td><td>${d.concepto}</td><td>${d.total.toFixed(0)}€</td><td>${d.correspondeRaul.toFixed(0)}€</td><td>${d.correspondeMarta.toFixed(0)}€</td><td>${d.aportaA.toFixed(0)}€</td><td>${d.aportaB.toFixed(0)}€</td><td>${d.diff.toFixed(2)}€</td>`;
-      tb.appendChild(tr);
+      tb.innerHTML+=`<tr><td>${getMonthLabel(k)}</td><td>${d.concepto}</td><td>${d.total.toFixed(0)}€</td><td>${d.corrA.toFixed(0)}€</td><td>${d.corrB.toFixed(0)}€</td><td>${d.diff.toFixed(2)}€</td></tr>`;
     });
   });
-  if(!hasData) tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">Sin deudas registradas por alquiler.</td></tr>';
 }
 
 function recalcAll(){
   const m=curMonth();
   if(!m) return;
-  const totalCuenta=m.aportaCuentaA+m.aportaCuentaB;
-  const gastosComunes=m.alquiler.filter(r=>r.compartido).reduce((s,r)=>s+r.importe,0);
-  const restante=totalCuenta-gastosComunes;
-  document.getElementById('totalCuenta').textContent=totalCuenta.toFixed(0)+' €';
-  document.getElementById('gastosComunes').textContent=gastosComunes.toFixed(0)+' €';
-  document.getElementById('restanteAhorro').textContent=restante.toFixed(0)+' €';
-  
-  const gastoPersonalRaul=
-    m.suscripciones.filter(r=>r.titular==='A').reduce((s,r)=>s+r.importe,0)+
-    m.fijos.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-    m.alimentacion.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-    m.ocio.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-    m.delivery.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0);
-  
-  const gastoPersonalMarta=
-    m.suscripciones.filter(r=>r.titular==='B').reduce((s,r)=>s+r.importe,0)+
-    m.fijos.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-    m.alimentacion.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-    m.ocio.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-    m.delivery.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0);
-  
-  const ahorroTotal=m.ahorro.reduce((s,r)=>s+r.importe,0);
-  const pctAhorro=m.metaAhorro?(ahorroTotal/m.metaAhorro*100):0;
-  
-  document.getElementById('gastoPersonalRaul').textContent=gastoPersonalRaul.toFixed(0)+' €';
-  document.getElementById('gastoPersonalMarta').textContent=gastoPersonalMarta.toFixed(0)+' €';
-  document.getElementById('ahorroMes').textContent=ahorroTotal.toFixed(0)+' €';
-  document.getElementById('pctAhorro').textContent=pctAhorro.toFixed(0)+'% de la meta';
-  
+  const totC=m.aportaCuentaA+m.aportaCuentaB;
+  const gastC=m.alquiler.filter(r=>r.compartido).reduce((s,r)=>s+r.importe,0);
+  document.getElementById('totalCuenta').textContent=totC.toFixed(0)+' €';
+  document.getElementById('gastosComunes').textContent=gastC.toFixed(0)+' €';
+  document.getElementById('restanteAhorro').textContent=(totC-gastC).toFixed(0)+' €';
+
+  const gR=m.suscripciones.filter(r=>r.titular==='A').reduce((s,r)=>s+r.importe,0)+
+          m.fijos.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
+          m.alimentacion.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
+          m.ocio.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
+          m.delivery.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0);
+
+  const gM=m.suscripciones.filter(r=>r.titular==='B').reduce((s,r)=>s+r.importe,0)+
+          m.fijos.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
+          m.alimentacion.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
+          m.ocio.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
+          m.delivery.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0);
+
+  const ah=m.ahorro.reduce((s,r)=>s+r.importe,0);
+  const pct=m.metaAhorro?(ah/m.metaAhorro*100):0;
+
+  document.getElementById('gastoPersonalRaul').textContent=gR.toFixed(0)+' €';
+  document.getElementById('gastoPersonalMarta').textContent=gM.toFixed(0)+' €';
+  document.getElementById('ahorroMes').textContent=ah.toFixed(0)+' €';
+  document.getElementById('pctAhorro').textContent=pct.toFixed(0)+'% meta';
+
   updateDebtDisplay();
-  renderCharts(gastoPersonalRaul,gastoPersonalMarta,totalCuenta,gastosComunes);
+  renderChart(gR,gM);
 }
 
-function updateSavings(){
+function updateSavingsBar(){
   const m=curMonth();
-  if(!m) return;
-  const total=m.ahorro.reduce((s,r)=>s+r.importe,0);
-  const pct=m.metaAhorro?(total/m.metaAhorro*100):0;
-  const fill=document.getElementById('progressFill');
-  if(fill){
-    fill.style.width=Math.min(100,pct)+'%';
-    fill.textContent=Math.min(100,pct).toFixed(0)+'% · '+total.toFixed(0)+'/'+m.metaAhorro+' €';
-  }
+  const ah=m.ahorro.reduce((s,r)=>s+r.importe,0);
+  const pct=m.metaAhorro?Math.min(100, ah/m.metaAhorro*100):0;
+  const f=document.getElementById('progressFill');
+  f.style.width=pct+'%';
+  f.textContent=pct.toFixed(0)+'% ('+ah+'/'+m.metaAhorro+'€)';
 }
 
-let charts={};
-function renderCharts(gRaul,gMarta,totalCuenta,gastosComunes){
-  const canvas1=document.getElementById('chartPersonales');
-  const canvas2=document.getElementById('chartCuenta');
-  if(!canvas1 || !canvas2) return;
-  if(charts.per) charts.per.destroy();
-  charts.per=new Chart(canvas1,{
-    type:'doughnut',
-    data:{labels:['Raul','Marta'],datasets:[{data:[gRaul,gMarta],backgroundColor:['#3b82f6','#ec4899'],borderWidth:2,borderColor:'#fff'}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},cutout:'65%'}
-  });
-  if(charts.cue) charts.cue.destroy();
-  charts.cue=new Chart(canvas2,{
-    type:'bar',
-    data:{labels:['Aportado','Gastos comunes','Restante'],datasets:[{label:'€',data:[totalCuenta,gastosComunes,totalCuenta-gastosComunes],backgroundColor:['#10b981','#ef4444','#6366f1'],borderRadius:8}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
-  });
-}
-
-function renderDebtChart(){
-  const canvas=document.getElementById('chartDeuda');
+let chartInstance=null;
+function renderChart(gR,gM){
+  const canvas=document.getElementById('chartPersonales');
   if(!canvas) return;
-  const keys=Object.keys(data.meses).sort();
-  if(keys.length===0) return;
-  const labels=[], dataDeuda=[];
-  let acum=0;
-  keys.forEach(k=>{
-    calcAlquilerDebt(k).forEach(d=>{ acum+=d.diff; });
-    labels.push(getMonthLabel(k));
-    dataDeuda.push(acum);
+  if(chartInstance) chartInstance.destroy();
+  chartInstance=new Chart(canvas,{
+    type:'doughnut',
+    data:{
+      labels:['Raul','Marta'],
+      datasets:[{data:[gR,gM],backgroundColor:['#3b82f6','#ec4899'],borderWidth:0}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#fff'}}},cutout:'70%'}
   });
-  if(charts.debt) charts.debt.destroy();
-  charts.debt=new Chart(canvas,{
-    type:'line',
-    data:{labels,datasets:[{label:'Deuda acumulada (€)',data:dataDeuda,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,0.08)',borderWidth:3,fill:true,tension:0.3}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+' €'}}}}
-  });
-}
-
-function resetData(){
-  if(confirm('¿Borrar TODOS los datos de todos los meses?')){
-    localStorage.removeItem('hogarDataV8');
-    if(db) db.collection('hogar').doc('data').delete().then(()=>location.reload()).catch(()=>location.reload());
-    else location.reload();
-  }
 }
 
 loadLocal();
