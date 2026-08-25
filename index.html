@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-title" content="Finanzas Hogar">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>🏠</text></svg>">
-<link rel="manifest" href='data:application/manifest+json,{"name":"Finanzas Raul y Marta","short_name":"Finanzas","start_url":".","display":"standalone","background_color":"%23f5f7fb","theme_color":"%236366f1","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%236366f1%22/><text x=%2250%22 y=%2265%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22white%22>🏠</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}'>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Finanzas del Hogar · Raul & Marta</title>
@@ -29,7 +28,6 @@
     background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:90px}
   .container{max-width:1280px;margin:0 auto}
   
-  /* Header Moderno */
   header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;background:var(--card);padding:16px 20px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
   h1{font-size:1.5rem;font-weight:800;display:flex;align-items:center;gap:8px}
   h1 span{background:linear-gradient(135deg,var(--raul),var(--marta));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -50,12 +48,10 @@
   .btn-success{background:var(--accent);color:#fff;border-color:var(--accent)}
   .btn-small{padding:6px 12px;font-size:.8rem;min-height:36px}
 
-  /* Navegación de Meses */
   .month-nav{display:flex;align-items:center;justify-content:space-between;background:var(--card);padding:12px 20px;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:16px;flex-wrap:wrap;gap:10px;box-shadow:var(--shadow)}
   .month-nav-controls{display:flex;align-items:center;gap:8px}
   .month-label{font-size:1.1rem;font-weight:800;min-width:160px;text-align:center;text-transform:capitalize}
 
-  /* Pestañas */
   .tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:2px solid var(--border);padding-bottom:4px}
   .tabs::-webkit-scrollbar{display:none}
   .tab{padding:10px 18px;cursor:pointer;border:none;background:none;color:var(--muted);font-weight:600;border-bottom:3px solid transparent;margin-bottom:-6px;transition:all .2s;white-space:nowrap;font-size:.9rem;min-height:44px;border-radius:8px 8px 0 0}
@@ -66,14 +62,12 @@
   .tab-content.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-  /* Grid y Tarjetas */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:16px}
   .card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:16px}
   .card h3{font-size:.8rem;margin-bottom:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
   .stat-value{font-size:1.8rem;font-weight:800;color:var(--primary)}
   .stat-sub{font-size:.85rem;color:var(--muted);margin-top:4px}
 
-  /* Tablas Optimizadas para PC y Móvil */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:0 20px}
   table{width:100%;border-collapse:collapse;min-width:600px}
   th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.9rem;vertical-align:middle}
@@ -87,7 +81,6 @@
   .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;padding:10px 0;min-height:44px;display:flex;align-items:center;gap:6px}
   .add-row:hover{text-decoration:underline}
 
-  /* Contenedores de Gráficos y Componentes Especiales */
   .chart-container{position:relative;height:260px;margin-top:12px}
   .chart-container-lg{position:relative;height:320px;margin-top:12px}
   .progress-bar{height:24px;background:var(--bg);border-radius:12px;overflow:hidden;margin-top:12px;border:1px solid var(--border)}
@@ -111,17 +104,6 @@
   
   .income-row{display:flex;gap:12px;align-items:center;padding:16px;background:var(--card);border-radius:var(--radius);margin-bottom:16px;flex-wrap:wrap;border:1px solid var(--border);box-shadow:var(--shadow)}
   .income-row label{font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:8px}
-  
-  .positive{color:var(--marta);font-weight:700}
-  .negative{color:var(--raul);font-weight:700}
-  .neutral{color:var(--accent);font-weight:700}
-  
-  .aporta-cell{min-width:100px}
-  .aporta-row{display:none}
-  .aporta-row.visible{display:block}
-  .aporta-row input{width:100%!important;min-width:0}
-  .estable-check{display:flex;align-items:center;justify-content:center}
-  .estable-check input{width:20px;height:20px;cursor:pointer}
 
   .cuenta-comun-box{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px;box-shadow:var(--shadow)}
   .cuenta-comun-box h3{color:#fff;margin-bottom:12px;font-size:1.1rem}
@@ -131,7 +113,6 @@
   .restante-box{margin-top:12px;padding:12px 16px;background:rgba(255,255,255,0.15);border-radius:8px;backdrop-filter:blur(4px)}
   .restante-value{font-size:1.4rem;font-weight:800;margin-top:4px}
 
-  /* Modal optimizado */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px;backdrop-filter:blur(4px)}
   .modal-overlay.active{display:flex}
   .modal{background:#fff;border-radius:16px;padding:24px;max-width:540px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1)}
@@ -140,7 +121,6 @@
   .modal textarea{width:100%;min-height:160px;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:.85rem;margin-bottom:16px}
   .modal-buttons{display:flex;gap:10px;justify-content:flex-end}
 
-  /* Ajustes Responsive Avanzados para Móviles */
   @media(max-width:640px){
     body{padding:8px;padding-bottom:80px}
     header{padding:12px}
@@ -161,21 +141,13 @@
 
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h2>🔧 Configurar sincronización en la nube</h2>
-    <p>Introduce la configuración de Firebase para sincronizar entre dispositivos:</p>
-    <textarea id="firebaseConfigInput" placeholder='{
-  apiKey: "AIzaSy...",
-  authDomain: "tu-proyecto.firebaseapp.com",
-  projectId: "tu-proyecto",
-  storageBucket: "tu-proyecto.appspot.com",
-  messagingSenderId: "123456",
-  appId: "1:123456:web:abcdef"
-}'></textarea>
+    <h2>🔧 Configurar Sincronización</h2>
+    <p>Introduce la configuración de Firebase:</p>
+    <textarea id="firebaseConfigInput"></textarea>
     <div class="modal-buttons">
       <button onclick="closeConfigModal()">Cancelar</button>
       <button class="btn-primary" onclick="saveFirebaseConfig()">Conectar</button>
     </div>
-    <p style="font-size:.75rem;margin-top:12px;color:var(--muted)">Si no se configura, los datos se guardarán localmente en este dispositivo.</p>
   </div>
 </div>
 
@@ -189,8 +161,8 @@
       <span id="syncText">Conectando...</span>
     </div>
     <div class="actions">
-      <button onclick="openConfigModal()" class="btn-small" title="Configuración">⚙️ Config</button>
-      <button onclick="resetData()" class="btn-danger btn-small" title="Reiniciar datos">🗑️ Reset</button>
+      <button onclick="openConfigModal()" class="btn-small">⚙️ Config</button>
+      <button onclick="resetData()" class="btn-danger btn-small">🗑️ Reset Total</button>
     </div>
   </div>
 </header>
@@ -204,6 +176,7 @@
   <div class="month-nav-controls">
     <button onclick="goToCurrentMonth()" class="btn-primary btn-small">📅 Hoy</button>
     <button onclick="createNewMonth()" class="btn-success btn-small">➕ Nuevo Mes</button>
+    <button onclick="deleteCurrentMonth()" class="btn-danger btn-small" title="Borrar mes actual">🗑️ Borrar Mes</button>
   </div>
 </div>
 
@@ -278,7 +251,6 @@
 <!-- FIJOS -->
 <div id="fijos" class="tab-content">
   <div class="section-title">🏡 Alquiler y Facturas</div>
-  <div class="info-box">💡 <b>Compartido ✓</b> = se paga de la cuenta común. <b>Compartido ✗</b> = indica cuánto aporta cada uno (genera deuda automáticamente).</div>
   <div class="card">
     <div class="table-wrap">
     <table>
@@ -356,8 +328,6 @@
     <div class="debt-detail" id="deudaTotalDetalle">Sin deudas registradas</div>
   </div>
 
-  <div class="info-box">📌 La deuda se calcula a partir de los gastos de alquiler no compartidos y los préstamos manuales registrados, reduciéndose con los pagos o abonos realizados.</div>
-
   <div class="section-title">📈 Evolución de la deuda</div>
   <div class="card">
     <div class="chart-container-lg"><canvas id="chartDeuda"></canvas></div>
@@ -416,7 +386,7 @@
   </div>
 </div>
 
-<div class="footer-note">💡 Los datos se sincronizan automáticamente entre PC y móvil mediante Firebase.</div>
+<div class="footer-note">💡 Sincronización en tiempo real activa entre dispositivos.</div>
 
 </div>
 
@@ -442,55 +412,38 @@ function closeConfigModal(){
 }
 function saveFirebaseConfig(){
   const raw = document.getElementById('firebaseConfigInput').value.trim();
-  if(!raw){alert('Pega la configuración de Firebase');return;}
+  if(!raw){alert('Pega la configuración');return;}
   try{
-    let config;
-    try{ config = JSON.parse(raw); }
-    catch(e){ config = new Function('return (' + raw + ')')(); }
+    let config = JSON.parse(raw);
     if(!config.projectId) throw new Error('Falta projectId');
     firebaseConfig = config;
     localStorage.setItem('firebaseConfig', JSON.stringify(config));
     initFirebase();
     closeConfigModal();
-  }catch(err){
-    alert('Configuración inválida: ' + err.message);
-  }
+  }catch(err){alert('Configuración inválida');}
 }
 
 function initFirebase(){
-  if(!firebaseConfig) return;
   try{
-    if(!firebase.apps.length){
-      firebase.initializeApp(firebaseConfig);
-    }
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
     setSyncStatus('syncing','Conectando...');
-    
     if(unsubscribeFirestore) unsubscribeFirestore();
-    unsubscribeFirestore = db.collection('hogar').doc('data').onSnapshot(
-      (doc) => {
-        if(doc.exists){
-          const remoteData = doc.data();
-          if(JSON.stringify(data) !== JSON.stringify(remoteData)){
-            data = remoteData;
-            ensureDataStructure();
-            renderAll();
-          }
-          setSyncStatus('ok','Sincronizado');
-        } else {
-          saveToFirebase();
-          setSyncStatus('ok','Sincronizado');
+    unsubscribeFirestore = db.collection('hogar').doc('data').onSnapshot((doc) => {
+      if(doc.exists){
+        const remoteData = doc.data();
+        if(JSON.stringify(data) !== JSON.stringify(remoteData)){
+          data = remoteData;
+          ensureDataStructure();
+          renderAll();
         }
-      },
-      (err) => {
-        console.error('Firestore error:', err);
-        setSyncStatus('error','Error de conexión');
+        setSyncStatus('ok','Sincronizado');
+      } else {
+        saveToFirebase();
+        setSyncStatus('ok','Sincronizado');
       }
-    );
-  }catch(err){
-    console.error('Firebase init error:', err);
-    setSyncStatus('error','Error de conexión');
-  }
+    }, (err) => { setSyncStatus('error','Error'); });
+  }catch(err){ setSyncStatus('error','Error'); }
 }
 
 function saveToFirebase(){
@@ -498,10 +451,7 @@ function saveToFirebase(){
   setSyncStatus('syncing','Guardando...');
   db.collection('hogar').doc('data').set(data)
     .then(() => setSyncStatus('ok','Sincronizado'))
-    .catch(err => {
-      console.error('Save error:', err);
-      setSyncStatus('error','Error al guardar');
-    });
+    .catch(err => setSyncStatus('error','Error'));
 }
 
 function setSyncStatus(cls, text){
@@ -535,37 +485,22 @@ function defaultMonthData(){
     alquiler:[
       {nombre:'Alquiler',importe:900,compartido:true,aportaA:0,aportaB:0,estable:true},
       {nombre:'Luz',importe:70,compartido:true,aportaA:0,aportaB:0,estable:true},
-      {nombre:'Agua',importe:25,compartido:true,aportaA:0,aportaB:0,estable:true},
-      {nombre:'Gas',importe:40,compartido:true,aportaA:0,aportaB:0,estable:true}
+      {nombre:'Agua',importe:25,compartido:true,aportaA:0,aportaB:0,estable:true}
     ],
     suscripciones:[
       {nombre:'Netflix',importe:12.99,titular:'A',estable:true},
-      {nombre:'Spotify Duo',importe:14.99,titular:'A',estable:true},
-      {nombre:'HBO Max',importe:8.99,titular:'B',estable:true}
+      {nombre:'Spotify',importe:14.99,titular:'A',estable:true}
     ],
     fijos:[
-      {nombre:'Internet fibra',importe:35,persona:'compartido',estable:true},
-      {nombre:'Movil Raul',importe:15,persona:'A',estable:true},
-      {nombre:'Movil Marta',importe:15,persona:'B',estable:true},
-      {nombre:'Gimnasio Raul',importe:40,persona:'A',estable:true},
-      {nombre:'Gimnasio Marta',importe:40,persona:'B',estable:true}
+      {nombre:'Internet',importe:35,persona:'compartido',estable:true}
     ],
-    alimentacion:[],
-    ocio:[],
-    delivery:[],
-    ahorro:[],
-    metaAhorro:500
+    alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:500
   };
 }
 
-let data = {
-  meses:{},
-  deudas:[],
-  pagos:[],
-  mesActivo: currentMonthKey()
-};
+let data = { meses:{}, deudas:[], pagos:[], mesActivo: currentMonthKey() };
 
-function save(){localStorage.setItem('hogarDataV7',JSON.stringify(data))}
+function save(){localStorage.setItem('hogarDataV8',JSON.stringify(data))}
 
 function ensureDataStructure(){
   if(!data.meses || typeof data.meses !== 'object') data.meses = {};
@@ -574,34 +509,12 @@ function ensureDataStructure(){
   if(!data.mesActivo || !data.meses[data.mesActivo]){
     const keys = Object.keys(data.meses).sort();
     data.mesActivo = keys.length > 0 ? keys[keys.length-1] : currentMonthKey();
-    if(!data.meses[data.mesActivo]){
-      data.meses[data.mesActivo] = defaultMonthData();
-    }
+    if(!data.meses[data.mesActivo]) data.meses[data.mesActivo] = defaultMonthData();
   }
-  Object.values(data.meses).forEach(m=>{
-    if(!Array.isArray(m.alquiler)) m.alquiler = [];
-    if(!Array.isArray(m.suscripciones)) m.suscripciones = [];
-    if(!Array.isArray(m.fijos)) m.fijos = [];
-    if(!Array.isArray(m.alimentacion)) m.alimentacion = [];
-    if(!Array.isArray(m.ocio)) m.ocio = [];
-    if(!Array.isArray(m.delivery)) m.delivery = [];
-    if(!Array.isArray(m.ahorro)) m.ahorro = [];
-    m.alquiler.forEach(r=>{
-      if(r.aportaA===undefined) r.aportaA=0;
-      if(r.aportaB===undefined) r.aportaB=0;
-      if(r.estable===undefined) r.estable=true;
-      if(r.compartido===undefined) r.compartido=true;
-    });
-    m.suscripciones.forEach(r=>{ if(r.estable===undefined) r.estable=true; });
-    m.fijos.forEach(r=>{ if(r.estable===undefined) r.estable=true; });
-    if(m.aportaCuentaA===undefined) m.aportaCuentaA=700;
-    if(m.aportaCuentaB===undefined) m.aportaCuentaB=500;
-    if(m.metaAhorro===undefined) m.metaAhorro=500;
-  });
 }
 
 function loadLocal(){
-  const s=localStorage.getItem('hogarDataV7');
+  const s=localStorage.getItem('hogarDataV8');
   if(s){try{data=JSON.parse(s)}catch(e){}}
   if(!data.meses || Object.keys(data.meses).length===0){
     data.meses={[currentMonthKey()]:defaultMonthData()};
@@ -613,8 +526,7 @@ function loadLocal(){
 function getMonthLabel(key){
   const parts = key.split('-');
   if(parts.length!==2) return key;
-  const [y,m]=parts;
-  return MONTH_NAMES[parseInt(m)-1]+' '+y;
+  return MONTH_NAMES[parseInt(parts[1])-1]+' '+parts[0];
 }
 function updateMonthLabel(){
   document.getElementById('monthLabel').textContent=getMonthLabel(data.mesActivo);
@@ -624,13 +536,13 @@ function prevMonth(){
   const keys=Object.keys(data.meses).sort();
   const idx=keys.indexOf(data.mesActivo);
   if(idx>0){data.mesActivo=keys[idx-1];save();saveToFirebase();renderAll()}
-  else alert('No hay meses anteriores')
+  else alert('No hay meses anteriores');
 }
 function nextMonth(){
   const keys=Object.keys(data.meses).sort();
   const idx=keys.indexOf(data.mesActivo);
   if(idx<keys.length-1){data.mesActivo=keys[idx+1];save();saveToFirebase();renderAll()}
-  else alert('No hay meses siguientes. Crea uno nuevo.')
+  else alert('No hay meses siguientes.');
 }
 function goToCurrentMonth(){
   const cur=currentMonthKey();
@@ -643,37 +555,37 @@ function createNewMonth(){
   const [y,m]=last.split('-').map(Number);
   const next=new Date(y,m,1);
   const key=next.getFullYear()+'-'+String(next.getMonth()+1).padStart(2,'0');
-  if(data.meses[key]){
-    if(!confirm('El mes '+getMonthLabel(key)+' ya existe. ¿Ir a él?')) return;
-    data.mesActivo=key;save();saveToFirebase();renderAll();return;
-  }
+  if(data.meses[key]){data.mesActivo=key;save();saveToFirebase();renderAll();return;}
   const prev=data.meses[last];
-  const newAlquiler=prev.alquiler.filter(r=>r.estable).map(r=>({...r}));
-  const newSus=prev.suscripciones.filter(r=>r.estable).map(r=>({...r}));
-  const newFijos=prev.fijos.filter(r=>r.estable).map(r=>({...r}));
-  
   data.meses[key]={
-    ingresosA:prev.ingresosA,
-    ingresosB:prev.ingresosB,
-    splitMode:prev.splitMode,
-    aportaCuentaA:prev.aportaCuentaA,
-    aportaCuentaB:prev.aportaCuentaB,
-    alquiler:newAlquiler.length?newAlquiler:defaultMonthData().alquiler,
-    suscripciones:newSus.length?newSus:defaultMonthData().suscripciones,
-    fijos:newFijos.length?newFijos:defaultMonthData().fijos,
-    alimentacion:[],
-    ocio:[],
-    delivery:[],
-    ahorro:[],
-    metaAhorro:prev.metaAhorro
+    ingresosA:prev.ingresosA, ingresosB:prev.ingresosB, splitMode:prev.splitMode,
+    aportaCuentaA:prev.aportaCuentaA, aportaCuentaB:prev.aportaCuentaB,
+    alquiler:prev.alquiler.filter(r=>r.estable).map(r=>({...r})),
+    suscripciones:prev.suscripciones.filter(r=>r.estable).map(r=>({...r})),
+    fijos:prev.fijos.filter(r=>r.estable).map(r=>({...r})),
+    alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:prev.metaAhorro
   };
   data.mesActivo=key;save();saveToFirebase();renderAll();
 }
 
-function curMonth(){
-  if(!data.meses[data.mesActivo]){
-    data.meses[data.mesActivo] = defaultMonthData();
+function deleteCurrentMonth(){
+  const keys = Object.keys(data.meses);
+  if(keys.length <= 1){
+    alert('No puedes borrar el único mes disponible.');
+    return;
   }
+  if(confirm(`¿Estás seguro de borrar por completo los datos del mes de ${getMonthLabel(data.mesActivo)}?`)){
+    delete data.meses[data.mesActivo];
+    const remainingKeys = Object.keys(data.meses).sort();
+    data.mesActivo = remainingKeys[remainingKeys.length - 1];
+    save();
+    saveToFirebase();
+    renderAll();
+  }
+}
+
+function curMonth(){
+  if(!data.meses[data.mesActivo]) data.meses[data.mesActivo] = defaultMonthData();
   return data.meses[data.mesActivo];
 }
 
@@ -682,7 +594,7 @@ function switchTab(e,id){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   e.target.classList.add('active');
   document.getElementById(id).classList.add('active');
-  if(id==='resumen') renderCharts();
+  if(id==='resumen') recalcAll();
   if(id==='deudas'){renderDebtChart();updateDebtDisplay();}
 }
 
@@ -690,24 +602,21 @@ function updateCuentaComun(){
   const m=curMonth();
   m.aportaCuentaA=+document.getElementById('aportaCuentaA').value||0;
   m.aportaCuentaB=+document.getElementById('aportaCuentaB').value||0;
-  debouncedSave();
-  recalcAll();
+  debouncedSave(); recalcAll();
 }
 function updateMonthIncome(){
   const m=curMonth();
   m.ingresosA=+document.getElementById('incomeA').value||0;
   m.ingresosB=+document.getElementById('incomeB').value||0;
-  debouncedSave();
-  recalcAll();
+  debouncedSave(); recalcAll();
 }
 function updateMonthSplit(){
   curMonth().splitMode=document.getElementById('splitMode').value;
-  debouncedSave();
-  recalcAll();
+  debouncedSave(); recalcAll();
 }
 function updateMetaAhorro(){
   curMonth().metaAhorro=+document.getElementById('metaAhorro').value||0;
-  save();saveToFirebase();renderAhorro();recalcAll();
+  save(); saveToFirebase(); renderAhorro(); recalcAll();
 }
 
 function renderAll(){
@@ -721,64 +630,41 @@ function renderAll(){
   document.getElementById('incomeB').value=m.ingresosB;
   document.getElementById('splitMode').value=m.splitMode;
   document.getElementById('metaAhorro').value=m.metaAhorro;
-  renderAlquiler();
-  renderSuscripciones();
-  renderFijos();
-  renderAlimentacion();
-  renderOcio();
-  renderDelivery();
-  renderDeudas();
-  renderPagos();
-  renderAhorro();
-  renderDeudaAuto();
+  renderAlquiler(); renderSuscripciones(); renderFijos();
+  renderAlimentacion(); renderOcio(); renderDelivery();
+  renderDeudas(); renderPagos(); renderAhorro(); renderDeudaAuto();
   recalcAll();
 }
 
 function renderAlquiler(){
-  const tb=document.getElementById('tbodyAlquiler');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.alquiler.forEach((r,i)=>{
-    const visibleClass = r.compartido ? '' : 'visible';
+  const tb=document.getElementById('tbodyAlquiler'); tb.innerHTML='';
+  curMonth().alquiler.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="toggleCompartido(${i},this.checked)" style="width:20px;height:20px;cursor:pointer"></td>
-      <td class="aporta-cell"><div class="aporta-row ${visibleClass}"><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></div></td>
-      <td class="aporta-cell"><div class="aporta-row ${visibleClass}"><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></div></td>
-      <td style="text-align:center"><div class="estable-check"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></div></td>
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();recalcAll()" style="width:20px;height:20px;cursor:pointer"></td>
+      <td><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
+      <td><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
     `;
     tb.appendChild(tr);
   });
 }
 
-function toggleCompartido(idx, checked){
-  const m = curMonth();
-  m.alquiler[idx].compartido = checked;
-  debouncedSave();
-  renderAlquiler();
-  recalcAll();
-}
-
 function renderSuscripciones(){
-  const tb=document.getElementById('tbodySuscripciones');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.suscripciones.forEach((r,i)=>{
+  const tb=document.getElementById('tbodySuscripciones'); tb.innerHTML='';
+  curMonth().suscripciones.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave()">
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()">
         <option value="A" ${r.titular==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.titular==='B'?'selected':''}>Marta</option>
-        <option value="compartido" ${r.titular==='compartido'?'selected':''}>Compartido</option>
       </select></td>
-      <td style="text-align:center"><div class="estable-check"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"></div></td>
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('suscripciones',${i})">✕</button></td>
     `;
     tb.appendChild(tr);
@@ -786,21 +672,17 @@ function renderSuscripciones(){
 }
 
 function renderFijos(){
-  const tb=document.getElementById('tbodyFijos');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.fijos.forEach((r,i)=>{
+  const tb=document.getElementById('tbodyFijos'); tb.innerHTML='';
+  curMonth().fijos.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input value="${r.nombre}" oninput="curMonth().fijos[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave()">
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()">
         <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-        <option value="compartido" ${r.persona==='compartido'?'selected':''}>Compartido</option>
       </select></td>
-      <td style="text-align:center"><div class="estable-check"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()"></div></td>
+      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()" style="width:20px;height:20px;cursor:pointer"></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('fijos',${i})">✕</button></td>
     `;
     tb.appendChild(tr);
@@ -808,17 +690,14 @@ function renderFijos(){
 }
 
 function renderAlimentacion(){
-  const tb=document.getElementById('tbodyAlimentacion');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.alimentacion.forEach((r,i)=>{
+  const tb=document.getElementById('tbodyAlimentacion'); tb.innerHTML='';
+  curMonth().alimentacion.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="curMonth().alimentacion[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.establecimiento}" oninput="curMonth().alimentacion[${i}].establecimiento=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave()">
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()">
         <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
       </select></td>
@@ -829,11 +708,8 @@ function renderAlimentacion(){
 }
 
 function renderOcio(){
-  const tb=document.getElementById('tbodyOcio');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.ocio.forEach((r,i)=>{
+  const tb=document.getElementById('tbodyOcio'); tb.innerHTML='';
+  curMonth().ocio.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="curMonth().ocio[${i}].fecha=this.value;debouncedSave()"></td>
@@ -842,11 +718,10 @@ function renderOcio(){
         <option value="ocio" ${r.tipo==='ocio'?'selected':''}>Ocio</option>
         <option value="cenas" ${r.tipo==='cenas'?'selected':''}>Cena</option>
       </select></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave()">
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()">
         <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
-        <option value="compartido" ${r.persona==='compartido'?'selected':''}>Compartido</option>
       </select></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('ocio',${i})">✕</button></td>
     `;
@@ -855,17 +730,14 @@ function renderOcio(){
 }
 
 function renderDelivery(){
-  const tb=document.getElementById('tbodyDelivery');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.delivery.forEach((r,i)=>{
+  const tb=document.getElementById('tbodyDelivery'); tb.innerHTML='';
+  curMonth().delivery.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="curMonth().delivery[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.restaurante}" oninput="curMonth().delivery[${i}].restaurante=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave()">
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+      <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()">
         <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
       </select></td>
@@ -876,21 +748,14 @@ function renderDelivery(){
 }
 
 function renderDeudas(){
-  const tb=document.getElementById('tbodyDeudas');
-  tb.innerHTML='';
+  const tb=document.getElementById('tbodyDeudas'); tb.innerHTML='';
   data.deudas.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><select onchange="data.deudas[${i}].deudor=this.value;debouncedSave()">
-        <option value="A" ${r.deudor==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.deudor==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td><select onchange="data.deudas[${i}].acreedor=this.value;debouncedSave()">
-        <option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td><input type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave()"></td>
+      <td><select onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
+      <td><input type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()"></td>
       <td><input value="${r.descripcion||''}" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()"></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('deudas',${i})">✕</button></td>
     `;
@@ -899,22 +764,15 @@ function renderDeudas(){
 }
 
 function renderPagos(){
-  const tb=document.getElementById('tbodyPagos');
-  tb.innerHTML='';
+  const tb=document.getElementById('tbodyPagos'); tb.innerHTML='';
   data.pagos.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto||''}" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><select onchange="data.pagos[${i}].deudor=this.value;debouncedSave()">
-        <option value="A" ${r.deudor==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.deudor==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td><select onchange="data.pagos[${i}].acreedor=this.value;debouncedSave()">
-        <option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option>
-        <option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option>
-      </select></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave()"></td>
+      <td><select onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()"></td>
       <td class="row-actions"><button class="btn-danger" onclick="delRow('pagos',${i})">✕</button></td>
     `;
     tb.appendChild(tr);
@@ -922,16 +780,13 @@ function renderPagos(){
 }
 
 function renderAhorro(){
-  const tb=document.getElementById('tbodyAhorro');
-  tb.innerHTML='';
-  const m=curMonth();
-  if(!m) return;
-  m.ahorro.forEach((r,i)=>{
+  const tb=document.getElementById('tbodyAhorro'); tb.innerHTML='';
+  curMonth().ahorro.forEach((r,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave()"></td>
+      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()">
         <option value="A" ${r.persona==='A'?'selected':''}>Raul</option>
         <option value="B" ${r.persona==='B'?'selected':''}>Marta</option>
@@ -944,9 +799,7 @@ function renderAhorro(){
 }
 
 function addRow(cat){
-  ensureDataStructure();
   const m=curMonth();
-  if(!m){alert('Error: no se pudo obtener el mes activo');return;}
   const today=new Date().toISOString().slice(0,10);
   const defaults={
     alquiler:{nombre:'Nuevo',importe:0,compartido:true,aportaA:0,aportaB:0,estable:true},
@@ -964,21 +817,16 @@ function addRow(cat){
   } else {
     data[cat].push(defaults[cat]);
   }
-  debouncedSave();
-  renderAll();
+  debouncedSave(); renderAll();
 }
 
 function delRow(cat,i){
-  ensureDataStructure();
-  const m=curMonth();
-  if(!m){alert('Error: no se pudo obtener el mes activo');return;}
   if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)){
-    m[cat].splice(i,1);
+    curMonth()[cat].splice(i,1);
   } else {
     data[cat].splice(i,1);
   }
-  debouncedSave();
-  renderAll();
+  debouncedSave(); renderAll();
 }
 
 function calcAlquilerDebt(monthKey){
@@ -988,20 +836,14 @@ function calcAlquilerDebt(monthKey){
   let pctRaul=0.5, pctMarta=0.5;
   if(m.splitMode==='proporcional'){
     const totInc=m.ingresosA+m.ingresosB||1;
-    pctRaul=m.ingresosA/totInc;
-    pctMarta=m.ingresosB/totInc;
+    pctRaul=m.ingresosA/totInc; pctMarta=m.ingresosB/totInc;
   }
   m.alquiler.forEach(r=>{
     if(!r.compartido){
       const correspondeRaul=r.importe*pctRaul;
       const correspondeMarta=r.importe*pctMarta;
-      const aportaA=r.aportaA||0;
-      const aportaB=r.aportaB||0;
-      const diffRaul=aportaA-correspondeRaul;
-      results.push({
-        mes:monthKey, concepto:r.nombre, total:r.importe,
-        correspondeRaul, correspondeMarta, aportaA, aportaB, diff:diffRaul
-      });
+      const diffRaul=(r.aportaA||0)-correspondeRaul;
+      results.push({mes:monthKey, concepto:r.nombre, total:r.importe, correspondeRaul, correspondeMarta, aportaA:r.aportaA||0, aportaB:r.aportaB||0, diff:diffRaul});
     }
   });
   return results;
@@ -1009,21 +851,16 @@ function calcAlquilerDebt(monthKey){
 
 function calcDeudaTotal(){
   let auto=0;
-  Object.keys(data.meses).forEach(k=>{
-    calcAlquilerDebt(k).forEach(d=>{ auto+=d.diff; });
-  });
+  Object.keys(data.meses).forEach(k=>{ calcAlquilerDebt(k).forEach(d=>{ auto+=d.diff; }); });
   let manualRaulDebe=0, manualMartaDebe=0;
-  data.deudas.forEach(d=>{
-    if(d.deudor==='A') manualRaulDebe+=d.total;
-    else manualMartaDebe+=d.total;
-  });
+  data.deudas.forEach(d=>{ if(d.deudor==='A') manualRaulDebe+=d.total; else manualMartaDebe+=d.total; });
   let pagosRaulAMarta=0, pagosMartaARaul=0;
   data.pagos.forEach(p=>{
     if(p.deudor==='A' && p.acreedor==='B') pagosRaulAMarta+=p.importe;
-    else if(p.deudor==='B' && p.acreedor==='A') pagosMartaARaul+=p.importe;
+    if(p.deudor==='B' && p.acreedor==='A') pagosMartaARaul+=p.importe;
   });
   const deudaNeta = auto + manualMartaDebe - manualRaulDebe - pagosMartaARaul + pagosRaulAMarta;
-  return {auto, manualRaulDebe, manualMartaDebe, pagosRaulAMarta, pagosMartaARaul, neto: deudaNeta, abs: Math.abs(deudaNeta)};
+  return {neto: deudaNeta, abs: Math.abs(deudaNeta)};
 }
 
 function updateDebtDisplay(){
@@ -1036,7 +873,6 @@ function updateDebtDisplay(){
     else if(deuda.neto<-0.01) el2.innerHTML='<b>Raul</b> debe a <b>Marta</b>: '+deuda.abs.toFixed(2)+' €';
     else el2.textContent='Cuentas equilibradas';
   }
-  
   const deudaEl=document.getElementById('deudaAcumulada');
   const deudaDet=document.getElementById('deudaDetalle');
   if(deudaEl && deudaDet){
@@ -1049,32 +885,17 @@ function updateDebtDisplay(){
 }
 
 function renderDeudaAuto(){
-  const tb=document.getElementById('tbodyDeudaAuto');
-  tb.innerHTML='';
-  const keys=Object.keys(data.meses).sort();
+  const tb=document.getElementById('tbodyDeudaAuto'); tb.innerHTML='';
   let hasData=false;
-  keys.forEach(k=>{
+  Object.keys(data.meses).sort().forEach(k=>{
     calcAlquilerDebt(k).forEach(d=>{
       hasData=true;
-      let diffText='0.00 €';
-      if(d.diff>0.01){diffText='+'+d.diff.toFixed(2)+' € (M→R)';}
-      else if(d.diff<-0.01){diffText=d.diff.toFixed(2)+' € (R→M)';}
-      else {diffText='Equilibrado';}
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><b>${getMonthLabel(k)}</b></td>
-        <td>${d.concepto}</td>
-        <td>${d.total.toFixed(0)}€</td>
-        <td>${d.correspondeRaul.toFixed(0)}€</td>
-        <td>${d.correspondeMarta.toFixed(0)}€</td>
-        <td>${d.aportaA.toFixed(0)}€</td>
-        <td>${d.aportaB.toFixed(0)}€</td>
-        <td>${diffText}</td>
-      `;
+      tr.innerHTML = `<td><b>${getMonthLabel(k)}</b></td><td>${d.concepto}</td><td>${d.total.toFixed(0)}€</td><td>${d.correspondeRaul.toFixed(0)}€</td><td>${d.correspondeMarta.toFixed(0)}€</td><td>${d.aportaA.toFixed(0)}€</td><td>${d.aportaB.toFixed(0)}€</td><td>${d.diff.toFixed(2)}€</td>`;
       tb.appendChild(tr);
     });
   });
-  if(!hasData) tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">Sin deudas por alquiler. Desmarca "Compartido" en algún concepto para generar deuda.</td></tr>';
+  if(!hasData) tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">Sin deudas registradas por alquiler.</td></tr>';
 }
 
 function recalcAll(){
@@ -1083,12 +904,9 @@ function recalcAll(){
   const totalCuenta=m.aportaCuentaA+m.aportaCuentaB;
   const gastosComunes=m.alquiler.filter(r=>r.compartido).reduce((s,r)=>s+r.importe,0);
   const restante=totalCuenta-gastosComunes;
-  const el1=document.getElementById('totalCuenta');
-  const el2=document.getElementById('gastosComunes');
-  const el3=document.getElementById('restanteAhorro');
-  if(el1) el1.textContent=totalCuenta.toFixed(0)+' €';
-  if(el2) el2.textContent=gastosComunes.toFixed(0)+' €';
-  if(el3) el3.textContent=restante.toFixed(0)+' €';
+  document.getElementById('totalCuenta').textContent=totalCuenta.toFixed(0)+' €';
+  document.getElementById('gastosComunes').textContent=gastosComunes.toFixed(0)+' €';
+  document.getElementById('restanteAhorro').textContent=restante.toFixed(0)+' €';
   
   const gastoPersonalRaul=
     m.suscripciones.filter(r=>r.titular==='A').reduce((s,r)=>s+r.importe,0)+
@@ -1096,6 +914,7 @@ function recalcAll(){
     m.alimentacion.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
     m.ocio.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
     m.delivery.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0);
+  
   const gastoPersonalMarta=
     m.suscripciones.filter(r=>r.titular==='B').reduce((s,r)=>s+r.importe,0)+
     m.fijos.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
@@ -1106,18 +925,13 @@ function recalcAll(){
   const ahorroTotal=m.ahorro.reduce((s,r)=>s+r.importe,0);
   const pctAhorro=m.metaAhorro?(ahorroTotal/m.metaAhorro*100):0;
   
-  const el4=document.getElementById('gastoPersonalRaul');
-  const el5=document.getElementById('gastoPersonalMarta');
-  const el6=document.getElementById('ahorroMes');
-  const el7=document.getElementById('pctAhorro');
-  if(el4) el4.textContent=gastoPersonalRaul.toFixed(0)+' €';
-  if(el5) el5.textContent=gastoPersonalMarta.toFixed(0)+' €';
-  if(el6) el6.textContent=ahorroTotal.toFixed(0)+' €';
-  if(el7) el7.textContent=pctAhorro.toFixed(0)+'% de la meta';
+  document.getElementById('gastoPersonalRaul').textContent=gastoPersonalRaul.toFixed(0)+' €';
+  document.getElementById('gastoPersonalMarta').textContent=gastoPersonalMarta.toFixed(0)+' €';
+  document.getElementById('ahorroMes').textContent=ahorroTotal.toFixed(0)+' €';
+  document.getElementById('pctAhorro').textContent=pctAhorro.toFixed(0)+'% de la meta';
   
   updateDebtDisplay();
   renderCharts(gastoPersonalRaul,gastoPersonalMarta,totalCuenta,gastosComunes);
-  if(document.getElementById('deudas').classList.contains('active')) renderDebtChart();
 }
 
 function updateSavings(){
@@ -1134,8 +948,6 @@ function updateSavings(){
 
 let charts={};
 function renderCharts(gRaul,gMarta,totalCuenta,gastosComunes){
-  const txt='#1e293b';
-  Chart.defaults.color=txt;
   const canvas1=document.getElementById('chartPersonales');
   const canvas2=document.getElementById('chartCuenta');
   if(!canvas1 || !canvas2) return;
@@ -1149,47 +961,35 @@ function renderCharts(gRaul,gMarta,totalCuenta,gastosComunes){
   charts.cue=new Chart(canvas2,{
     type:'bar',
     data:{labels:['Aportado','Gastos comunes','Restante'],datasets:[{label:'€',data:[totalCuenta,gastosComunes,totalCuenta-gastosComunes],backgroundColor:['#10b981','#ef4444','#6366f1'],borderRadius:8}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
   });
 }
 
 function renderDebtChart(){
-  const txt='#1e293b';
-  Chart.defaults.color=txt;
   const canvas=document.getElementById('chartDeuda');
   if(!canvas) return;
   const keys=Object.keys(data.meses).sort();
   if(keys.length===0) return;
   const labels=[], dataDeuda=[];
-  let acumAlquiler=0;
+  let acum=0;
   keys.forEach(k=>{
-    calcAlquilerDebt(k).forEach(d=>{ acumAlquiler+=d.diff; });
-    const monthEnd=k+'-31';
-    const prestamosHasta=data.deudas.filter(d=>d.fecha<=monthEnd).reduce((s,d)=>s+(d.deudor==='B'?d.total:-d.total),0);
-    const pagosHasta=data.pagos.filter(p=>p.fecha<=monthEnd).reduce((s,p)=>{
-      if(p.deudor==='B' && p.acreedor==='A') return s-p.importe;
-      if(p.p==='A' && p.acreedor==='B') return s+p.importe;
-      return s;
-    },0);
+    calcAlquilerDebt(k).forEach(d=>{ acum+=d.diff; });
     labels.push(getMonthLabel(k));
-    dataDeuda.push(acumAlquiler+prestamosHasta+pagosHasta);
+    dataDeuda.push(acum);
   });
   if(charts.debt) charts.debt.destroy();
-  charts.debt=newChart = new Chart(canvas,{
+  charts.debt=new Chart(canvas,{
     type:'line',
-    data:{labels,datasets:[{label:'Deuda acumulada (€)',data:dataDeuda,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,0.08)',borderWidth:3,fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:dataDeuda.map(v=>v>=0?'#ec4899':'#3b82f6'),pointBorderColor:'#fff',pointBorderWidth:2}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'top'},tooltip:{callbacks:{label:function(ctx){const v=ctx.parsed.y;if(v>0.01) return 'Marta debe a Raul: '+v.toFixed(2)+' €';if(v<-0.01) return 'Raul debe a Marta: '+Math.abs(v).toFixed(2)+' €';return 'Equilibrado';}}}},scales:{y:{beginAtZero:false,grid:{color:'rgba(0,0,0,0.04)'},ticks:{callback:v=>v+' €'}},x:{grid:{display:false}}}}
+    data:{labels,datasets:[{label:'Deuda acumulada (€)',data:dataDeuda,borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,0.08)',borderWidth:3,fill:true,tension:0.3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+' €'}}}}
   });
 }
 
 function resetData(){
-  if(confirm('¿Borrar TODOS los datos? Esta acción no se puede deshacer.')){
-    localStorage.removeItem('hogarDataV7');
-    if(db){
-      db.collection('hogar').doc('data').delete().then(()=>location.reload()).catch(()=>location.reload());
-    } else {
-      location.reload();
-    }
+  if(confirm('¿Borrar TODOS los datos de todos los meses?')){
+    localStorage.removeItem('hogarDataV8');
+    if(db) db.collection('hogar').doc('data').delete().then(()=>location.reload()).catch(()=>location.reload());
+    else location.reload();
   }
 }
 
