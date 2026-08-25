@@ -9,7 +9,43 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  <link rel="stylesheet" href="style.css"> <!-- O tus estilos inyectados -->
+  
+  <style>
+    :root {
+      --raul: #3b82f6;
+      --marta: #ec4899;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 1rem; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 900px; }
+    
+    header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 1rem 1.5rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+    h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    
+    .sync-status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 20px; background: #f1f5f9; }
+    .sync-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .sync-ok .sync-dot { background: #10b981; }
+    .sync-syncing .sync-dot { background: #f59e0b; animation: pulse 1s infinite; }
+    .sync-error .sync-dot { background: #ef4444; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+    .card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .card h3 { margin-bottom: 1rem; font-size: 1.1rem; color: #475569; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+    
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; color: #64748b; }
+    input, select { width: 100%; padding: 0.7rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; transition: border 0.2s; }
+    input:focus, select:focus { border-color: var(--raul); }
+
+    .chart-container { position: relative; height: 220px; width: 100%; }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -20,7 +56,36 @@
         <span id="syncText">Conectando...</span>
       </div>
     </header>
-    <!-- Contenedores de pestañas y tablas de tu sistema -->
+
+    <div class="grid">
+      <!-- Panel de Ingresos y Aportaciones -->
+      <div class="card">
+        <h3>💰 Configuración Mensual</h3>
+        <div class="form-group">
+          <label>Ingresos Raul (€)</label>
+          <input type="number" id="ingresosA" value="1500" oninput="debouncedSave()">
+        </div>
+        <div class="form-group">
+          <label>Ingresos Marta (€)</label>
+          <input type="number" id="ingresosB" value="1500" oninput="debouncedSave()">
+        </div>
+        <div class="form-group">
+          <label>Modelo de Reparto</label>
+          <select id="splitMode" onchange="debouncedSave()">
+            <option value="5050">50% / 50% Fijo</option>
+            <option value="proporcional">Proporcional a Ingresos</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Panel de Gráficos en Tiempo Real -->
+      <div class="card">
+        <h3>📊 Distribución de Gastos</h3>
+        <div class="chart-container">
+          <canvas id="chartPersonales"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Script Principal Modular -->
