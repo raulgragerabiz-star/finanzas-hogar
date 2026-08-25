@@ -4,12 +4,12 @@ import { initFirebase, saveToFirebase, initAuth } from './firebase-sync.js';
 import { renderCharts } from './charts.js';
 
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "tu-proyecto.firebaseapp.com",
-  projectId: "tu-proyecto",
-  storageBucket: "tu-proyecto.appspot.com",
-  messagingSenderId: "123456",
-  appId: "1:123456:web:abcdef"
+  apiKey: "AIzaSyC0QOu3nCH_CrI95OFK9asm3Ow3X13nWHA",
+  authDomain: "finanzas-hogar-edba8.firebaseapp.com",
+  projectId: "finanzas-hogar-edba8",
+  storageBucket: "finanzas-hogar-edba8.firebasestorage.app",
+  messagingSenderId: "114386378204",
+  appId: "1:114386378204:web:8c5ea935cc813b9c158319"
 };
 
 window.addEventListener('DOMContentLoaded', () => {
