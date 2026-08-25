@@ -4,11 +4,11 @@
 <meta name="theme-color" content="#121212">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Finanzas Hogar">
+<meta name="apple-mobile-web-app-title" content="MTM Home">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Finanzas Hogar · MTM Home</title>
+<title>MTM Home · Finanzas</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -24,23 +24,15 @@
     background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:110px}
   .container{max-width:768px;margin:0 auto}
 
-  /* Header estilo Tricount */
+  /* Header MTM Home */
   .tricount-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0}
-  .tricount-logo{font-size:1.8rem;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:6px;color:#fff}
+  .tricount-logo{font-size:1.8rem;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:8px;color:#fff}
   .tricount-logo span{color:var(--primary)}
   .sync-badge{font-size:.7rem;padding:4px 10px;border-radius:12px;font-weight:600;background:#1f2937;color:#9ca3af;display:flex;align-items:center;gap:4px}
   .sync-badge.ok{background:rgba(16,185,129,0.15);color:#34d399}
   .sync-badge.syncing{background:rgba(245,158,11,0.15);color:#fbbf24}
 
-  /* Selector de Meses estilo Listas Tricount */
-  .month-card-selector{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .2s}
-  .month-card-selector:hover{background:var(--card-hover)}
-  .month-info{display:flex;align-items:center;gap:14px}
-  .month-icon{font-size:1.8rem;background:#2d2d2d;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:12px}
-  .month-title{font-size:1.1rem;font-weight:700;color:#fff;text-transform:capitalize}
-  .month-subtitle{font-size:.85rem;color:var(--muted)}
-
-  /* Barra de acciones superior para el mes activo */
+  /* Selector de Meses */
   .active-month-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   .active-month-title{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
@@ -65,7 +57,7 @@
   .stat-value{font-size:1.7rem;font-weight:800;color:#fff}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-  /* Tablas estilo app */
+  /* Tablas */
   .table-wrap{overflow-x:auto;margin:0 -20px;padding:0 20px}
   table{width:100%;border-collapse:collapse;min-width:580px}
   th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
@@ -76,18 +68,13 @@
 
   .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0}
   
-  /* Navegación Inferior flotante estilo Tricount */
+  /* Navegación Inferior */
   .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;z-index:999;backdrop-filter:blur(10px)}
   .nav-item{background:none;border:none;color:var(--muted);font-size:.75rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:4px 0}
   .nav-item span.icon{font-size:1.3rem}
   .nav-item.active{color:var(--primary)}
 
-  /* Botón flotante central tipo Tricount (+) */
-  .fab-container{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);z-index:1000}
-  .fab{background:var(--primary);color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 8px 20px rgba(59,130,246,0.4);cursor:pointer;border:none;transition:transform .2s}
-  .fab:active{transform:scale(.95)}
-
-  /* Cuenta común y cajas especiales */
+  /* Cuenta común */
   .cuenta-comun-box{background:linear-gradient(135deg,#1e3a8a,#172554);border:1px solid #1d4ed8;color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px}
   .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;align-items:center}
   .cuenta-inputs input{width:90px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px;border-radius:8px;text-align:right;font-weight:700}
@@ -100,6 +87,7 @@
   .modal textarea{width:100%;height:140px;background:#121212;border:1px solid var(--border);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
 
   .chart-container{position:relative;height:240px;margin-top:10px}
+  .hidden-cell{display:none !important;}
 </style>
 </head>
 <body>
@@ -118,14 +106,13 @@
 <div class="container">
 
   <div class="tricount-header">
-    <div class="tricount-logo">tri<span>count</span> <span style="font-size:.8rem;color:var(--muted);font-weight:400">· Hogar</span></div>
+    <div class="tricount-logo">MTM <span>Home</span></div>
     <div style="display:flex;gap:8px;align-items:center">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
       <button onclick="openConfigModal()" style="padding:6px 10px;font-size:.75rem">⚙️</button>
     </div>
   </div>
 
-  <!-- Barra de control del mes activo -->
   <div class="active-month-bar">
     <div style="display:flex;align-items:center;gap:10px">
       <button onclick="prevMonth()">◀</button>
@@ -168,17 +155,17 @@
       <div class="card">
         <h3>Gasto personal Raul</h3>
         <div class="stat-value" id="gastoPersonalRaul" style="color:var(--raul)">0 €</div>
-        <div class="stat-sub">Fijos + Variables</div>
+        <div class="stat-sub">Suscripciones + Fijos + Variables</div>
       </div>
       <div class="card">
         <h3>Gasto personal Marta</h3>
         <div class="stat-value" id="gastoPersonalMarta" style="color:var(--marta)">0 €</div>
-        <div class="stat-sub">Fijos + Variables</div>
+        <div class="stat-sub">Suscripciones + Fijos + Variables</div>
       </div>
       <div class="card">
         <h3>Ahorro del mes</h3>
         <div class="stat-value" id="ahorroMes" style="color:var(--accent)">0 €</div>
-        <div class="stat-sub" id="pctAhorro">0% meta</div>
+        <div class="stat-sub" id="pctAhorro">Restante común neto</div>
       </div>
       <div class="card">
         <h3>Deuda acumulada</h3>
@@ -199,7 +186,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th>Aporta R</th><th>Aporta M</th><th>Est.</th><th></th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th class="th-aportes">Aporta R</th><th class="th-aportes">Aporta M</th><th>Est.</th><th></th></tr></thead>
           <tbody id="tbodyAlquiler"></tbody>
         </table>
       </div>
@@ -210,7 +197,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Servicio</th><th>Importe</th><th>Titular</th><th>Est.</th><th></th></tr></thead>
+          <thead><tr><th>Servicio</th><th>Importe</th><th>Titular</th><th>Tipo</th><th>Est.</th><th></th></tr></thead>
           <tbody id="tbodySuscripciones"></tbody>
         </table>
       </div>
@@ -221,7 +208,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Concepto</th><th>Importe</th><th>Persona</th><th>Est.</th><th></th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Importe</th><th>Persona</th><th>Tipo</th><th>Est.</th><th></th></tr></thead>
           <tbody id="tbodyFijos"></tbody>
         </table>
       </div>
@@ -235,7 +222,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Fecha</th><th>Establecimiento</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Establecimiento</th><th>Importe</th><th>Pagado</th><th>Tipo</th><th></th></tr></thead>
           <tbody id="tbodyAlimentacion"></tbody>
         </table>
       </div>
@@ -246,7 +233,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Pagado</th><th>Tipo Gasto</th><th></th></tr></thead>
           <tbody id="tbodyOcio"></tbody>
         </table>
       </div>
@@ -257,7 +244,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Fecha</th><th>Restaurante</th><th>Importe</th><th>Pagado</th><th></th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Restaurante</th><th>Importe</th><th>Pagado</th><th>Tipo</th><th></th></tr></thead>
           <tbody id="tbodyDelivery"></tbody>
         </table>
       </div>
@@ -305,7 +292,7 @@
   <!-- AHORRO -->
   <div id="ahorro" class="tab-content">
     <div class="card">
-      <h3>💰 Ahorro Común</h3>
+      <h3>💰 Ahorro Extra / Hucha</h3>
       <div style="margin:10px 0;font-size:.85rem">
         Meta mensual: <input type="number" id="metaAhorro" value="500" style="width:100px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMetaAhorro()"> €
       </div>
@@ -324,7 +311,7 @@
 
 </div>
 
-<!-- Barra de Navegación Inferior Estilo Tricount -->
+<!-- Barra de Navegación Inferior -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')">
     <span class="icon">📊</span>
@@ -437,16 +424,17 @@ function defaultMonthData(){
     ingresosA:1500, ingresosB:1500, splitMode:'5050',
     aportaCuentaA:700, aportaCuentaB:500,
     alquiler:[
-      {nombre:'Alquiler',importe:900,compartido:true,aportaA:0,aportaB:0,estable:true},
+      {nombre:'Alquiler',importe:900,compartido:false,aportaA:550,aportaB:350,estable:true},
       {nombre:'Luz',importe:70,compartido:true,aportaA:0,aportaB:0,estable:true},
-      {nombre:'Agua',importe:25,compartido:true,aportaA:0,aportaB:0,estable:true}
+      {nombre:'Agua',importe:25,compartido:true,aportaA:0,aportaB:0,estable:true},
+      {nombre:'Gas',importe:40,compartido:true,aportaA:0,aportaB:0,estable:true}
     ],
     suscripciones:[
-      {nombre:'Netflix',importe:12.99,titular:'A',estable:true},
-      {nombre:'Spotify',importe:14.99,titular:'A',estable:true}
+      {nombre:'Netflix',importe:12.99,titular:'A',tipo:'comun',estable:true},
+      {nombre:'Spotify',importe:14.99,titular:'A',tipo:'comun',estable:true}
     ],
     fijos:[
-      {nombre:'Internet',importe:35,persona:'A',estable:true}
+      {nombre:'Internet',importe:35,persona:'A',tipo:'comun',estable:true}
     ],
     alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:500
   };
@@ -454,7 +442,7 @@ function defaultMonthData(){
 
 let data = { meses:{}, deudas:[], pagos:[], mesActivo: currentMonthKey() };
 
-function save(){localStorage.setItem('hogarDataTricount',JSON.stringify(data))}
+function save(){localStorage.setItem('hogarDataMTM',JSON.stringify(data))}
 
 function ensureDataStructure(){
   if(!data.meses || typeof data.meses!=='object') data.meses={};
@@ -468,7 +456,7 @@ function ensureDataStructure(){
 }
 
 function loadLocal(){
-  const s=localStorage.getItem('hogarDataTricount');
+  const s=localStorage.getItem('hogarDataMTM');
   if(s){try{data=JSON.parse(s)}catch(e){}}
   if(!data.meses || Object.keys(data.meses).length===0){
     data.meses={[currentMonthKey()]:defaultMonthData()};
@@ -537,7 +525,6 @@ function curMonth(){
 function switchTab(e,id){
   document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  // Encontrar el botón de la barra inferior
   const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(id));
   if(btn) btn.classList.add('active');
   document.getElementById(id).classList.add('active');
@@ -585,18 +572,28 @@ function renderAll(){
 
 function renderAlquiler(){
   const tb=document.getElementById('tbodyAlquiler'); tb.innerHTML='';
+  let anyNonShared = false;
+  curMonth().alquiler.forEach(r => { if(!r.compartido) anyNonShared = true; });
+  
+  // Mostrar u ocultar cabeceras de aporta R y M según si hay alguno no compartido
+  document.querySelectorAll('.th-aportes').forEach(th => {
+    if(anyNonShared) th.classList.remove('hidden-cell'); else th.classList.add('hidden-cell');
+  });
+
   curMonth().alquiler.forEach((r,i)=>{
+    const hideStyle = r.compartido ? 'hidden-cell' : '';
     tb.innerHTML+=`<tr>
       <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();recalcAll()"></td>
-      <td><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
+      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"></td>
+      <td class="${hideStyle}"><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
+      <td class="${hideStyle}"><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
       <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
       <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderSuscripciones(){
   const tb=document.getElementById('tbodySuscripciones'); tb.innerHTML='';
   curMonth().suscripciones.forEach((r,i)=>{
@@ -604,11 +601,13 @@ function renderSuscripciones(){
       <td><input value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
       <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"></td>
       <td><button class="btn-danger" onclick="delRow('suscripciones',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderFijos(){
   const tb=document.getElementById('tbodyFijos'); tb.innerHTML='';
   curMonth().fijos.forEach((r,i)=>{
@@ -616,11 +615,13 @@ function renderFijos(){
       <td><input value="${r.nombre}" oninput="curMonth().fijos[${i}].nombre=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="curMonth().fijos[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
       <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()"></td>
       <td><button class="btn-danger" onclick="delRow('fijos',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderAlimentacion(){
   const tb=document.getElementById('tbodyAlimentacion'); tb.innerHTML='';
   curMonth().alimentacion.forEach((r,i)=>{
@@ -629,23 +630,27 @@ function renderAlimentacion(){
       <td><input value="${r.establecimiento}" oninput="curMonth().alimentacion[${i}].establecimiento=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="curMonth().alimentacion[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
       <td><button class="btn-danger" onclick="delRow('alimentacion',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderOcio(){
   const tb=document.getElementById('tbodyOcio'); tb.innerHTML='';
   curMonth().ocio.forEach((r,i)=>{
     tb.innerHTML+=`<tr>
       <td><input type="date" value="${r.fecha}" oninput="curMonth().ocio[${i}].fecha=this.value;debouncedSave()"></td>
       <td><input value="${r.concepto}" oninput="curMonth().ocio[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave()"><option value="ocio" ${r.tipo==='ocio'?'selected':''}>Ocio</option><option value="cenas" ${r.tipo==='cenas'?'selected':''}>Cena</option></select></td>
+      <td><select onchange="curMonth().ocio[${i}].tipoOcio=this.value;debouncedSave()"><option value="ocio" ${r.tipoOcio==='ocio'?'selected':''}>Ocio</option><option value="cenas" ${r.tipoOcio==='cenas'?'selected':''}>Cena</option></select></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
       <td><button class="btn-danger" onclick="delRow('ocio',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderDelivery(){
   const tb=document.getElementById('tbodyDelivery'); tb.innerHTML='';
   curMonth().delivery.forEach((r,i)=>{
@@ -654,10 +659,12 @@ function renderDelivery(){
       <td><input value="${r.restaurante}" oninput="curMonth().delivery[${i}].restaurante=this.value;debouncedSave()"></td>
       <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
       <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
+      <td><select onchange="curMonth().delivery[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
       <td><button class="btn-danger" onclick="delRow('delivery',${i})">✕</button></td>
     </tr>`;
   });
 }
+
 function renderDeudas(){
   const tb=document.getElementById('tbodyDeudas'); tb.innerHTML='';
   data.deudas.forEach((r,i)=>{
@@ -671,6 +678,7 @@ function renderDeudas(){
     </tr>`;
   });
 }
+
 function renderPagos(){
   const tb=document.getElementById('tbodyPagos'); tb.innerHTML='';
   data.pagos.forEach((r,i)=>{
@@ -684,6 +692,7 @@ function renderPagos(){
     </tr>`;
   });
 }
+
 function renderAhorro(){
   const tb=document.getElementById('tbodyAhorro'); tb.innerHTML='';
   curMonth().ahorro.forEach((r,i)=>{
@@ -703,11 +712,11 @@ function addRow(cat){
   const today=new Date().toISOString().slice(0,10);
   const defs={
     alquiler:{nombre:'Nuevo',importe:0,compartido:true,aportaA:0,aportaB:0,estable:true},
-    suscripciones:{nombre:'Nuevo',importe:0,titular:'A',estable:true},
-    fijos:{nombre:'Nuevo',importe:0,persona:'A',estable:true},
-    alimentacion:{fecha:today,establecimiento:'Nuevo',importe:0,persona:'A'},
-    ocio:{fecha:today,concepto:'Nuevo',tipo:'ocio',importe:0,persona:'A'},
-    delivery:{fecha:today,restaurante:'Nuevo',importe:0,persona:'A'},
+    suscripciones:{nombre:'Nuevo',importe:0,titular:'A',tipo:'comun',estable:true},
+    fijos:{nombre:'Nuevo',importe:0,persona:'A',tipo:'comun',estable:true},
+    alimentacion:{fecha:today,establecimiento:'Nuevo',importe:0,persona:'A',tipo:'comun'},
+    ocio:{fecha:today,concepto:'Nuevo',tipoOcio:'ocio',importe:0,persona:'A',tipo:'comun'},
+    delivery:{fecha:today,restaurante:'Nuevo',importe:0,persona:'A',tipo:'comun'},
     ahorro:{fecha:today,concepto:'Aportación',importe:0,persona:'A'},
     deudas:{fecha:today,deudor:'A',acreedor:'B',total:0,descripcion:''},
     pagos:{fecha:today,concepto:'Abono',deudor:'A',acreedor:'B',importe:0}
@@ -716,6 +725,7 @@ function addRow(cat){
   else data[cat].push(defs[cat]);
   debouncedSave(); renderAll();
 }
+
 function delRow(cat,i){
   if(['alquiler','suscripciones','fijos','alimentacion','ocio','delivery','ahorro'].includes(cat)) curMonth()[cat].splice(i,1);
   else data[cat].splice(i,1);
@@ -780,30 +790,42 @@ function recalcAll(){
   const m=curMonth();
   if(!m) return;
   const totC=m.aportaCuentaA+m.aportaCuentaB;
-  const gastC=m.alquiler.filter(r=>r.compartido).reduce((s,r)=>s+r.importe,0);
+  
+  // Gastos comunes incluyen alquileres + suscripciones comunes + fijos comunes + variables comunes
+  const gastAlq = m.alquiler.reduce((s,r)=>s+r.importe,0);
+  const gastSubComun = m.suscripciones.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+  const gastFijComun = m.fijos.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+  const gastAlimComun = m.alimentacion.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+  const gastOcioComun = m.ocio.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+  const gastDelivComun = m.delivery.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+
+  const gastC = gastAlq + gastSubComun + gastFijComun + gastAlimComun + gastOcioComun + gastDelivComun;
+
   document.getElementById('totalCuenta').textContent=totC.toFixed(0)+' €';
   document.getElementById('gastosComunes').textContent=gastC.toFixed(0)+' €';
-  document.getElementById('restanteAhorro').textContent=(totC-gastC).toFixed(0)+' €';
+  
+  const restanteComun = totC - gastC;
+  document.getElementById('restanteAhorro').textContent=restanteComun.toFixed(0)+' €';
 
-  const gR=m.suscripciones.filter(r=>r.titular==='A').reduce((s,r)=>s+r.importe,0)+
-          m.fijos.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-          m.alimentacion.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-          m.ocio.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0)+
-          m.delivery.filter(r=>r.persona==='A').reduce((s,r)=>s+r.importe,0);
+  // Gastos Personales (los marcados como 'personal')
+  const gR = m.suscripciones.filter(r=>r.titular==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.fijos.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.alimentacion.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.ocio.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.delivery.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0);
 
-  const gM=m.suscripciones.filter(r=>r.titular==='B').reduce((s,r)=>s+r.importe,0)+
-          m.fijos.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-          m.alimentacion.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-          m.ocio.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0)+
-          m.delivery.filter(r=>r.persona==='B').reduce((s,r)=>s+r.importe,0);
+  const gM = m.suscripciones.filter(r=>r.titular==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.fijos.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.alimentacion.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.ocio.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
+          m.delivery.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0);
 
-  const ah=m.ahorro.reduce((s,r)=>s+r.importe,0);
-  const pct=m.metaAhorro?(ah/m.metaAhorro*100):0;
+  // El cuadro "Ahorro del mes" refleja el restante común y va actualizándose al instante
+  document.getElementById('ahorroMes').textContent=restanteComun.toFixed(0)+' €';
+  document.getElementById('pctAhorro').textContent='Restante común neto';
 
   document.getElementById('gastoPersonalRaul').textContent=gR.toFixed(0)+' €';
   document.getElementById('gastoPersonalMarta').textContent=gM.toFixed(0)+' €';
-  document.getElementById('ahorroMes').textContent=ah.toFixed(0)+' €';
-  document.getElementById('pctAhorro').textContent=pct.toFixed(0)+'% meta';
 
   updateDebtDisplay();
   renderChart(gR,gM);
