@@ -24,7 +24,6 @@
     background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:110px}
   .container{max-width:768px;margin:0 auto}
 
-  /* Header MTM Home */
   .tricount-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0}
   .tricount-logo{font-size:1.8rem;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:8px;color:#fff}
   .tricount-logo span{color:var(--primary)}
@@ -32,7 +31,6 @@
   .sync-badge.ok{background:rgba(16,185,129,0.15);color:#34d399}
   .sync-badge.syncing{background:rgba(245,158,11,0.15);color:#fbbf24}
 
-  /* Selector de Meses */
   .active-month-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   .active-month-title{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
@@ -45,19 +43,16 @@
   .btn-success{background:rgba(16,185,129,0.2);color:#34d399}
   .btn-success:hover{background:rgba(16,185,129,0.3)}
 
-  /* Vistas (Tabs) */
   .tab-content{display:none;animation:fadeIn .2s ease}
   .tab-content.active{display:block}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-  /* Tarjetas y Grid */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:16px}
   .card{background:var(--card);border-radius:var(--radius);padding:20px;border:1px solid var(--border);margin-bottom:16px}
   .card h3{font-size:.75rem;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
   .stat-value{font-size:1.7rem;font-weight:800;color:#fff}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-  /* Tablas */
   .table-wrap{overflow-x:auto;margin:0 -20px;padding:0 20px}
   table{width:100%;border-collapse:collapse;min-width:580px}
   th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
@@ -68,13 +63,11 @@
 
   .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0}
   
-  /* Navegación Inferior */
   .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;z-index:999;backdrop-filter:blur(10px)}
   .nav-item{background:none;border:none;color:var(--muted);font-size:.75rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:4px 0}
   .nav-item span.icon{font-size:1.3rem}
   .nav-item.active{color:var(--primary)}
 
-  /* Cuenta común */
   .cuenta-comun-box{background:linear-gradient(135deg,#1e3a8a,#172554);border:1px solid #1d4ed8;color:#fff;padding:20px;border-radius:var(--radius);margin-bottom:16px}
   .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;align-items:center}
   .cuenta-inputs input{width:90px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px;border-radius:8px;text-align:right;font-weight:700}
@@ -87,7 +80,6 @@
   .modal textarea{width:100%;height:140px;background:#121212;border:1px solid var(--border);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
 
   .chart-container{position:relative;height:240px;margin-top:10px}
-  .hidden-cell{display:none !important;}
 </style>
 </head>
 <body>
@@ -165,7 +157,7 @@
       <div class="card">
         <h3>Ahorro del mes</h3>
         <div class="stat-value" id="ahorroMes" style="color:var(--accent)">0 €</div>
-        <div class="stat-sub" id="pctAhorro">Restante común neto</div>
+        <div class="stat-sub">Restante común neto</div>
       </div>
       <div class="card">
         <h3>Deuda acumulada</h3>
@@ -186,7 +178,7 @@
     <div class="card">
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th class="th-aportes">Aporta R</th><th class="th-aportes">Aporta M</th><th>Est.</th><th></th></tr></thead>
+          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th>Aporta R</th><th>Aporta M</th><th>Est.</th><th></th></tr></thead>
           <tbody id="tbodyAlquiler"></tbody>
         </table>
       </div>
@@ -291,21 +283,21 @@
 
   <!-- AHORRO -->
   <div id="ahorro" class="tab-content">
+    <div class="card" style="background:linear-gradient(135deg,#064e3b,#022c22);border:1px solid #059669">
+      <h3 style="color:#34d399">💰 Ahorro del Sobrante (Común)</h3>
+      <div class="stat-value" id="ahorroSobranteBox" style="color:#fff;margin-top:6px">0 €</div>
+      <div class="stat-sub" style="color:#a7f3d0">Restante común actual que pasa a ahorro</div>
+    </div>
+
+    <div class="section-title">💎 Ahorros Puntuales / Hucha</div>
     <div class="card">
-      <h3>💰 Ahorro Extra / Hucha</h3>
-      <div style="margin:10px 0;font-size:.85rem">
-        Meta mensual: <input type="number" id="metaAhorro" value="500" style="width:100px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMetaAhorro()"> €
-      </div>
-      <div style="background:#121212;border:1px solid var(--border);border-radius:12px;height:22px;overflow:hidden;margin:12px 0">
-        <div id="progressFill" style="background:var(--accent);height:100%;width:0%;text-align:center;font-size:.75rem;font-weight:700;line-height:22px">0%</div>
-      </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Fecha</th><th>Concepto</th><th>Importe</th><th>Persona</th><th></th></tr></thead>
           <tbody id="tbodyAhorro"></tbody>
         </table>
       </div>
-      <button class="add-row" onclick="addRow('ahorro')">➕ Añadir ahorro</button>
+      <button class="add-row" onclick="addRow('ahorro')">➕ Añadir ahorro puntual</button>
     </div>
   </div>
 
@@ -436,7 +428,7 @@ function defaultMonthData(){
     fijos:[
       {nombre:'Internet',importe:35,persona:'A',tipo:'comun',estable:true}
     ],
-    alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:500
+    alimentacion:[], ocio:[], delivery:[], ahorro:[]
   };
 }
 
@@ -496,18 +488,32 @@ function createNewMonth(){
   const [y,m]=last.split('-').map(Number);
   const next=new Date(y,m,1);
   const key=next.getFullYear()+'-'+String(next.getMonth()+1).padStart(2,'0');
+  
   if(data.meses[key]){data.mesActivo=key;save();saveToFirebase();renderAll();return;}
-  const prev=data.meses[last];
+  
+  // Calcular el sobrante del mes anterior para pasarlo como "Ahorro mes anterior"
+  const prevM = data.meses[last];
+  let totCPrev = prevM.aportaCuentaA + prevM.aportaCuentaB;
+  let gastCPrev = prevM.alquiler.reduce((s,r)=>s+r.importe,0) +
+                  prevM.suscripciones.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0) +
+                  prevM.fijos.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0) +
+                  prevM.alimentacion.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0) +
+                  prevM.ocio.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0) +
+                  prevM.delivery.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
+  let sobrantePrev = Math.max(0, totCPrev - gastCPrev);
+
   data.meses[key]={
-    ingresosA:prev.ingresosA, ingresosB:prev.ingresosB, splitMode:prev.splitMode,
-    aportaCuentaA:prev.aportaCuentaA, aportaCuentaB:prev.aportaCuentaB,
-    alquiler:prev.alquiler.filter(r=>r.estable).map(r=>({...r})),
-    suscripciones:prev.suscripciones.filter(r=>r.estable).map(r=>({...r})),
-    fijos:prev.fijos.filter(r=>r.estable).map(r=>({...r})),
-    alimentacion:[], ocio:[], delivery:[], ahorro:[], metaAhorro:prev.metaAhorro
+    ingresosA:prevM.ingresosA, ingresosB:prevM.ingresosB, splitMode:prevM.splitMode,
+    aportaCuentaA:prevM.aportaCuentaA, aportaCuentaB:prevM.aportaCuentaB,
+    alquiler:prevM.alquiler.filter(r=>r.estable).map(r=>({...r})),
+    suscripciones:prevM.suscripciones.filter(r=>r.estable).map(r=>({...r})),
+    fijos:prevM.fijos.filter(r=>r.estable).map(r=>({...r})),
+    alimentacion:[], ocio:[], delivery:[],
+    ahorro: sobrantePrev > 0 ? [{fecha: key+'-01', concepto: 'Ahorro mes anterior', importe: sobrantePrev, persona: 'A'}] : []
   };
   data.mesActivo=key;save();saveToFirebase();renderAll();
 }
+
 function deleteCurrentMonth(){
   if(Object.keys(data.meses).length<=1){alert('No puedes borrar el único mes.');return;}
   if(confirm(`¿Borrar definitivamente ${getMonthLabel(data.mesActivo)}?`)){
@@ -548,10 +554,6 @@ function updateMonthSplit(){
   curMonth().splitMode=document.getElementById('splitMode').value;
   debouncedSave(); recalcAll();
 }
-function updateMetaAhorro(){
-  curMonth().metaAhorro=+document.getElementById('metaAhorro').value||0;
-  save(); saveToFirebase(); renderAhorro(); recalcAll();
-}
 
 function renderAll(){
   ensureDataStructure();
@@ -563,7 +565,6 @@ function renderAll(){
   document.getElementById('incomeA').value=m.ingresosA;
   document.getElementById('incomeB').value=m.ingresosB;
   document.getElementById('splitMode').value=m.splitMode;
-  document.getElementById('metaAhorro').value=m.metaAhorro;
   renderAlquiler(); renderSuscripciones(); renderFijos();
   renderAlimentacion(); renderOcio(); renderDelivery();
   renderDeudas(); renderPagos(); renderAhorro(); renderDeudaAuto();
@@ -572,25 +573,27 @@ function renderAll(){
 
 function renderAlquiler(){
   const tb=document.getElementById('tbodyAlquiler'); tb.innerHTML='';
-  let anyNonShared = false;
-  curMonth().alquiler.forEach(r => { if(!r.compartido) anyNonShared = true; });
-  
-  // Mostrar u ocultar cabeceras de aporta R y M según si hay alguno no compartido
-  document.querySelectorAll('.th-aportes').forEach(th => {
-    if(anyNonShared) th.classList.remove('hidden-cell'); else th.classList.add('hidden-cell');
-  });
-
   curMonth().alquiler.forEach((r,i)=>{
-    const hideStyle = r.compartido ? 'hidden-cell' : '';
-    tb.innerHTML+=`<tr>
-      <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"></td>
-      <td class="${hideStyle}"><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
-      <td class="${hideStyle}"><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
-      <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
-    </tr>`;
+    if(r.compartido){
+      tb.innerHTML+=`<tr>
+        <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
+        <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+        <td style="text-align:center"><input type="checkbox" checked onchange="curMonth().alquiler[${i}].compartido=false;debouncedSave();renderAlquiler();recalcAll()"></td>
+        <td></td><td></td>
+        <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
+        <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
+      </tr>`;
+    } else {
+      tb.innerHTML+=`<tr>
+        <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
+        <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
+        <td style="text-align:center"><input type="checkbox" onchange="curMonth().alquiler[${i}].compartido=true;debouncedSave();renderAlquiler();recalcAll()"></td>
+        <td><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
+        <td><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
+        <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
+        <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
+      </tr>`;
+    }
   });
 }
 
@@ -704,7 +707,6 @@ function renderAhorro(){
       <td><button class="btn-danger" onclick="delRow('ahorro',${i})">✕</button></td>
     </tr>`;
   });
-  updateSavingsBar();
 }
 
 function addRow(cat){
@@ -791,7 +793,6 @@ function recalcAll(){
   if(!m) return;
   const totC=m.aportaCuentaA+m.aportaCuentaB;
   
-  // Gastos comunes incluyen alquileres + suscripciones comunes + fijos comunes + variables comunes
   const gastAlq = m.alquiler.reduce((s,r)=>s+r.importe,0);
   const gastSubComun = m.suscripciones.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
   const gastFijComun = m.fijos.filter(r=>r.tipo==='comun'||!r.tipo).reduce((s,r)=>s+r.importe,0);
@@ -806,8 +807,8 @@ function recalcAll(){
   
   const restanteComun = totC - gastC;
   document.getElementById('restanteAhorro').textContent=restanteComun.toFixed(0)+' €';
+  document.getElementById('ahorroSobranteBox').textContent=restanteComun.toFixed(0)+' €';
 
-  // Gastos Personales (los marcados como 'personal')
   const gR = m.suscripciones.filter(r=>r.titular==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
           m.fijos.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
           m.alimentacion.filter(r=>r.persona==='A'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
@@ -820,24 +821,12 @@ function recalcAll(){
           m.ocio.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0)+
           m.delivery.filter(r=>r.persona==='B'&&r.tipo==='personal').reduce((s,r)=>s+r.importe,0);
 
-  // El cuadro "Ahorro del mes" refleja el restante común y va actualizándose al instante
   document.getElementById('ahorroMes').textContent=restanteComun.toFixed(0)+' €';
-  document.getElementById('pctAhorro').textContent='Restante común neto';
-
   document.getElementById('gastoPersonalRaul').textContent=gR.toFixed(0)+' €';
   document.getElementById('gastoPersonalMarta').textContent=gM.toFixed(0)+' €';
 
   updateDebtDisplay();
   renderChart(gR,gM);
-}
-
-function updateSavingsBar(){
-  const m=curMonth();
-  const ah=m.ahorro.reduce((s,r)=>s+r.importe,0);
-  const pct=m.metaAhorro?Math.min(100, ah/m.metaAhorro*100):0;
-  const f=document.getElementById('progressFill');
-  f.style.width=pct+'%';
-  f.textContent=pct.toFixed(0)+'% ('+ah+'/'+m.metaAhorro+'€)';
 }
 
 let chartInstance=null;
