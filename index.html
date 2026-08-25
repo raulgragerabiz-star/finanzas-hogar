@@ -53,13 +53,35 @@
   .stat-value{font-size:1.7rem;font-weight:800;color:#fff}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-  .table-wrap{overflow-x:auto;margin:0 -20px;padding:0 20px}
-  table{width:100%;border-collapse:collapse;min-width:580px}
-  th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
-  th{font-size:.7rem;text-transform:uppercase;color:var(--muted);font-weight:700}
-  td input, td select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#121212;color:#fff;font-size:.85rem}
-  td input:focus, td select:focus{outline:none;border-color:var(--primary)}
-  td input[type="number"]{text-align:right}
+  /* Estilo Tarjetas Tricount Móvil */
+  .item-card {
+    background: #121212;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .item-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .item-card input, .item-card select {
+    background: #1e1e1e;
+    border: 1px solid var(--border);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: .85rem;
+  }
+  .item-card input[type="number"] { text-align: right; }
+
+  input, select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#121212;color:#fff;font-size:.85rem}
+  input:focus, select:focus{outline:none;border-color:var(--primary)}
 
   .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0}
   
@@ -176,34 +198,19 @@
   <div id="fijos" class="tab-content">
     <div class="section-title">🏡 Alquiler y Facturas</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Concepto</th><th>Importe</th><th>Comp.</th><th>Aporta R</th><th>Aporta M</th><th>Est.</th><th></th></tr></thead>
-          <tbody id="tbodyAlquiler"></tbody>
-        </table>
-      </div>
+      <div id="listAlquiler"></div>
       <button class="add-row" onclick="addRow('alquiler')">➕ Añadir alquiler/factura</button>
     </div>
 
     <div class="section-title">📺 Suscripciones</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Servicio</th><th>Importe</th><th>Titular</th><th>Tipo</th><th>Est.</th><th></th></tr></thead>
-          <tbody id="tbodySuscripciones"></tbody>
-        </table>
-      </div>
+      <div id="listSuscripciones"></div>
       <button class="add-row" onclick="addRow('suscripciones')">➕ Añadir suscripción</button>
     </div>
 
     <div class="section-title">💪 Fijos Personales</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Concepto</th><th>Importe</th><th>Persona</th><th>Tipo</th><th>Est.</th><th></th></tr></thead>
-          <tbody id="tbodyFijos"></tbody>
-        </table>
-      </div>
+      <div id="listFijos"></div>
       <button class="add-row" onclick="addRow('fijos')">➕ Añadir gasto fijo</button>
     </div>
   </div>
@@ -212,34 +219,19 @@
   <div id="variables" class="tab-content">
     <div class="section-title">🛒 Alimentación</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Establecimiento</th><th>Importe</th><th>Pagado</th><th>Tipo</th><th></th></tr></thead>
-          <tbody id="tbodyAlimentacion"></tbody>
-        </table>
-      </div>
+      <div id="listAlimentacion"></div>
       <button class="add-row" onclick="addRow('alimentacion')">➕ Añadir compra</button>
     </div>
 
     <div class="section-title">🎬 Ocio y Cenas</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Pagado</th><th>Tipo Gasto</th><th></th></tr></thead>
-          <tbody id="tbodyOcio"></tbody>
-        </table>
-      </div>
+      <div id="listOcio"></div>
       <button class="add-row" onclick="addRow('ocio')">➕ Añadir ocio/cena</button>
     </div>
 
     <div class="section-title">🛵 Delivery</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Restaurante</th><th>Importe</th><th>Pagado</th><th>Tipo</th><th></th></tr></thead>
-          <tbody id="tbodyDelivery"></tbody>
-        </table>
-      </div>
+      <div id="listDelivery"></div>
       <button class="add-row" onclick="addRow('delivery')">➕ Añadir delivery</button>
     </div>
   </div>
@@ -254,29 +246,14 @@
 
     <div class="section-title">📊 Desglose de Alquiler</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Mes</th><th>Concepto</th><th>Total</th><th>Corr. R</th><th>Corr. M</th><th>Dif.</th></tr></thead>
-          <tbody id="tbodyDeudaAuto"></tbody>
-        </table>
-      </div>
+      <div id="listDeudaAuto"></div>
     </div>
 
     <div class="section-title">💸 Préstamos / Pagos</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Deudor</th><th>Acreedor</th><th>Importe</th><th>Desc.</th><th></th></tr></thead>
-          <tbody id="tbodyDeudas"></tbody>
-        </table>
-      </div>
+      <div id="listDeudas"></div>
       <button class="add-row" onclick="addRow('deudas')">➕ Registrar préstamo</button>
-      <div class="table-wrap" style="margin-top:16px">
-        <table>
-          <thead><tr><th>Fecha</th><th>Concepto</th><th>Paga</th><th>Recibe</th><th>Importe</th><th></th></tr></thead>
-          <tbody id="tbodyPagos"></tbody>
-        </table>
-      </div>
+      <div style="margin-top:16px" id="listPagos"></div>
       <button class="add-row" onclick="addRow('pagos')">➕ Registrar abono/pago</button>
     </div>
   </div>
@@ -291,12 +268,7 @@
 
     <div class="section-title">💎 Ahorros Puntuales / Hucha</div>
     <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Fecha</th><th>Concepto</th><th>Importe</th><th>Persona</th><th></th></tr></thead>
-          <tbody id="tbodyAhorro"></tbody>
-        </table>
-      </div>
+      <div id="listAhorro"></div>
       <button class="add-row" onclick="addRow('ahorro')">➕ Añadir ahorro puntual</button>
     </div>
   </div>
@@ -491,7 +463,6 @@ function createNewMonth(){
   
   if(data.meses[key]){data.mesActivo=key;save();saveToFirebase();renderAll();return;}
   
-  // Calcular el sobrante del mes anterior para pasarlo como "Ahorro mes anterior"
   const prevM = data.meses[last];
   let totCPrev = prevM.aportaCuentaA + prevM.aportaCuentaB;
   let gastCPrev = prevM.alquiler.reduce((s,r)=>s+r.importe,0) +
@@ -572,140 +543,170 @@ function renderAll(){
 }
 
 function renderAlquiler(){
-  const tb=document.getElementById('tbodyAlquiler'); tb.innerHTML='';
+  const box=document.getElementById('listAlquiler'); box.innerHTML='';
   curMonth().alquiler.forEach((r,i)=>{
-    if(r.compartido){
-      tb.innerHTML+=`<tr>
-        <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
-        <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-        <td style="text-align:center"><input type="checkbox" checked onchange="curMonth().alquiler[${i}].compartido=false;debouncedSave();renderAlquiler();recalcAll()"></td>
-        <td></td><td></td>
-        <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
-        <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
-      </tr>`;
-    } else {
-      tb.innerHTML+=`<tr>
-        <td><input value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()"></td>
-        <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-        <td style="text-align:center"><input type="checkbox" onchange="curMonth().alquiler[${i}].compartido=true;debouncedSave();renderAlquiler();recalcAll()"></td>
-        <td><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()"></td>
-        <td><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()"></td>
-        <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"></td>
-        <td><button class="btn-danger" onclick="delRow('alquiler',${i})">✕</button></td>
-      </tr>`;
-    }
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:2" value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('alquiler',${i})">✕</button>
+      </div>
+      <div class="item-card-row" style="font-size:.8rem;color:var(--muted);gap:8px">
+        <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" style="width:auto" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> Común</label>
+        <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" style="width:auto" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> Fijo mes</label>
+      </div>
+      ${!r.compartido ? `
+      <div class="item-card-row" style="gap:6px;margin-top:4px">
+        <span style="font-size:.75rem;color:var(--muted)">Aporta R:</span><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
+        <span style="font-size:.75rem;color:var(--muted)">Aporta M:</span><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
+      </div>`:''}
+    </div>`;
   });
 }
 
 function renderSuscripciones(){
-  const tb=document.getElementById('tbodySuscripciones'); tb.innerHTML='';
+  const box=document.getElementById('listSuscripciones'); box.innerHTML='';
   curMonth().suscripciones.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"></td>
-      <td><button class="btn-danger" onclick="delRow('suscripciones',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:2" value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('suscripciones',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
+        <label style="display:flex;align-items:center;gap:4px;font-size:.8rem;color:var(--muted)"><input type="checkbox" style="width:auto" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
+      </div>
+    </div>`;
   });
 }
 
 function renderFijos(){
-  const tb=document.getElementById('tbodyFijos'); tb.innerHTML='';
+  const box=document.getElementById('listFijos'); box.innerHTML='';
   curMonth().fijos.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input value="${r.nombre}" oninput="curMonth().fijos[${i}].nombre=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="curMonth().fijos[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
-      <td style="text-align:center"><input type="checkbox" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()"></td>
-      <td><button class="btn-danger" onclick="delRow('fijos',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:2" value="${r.nombre}" oninput="curMonth().fijos[${i}].nombre=this.value;debouncedSave()">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().fijos[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('fijos',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <select style="flex:1" onchange="curMonth().fijos[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().fijos[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
+        <label style="display:flex;align-items:center;gap:4px;font-size:.8rem;color:var(--muted)"><input type="checkbox" style="width:auto" ${r.estable?'checked':''} onchange="curMonth().fijos[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
+      </div>
+    </div>`;
   });
 }
 
 function renderAlimentacion(){
-  const tb=document.getElementById('tbodyAlimentacion'); tb.innerHTML='';
+  const box=document.getElementById('listAlimentacion'); box.innerHTML='';
   curMonth().alimentacion.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="curMonth().alimentacion[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><input value="${r.establecimiento}" oninput="curMonth().alimentacion[${i}].establecimiento=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="curMonth().alimentacion[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
-      <td><button class="btn-danger" onclick="delRow('alimentacion',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().alimentacion[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.establecimiento}" oninput="curMonth().alimentacion[${i}].establecimiento=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('alimentacion',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().alimentacion[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <select style="flex:1" onchange="curMonth().alimentacion[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().alimentacion[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
+      </div>
+    </div>`;
   });
 }
 
 function renderOcio(){
-  const tb=document.getElementById('tbodyOcio'); tb.innerHTML='';
+  const box=document.getElementById('listOcio'); box.innerHTML='';
   curMonth().ocio.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="curMonth().ocio[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><input value="${r.concepto}" oninput="curMonth().ocio[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><select onchange="curMonth().ocio[${i}].tipoOcio=this.value;debouncedSave()"><option value="ocio" ${r.tipoOcio==='ocio'?'selected':''}>Ocio</option><option value="cenas" ${r.tipoOcio==='cenas'?'selected':''}>Cena</option></select></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
-      <td><button class="btn-danger" onclick="delRow('ocio',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().ocio[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.concepto}" oninput="curMonth().ocio[${i}].concepto=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('ocio',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <select style="flex:1" onchange="curMonth().ocio[${i}].tipoOcio=this.value;debouncedSave()"><option value="ocio" ${r.tipoOcio==='ocio'?'selected':''}>Ocio</option><option value="cenas" ${r.tipoOcio==='cenas'?'selected':''}>Cena</option></select>
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().ocio[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <select style="flex:1" onchange="curMonth().ocio[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().ocio[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
+      </div>
+    </div>`;
   });
 }
 
 function renderDelivery(){
-  const tb=document.getElementById('tbodyDelivery'); tb.innerHTML='';
+  const box=document.getElementById('listDelivery'); box.innerHTML='';
   curMonth().delivery.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="curMonth().delivery[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><input value="${r.restaurante}" oninput="curMonth().delivery[${i}].restaurante=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="curMonth().delivery[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select></td>
-      <td><button class="btn-danger" onclick="delRow('delivery',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().delivery[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.restaurante}" oninput="curMonth().delivery[${i}].restaurante=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('delivery',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().delivery[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <select style="flex:1" onchange="curMonth().delivery[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().delivery[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
+      </div>
+    </div>`;
   });
 }
 
 function renderDeudas(){
-  const tb=document.getElementById('tbodyDeudas'); tb.innerHTML='';
+  const box=document.getElementById('listDeudas'); box.innerHTML='';
   data.deudas.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><select onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
-      <td><input type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()"></td>
-      <td><input value="${r.descripcion||''}" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()"></td>
-      <td><button class="btn-danger" onclick="delRow('deudas',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.descripcion||''}" placeholder="Descripción" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('deudas',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <select style="flex:1" onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
+        <span style="font-size:.8rem;color:var(--muted)">→</span>
+        <select style="flex:1" onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
+        <input style="flex:1" type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()">
+      </div>
+    </div>`;
   });
 }
 
 function renderPagos(){
-  const tb=document.getElementById('tbodyPagos'); tb.innerHTML='';
+  const box=document.getElementById('listPagos'); box.innerHTML='';
   data.pagos.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><input value="${r.concepto||''}" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><select onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select></td>
-      <td><select onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()"></td>
-      <td><button class="btn-danger" onclick="delRow('pagos',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.concepto||''}" placeholder="Concepto" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('pagos',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <select style="flex:1" onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
+        <span style="font-size:.8rem;color:var(--muted)">paga a</span>
+        <select style="flex:1" onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()">
+      </div>
+    </div>`;
   });
 }
 
 function renderAhorro(){
-  const tb=document.getElementById('tbodyAhorro'); tb.innerHTML='';
+  const box=document.getElementById('listAhorro'); box.innerHTML='';
   curMonth().ahorro.forEach((r,i)=>{
-    tb.innerHTML+=`<tr>
-      <td><input type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()"></td>
-      <td><input value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()"></td>
-      <td><input type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()"></td>
-      <td><select onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select></td>
-      <td><button class="btn-danger" onclick="delRow('ahorro',${i})">✕</button></td>
-    </tr>`;
+    box.innerHTML+=`<div class="item-card">
+      <div class="item-card-row">
+        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()">
+        <input style="flex:1.5" value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()">
+        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('ahorro',${i})">✕</button>
+      </div>
+      <div class="item-card-row">
+        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <select style="flex:1" onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+      </div>
+    </div>`;
   });
 }
 
@@ -780,10 +781,14 @@ function updateDebtDisplay(){
 }
 
 function renderDeudaAuto(){
-  const tb=document.getElementById('tbodyDeudaAuto'); tb.innerHTML='';
+  const box=document.getElementById('listDeudaAuto'); box.innerHTML='';
   Object.keys(data.meses).sort().forEach(k=>{
     calcAlquilerDebt(k).forEach(d=>{
-      tb.innerHTML+=`<tr><td>${getMonthLabel(k)}</td><td>${d.concepto}</td><td>${d.total.toFixed(0)}€</td><td>${d.corrA.toFixed(0)}€</td><td>${d.corrB.toFixed(0)}€</td><td>${d.diff.toFixed(2)}€</td></tr>`;
+      box.innerHTML+=`<div class="item-card" style="font-size:.85rem">
+        <div class="item-card-row"><b>${getMonthLabel(k)}</b> - ${d.concepto}</div>
+        <div class="item-card-row" style="color:var(--muted)">Total: ${d.total.toFixed(0)}€ | R: ${d.corrA.toFixed(0)}€ | M: ${d.corrB.toFixed(0)}€</div>
+        <div class="item-card-row">Dif: <b>${d.diff.toFixed(2)} €</b></div>
+      </div>`;
     });
   });
 }
