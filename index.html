@@ -14,14 +14,25 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#121212; --card:#1e1e1e; --card-hover:#2a2a2a; --text:#ffffff; --muted:#9ca3af;
+    --bg:#0c0c0e; --card:#161619; --card-hover:#222226; --text:#ffffff; --muted:#9ca3af;
     --primary:#3b82f6; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
-    --border:#2d2d2d; --raul:#3b82f6; --marta:#ec4899;
+    --border:#26262b; --raul:#3b82f6; --marta:#ec4899;
     --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:var(--bg);color:var(--text);line-height:1.5;padding:16px;padding-bottom:110px}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    /* Fondo con toques de luz difuminada modernos estilo Fintech */
+    background-color: var(--bg);
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+    color:var(--text);
+    line-height:1.5;
+    padding:16px;
+    padding-bottom:110px;
+  }
   .container{max-width:768px;margin:0 auto}
 
   .tricount-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0}
@@ -34,8 +45,8 @@
   .active-month-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   .active-month-title{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
-  button{padding:8px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.85rem;background:#2d2d2d;color:#fff;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-  button:hover{background:#3d3d3d}
+  button{padding:8px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.85rem;background:#242429;color:#fff;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+  button:hover{background:#323239}
   .btn-primary{background:var(--primary);color:#fff}
   .btn-primary:hover{background:#2563eb}
   .btn-danger{background:rgba(239,68,68,0.2);color:#f87171}
@@ -53,9 +64,9 @@
   .stat-value{font-size:1.7rem;font-weight:800;color:#fff}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-  /* Estilo Tarjetas Tricount Móvil */
+  /* Tarjetas Tricount Móvil Adaptadas */
   .item-card {
-    background: #121212;
+    background: #121215;
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 12px 16px;
@@ -71,7 +82,7 @@
     gap: 10px;
   }
   .item-card input, .item-card select {
-    background: #1e1e1e;
+    background: #1a1a1e;
     border: 1px solid var(--border);
     color: #fff;
     padding: 6px 10px;
@@ -80,12 +91,12 @@
   }
   .item-card input[type="number"] { text-align: right; }
 
-  input, select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#121212;color:#fff;font-size:.85rem}
+  input, select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#121215;color:#fff;font-size:.85rem}
   input:focus, select:focus{outline:none;border-color:var(--primary)}
 
   .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0}
   
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#181818;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;z-index:999;backdrop-filter:blur(10px)}
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(18, 18, 21, 0.9);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0;z-index:999;backdrop-filter:blur(12px)}
   .nav-item{background:none;border:none;color:var(--muted);font-size:.75rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:4px 0}
   .nav-item span.icon{font-size:1.3rem}
   .nav-item.active{color:var(--primary)}
@@ -99,7 +110,7 @@
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px}
   .modal-overlay.active{display:flex}
   .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:500px;width:100%}
-  .modal textarea{width:100%;height:140px;background:#121212;border:1px solid var(--border);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
+  .modal textarea{width:100%;height:140px;background:#121215;border:1px solid var(--border);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
 
   .chart-container{position:relative;height:240px;margin-top:10px}
 </style>
@@ -148,7 +159,7 @@
         <label>Raul: <input type="number" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
         <label>Marta: <input type="number" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
         <label style="margin-left:auto">Modo: 
-          <select id="splitMode" onchange="updateMonthSplit()" style="background:#121212;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:6px;border-radius:8px">
+          <select id="splitMode" onchange="updateMonthSplit()" style="background:#121215;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:6px;border-radius:8px">
             <option value="5050">50 / 50</option>
             <option value="proporcional">Proporcional</option>
           </select>
@@ -161,8 +172,8 @@
     </div>
 
     <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-      <label style="font-size:.85rem">💼 Ingresos Raul: <input type="number" id="incomeA" value="1500" style="width:90px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
-      <label style="font-size:.85rem">💼 Ingresos Marta: <input type="number" id="incomeB" value="1500" style="width:90px;background:#121212;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
+      <label style="font-size:.85rem">💼 Ingresos Raul: <input type="number" id="incomeA" value="1500" style="width:90px;background:#121215;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
+      <label style="font-size:.85rem">💼 Ingresos Marta: <input type="number" id="incomeB" value="1500" style="width:90px;background:#121215;color:#fff;border:1px solid var(--border);padding:6px;border-radius:8px" oninput="updateMonthIncome()"></label>
     </div>
 
     <div class="grid">
