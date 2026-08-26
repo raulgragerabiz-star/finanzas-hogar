@@ -4,11 +4,11 @@
 <meta name="theme-color" content="#4a7c59">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MTM Home">
+<meta name="apple-mobile-web-app-title" content="MTM Home🐨🌱">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>MTM Home · Finanzas Comunes</title>
+<title>MTM Home🐨🌱 · Finanzas Comunes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -39,9 +39,9 @@
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     z-index: -10 !important;
     background: 
-      radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.55) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%),
-      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.55) 0%, transparent 55%) !important,
+      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%) !important,
       linear-gradient(160deg, #4a7c59 0%, #3d5a47 40%, #2d1f14 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShift 18s ease-in-out infinite !important;
@@ -50,9 +50,9 @@
   /* FONDO RAUL - PLANTA/NATURALEZA (Verde intenso) */
   .bg-layer.raul{
     background: 
-      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.7) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 80%, rgba(52, 211, 153, 0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(110, 231, 183, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.7) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 90% 80%, rgba(52, 211, 153, 0.6) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(110, 231, 183, 0.4) 0%, transparent 60%) !important,
       linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftRaul 20s ease-in-out infinite !important;
@@ -61,9 +61,9 @@
   /* FONDO MARTA - KOALA/EUCALIPTO (Rosa/Morado cálido) */
   .bg-layer.marta{
     background: 
-      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.6) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.5) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.4) 0%, transparent 60%) !important,
       linear-gradient(135deg, #831843 0%, #9d174d 40%, #a21caf 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftMarta 22s ease-in-out infinite !important;
@@ -402,7 +402,6 @@
     font-size: 1.1rem;
   }
 
-  /* Indicador visual de fondo activo */
   .bg-indicator{
     position: fixed;
     top: 10px;
@@ -445,7 +444,7 @@
 <!-- MODAL CONFIG FIREBASE -->
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h3>️ Configuración Firebase</h3>
+    <h3>⚙️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:10px">
       <button onclick="closeConfigModal()">Cancelar</button>
@@ -457,7 +456,7 @@
 <!-- MODAL SELECCIONAR USUARIO -->
 <div class="modal-overlay" id="userSelectModal">
   <div class="modal">
-    <h3>🔒 Mi Espacio Privado</h3>
+    <h3> Mi Espacio Privado</h3>
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Selecciona tu perfil para acceder a tus gastos personales privados.</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
@@ -465,7 +464,7 @@
         <div class="name">Raul</div>
       </div>
       <div class="person-card marta" onclick="selectUser('B')">
-        <div class="emoji"></div>
+        <div class="emoji">🐨</div>
         <div class="name">Marta</div>
       </div>
     </div>
@@ -496,7 +495,7 @@
       <button class="pin-key" onclick="pinInput('9')">9</button>
       <button class="pin-key action" onclick="closeModal('pinModal')">✕</button>
       <button class="pin-key" onclick="pinInput('0')">0</button>
-      <button class="pin-key action" onclick="pinBackspace()"></button>
+      <button class="pin-key action" onclick="pinBackspace()">⌫</button>
     </div>
   </div>
 </div>
@@ -504,10 +503,10 @@
 <div class="container">
   <!-- HEADER -->
   <div class="app-header">
-    <div class="app-logo">MTM Home 🐨🌱</div>
+    <div class="app-logo">MTM Home🐨🌱</div>
     <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
-      <button class="icon-btn" onclick="openUserSelect()"></button>
+      <button class="icon-btn" onclick="openUserSelect()">🔒</button>
       <button class="icon-btn" onclick="openConfigModal()">⚙️</button>
     </div>
   </div>
@@ -531,7 +530,7 @@
     <div class="cuenta-comun-box">
       <div style="font-weight:700;font-size:1.05rem">💼 Aportaciones a la Cuenta Común</div>
       <div class="cuenta-inputs">
-        <label style="font-size:0.9rem">🌱 Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
+        <label style="font-size:0.9rem">🌱Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
         <label style="font-size:0.9rem">🐨 Marta: <input type="number" inputmode="decimal" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
       </div>
       <div style="margin-top:14px;font-size:.9rem;opacity:.95;line-height:1.6">
@@ -542,7 +541,7 @@
 
     <div class="grid">
       <div class="card">
-        <h3>👤 Gastos Personales</h3>
+        <h3> Gastos Personales</h3>
         <div class="stat-value" id="gastoPersonalTotal" style="color:var(--primary);font-size:1.4rem">0 €</div>
         <div class="stat-sub">🌱: <span id="gastoPersonalRaul">0 €</span> | 🐨: <span id="gastoPersonalMarta">0 €</span></div>
       </div>
@@ -559,7 +558,7 @@
     </div>
 
     <div class="card">
-      <h3> Distribución Gastos Personales</h3>
+      <h3>📊 Distribución Gastos Personales</h3>
       <div class="chart-container"><canvas id="chartPersonales"></canvas></div>
     </div>
   </div>
@@ -578,10 +577,10 @@
       <button class="add-row" onclick="addRow('suscripciones')">➕ Añadir suscripción</button>
     </div>
 
-    <div class="section-title">🔄 Gastos Variables Asociados</div>
+    <div class="section-title">🛒 Gastos Variables Asociados</div>
     <div class="card">
       <div id="listVariablesAsociadas"></div>
-      <button class="add-row" onclick="addRow('variablesAsociadas')"> Añadir gasto variable</button>
+      <button class="add-row" onclick="addRow('variablesAsociadas')">➕ Añadir gasto variable</button>
     </div>
   </div>
 
@@ -610,7 +609,7 @@
       <div class="stat-value" id="ahorroSobranteBox" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#a7f3d0">Restante común actual que pasa a ahorro</div>
     </div>
-    <div class="section-title">💎 Ahorros Puntuales / Hucha</div>
+    <div class="section-title">💵 Ahorros Puntuales / Hucha</div>
     <div class="card">
       <div id="listAhorro"></div>
       <button class="add-row" onclick="addRow('ahorro')">➕ Añadir ahorro puntual</button>
@@ -639,20 +638,20 @@
         <div class="stat-value" id="anualSuscripciones" style="color:#3b82f6;font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
-        <h3> Personales</h3>
+        <h3>👤 Personales</h3>
         <div class="stat-value" id="anualPersonales" style="color:#ec4899;font-size:1.3rem">0 €</div>
       </div>
     </div>
 
     <div class="card">
-      <h3> Distribución Anual por Concepto</h3>
+      <h3>📊 Distribución Anual por Concepto</h3>
       <div class="chart-container"><canvas id="chartAnual"></canvas></div>
     </div>
     
-    <div class="section-title"> Desglose Personal Anual</div>
+    <div class="section-title">👥 Desglose Personal Anual</div>
     <div class="grid">
       <div class="card" style="border-left: 4px solid var(--raul)">
-        <h3> Gastos Raul</h3>
+        <h3>🌱 Gastos Raul</h3>
         <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.3rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
@@ -665,7 +664,7 @@
   <!-- ESPACIO PRIVADO -->
   <div id="privado" class="tab-content">
     <div class="private-banner">
-      <div class="user-tag" id="privateUserTag"> Espacio Privado</div>
+      <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
       <div class="private-actions">
         <button class="change-pin-btn" onclick="changePin()">🔑 Cambiar PIN</button>
         <button class="logout-btn" onclick="logoutPrivate()">🚪 Cerrar sesión</button>
@@ -711,7 +710,7 @@
   <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
-  <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon"></span><span>Anual</span></button>
+  <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
 </div>
 
 <script>
@@ -742,9 +741,6 @@ const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','A
 let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { authenticated: false, user: null };
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
-// ============================================
-// FONDO DINÁMICO: HOJAS Y PARTÍCULAS
-// ============================================
 function createLeaves() {
   const container = document.getElementById('leavesContainer');
   if (!container) return;
@@ -1020,19 +1016,14 @@ function changePin() {
   if (modal) modal.classList.add('active');
 }
 
-// ============================================
-// ENTRAR EN ESPACIO PRIVADO - CAMBIO DE FONDO
-// ============================================
 function enterPrivateSpace(user) {
   privateSession = { authenticated: true, user: user };
   sessionStorage.setItem('privateSession', JSON.stringify(privateSession));
   
-  // CAMBIAR FONDO SEGÚN USUARIO
   const bgLayer = document.getElementById('bgLayer');
   const indicator = document.getElementById('bgIndicator');
   
   if (bgLayer) {
-    // Forzar reflow para que el cambio de clase se aplique
     bgLayer.className = 'bg-layer';
     void bgLayer.offsetWidth;
     
@@ -1051,12 +1042,11 @@ function enterPrivateSpace(user) {
     }
   }
   
-  // Ocultar indicador después de 3 segundos
   setTimeout(() => {
     if (indicator) indicator.classList.remove('visible');
   }, 3000);
   
-  const name = user === 'A' ? ' Raul' : '🐨 Marta';
+  const name = user === 'A' ? '🌱 Raul' : '🐨 Marta';
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
@@ -1079,7 +1069,6 @@ function logoutPrivate() {
   privateSession = { authenticated: false, user: null };
   sessionStorage.removeItem('privateSession');
   
-  // RESTAURAR FONDO GENERAL
   const bgLayer = document.getElementById('bgLayer');
   const indicator = document.getElementById('bgIndicator');
   if (bgLayer) {
@@ -1187,7 +1176,7 @@ function initFirebase(){
           data = remote;
           ensureDataStructure();
           renderAll();
-          if (privateSession.authenticated) renderPrivateSpace();
+          if (privateSession.authenticated) renderPrivateSpace(true);
         }
         setSyncStatus('ok', 'Sincronizado');
       } else {
@@ -1274,7 +1263,7 @@ function createNewMonth(){
   
   data.mesActivo = key;
   save(); saveToFirebase(); renderAll();
-  if (privateSession.authenticated) renderPrivateSpace();
+  if (privateSession.authenticated) renderPrivateSpace(true);
 }
 
 function deleteCurrentMonth(){
@@ -1328,7 +1317,7 @@ function switchTab(e, id){
   if(id === 'resumen') recalcAll();
   if(id === 'deudas') updateDebtDisplay();
   if(id === 'anual') renderAcumuladoAnual();
-  if(id === 'privado') renderPrivateSpace();
+  if(id === 'privado') renderPrivateSpace(true);
 }
 
 function updateCuentaComun(){
@@ -1367,7 +1356,7 @@ function renderAlquiler(){
       '</div>' +
       '<div class="item-card-row" style="font-size:.85rem;color:var(--muted)">' +
         '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ' + (r.compartido?'checked':'') + ' onchange="curMonth().alquiler[' + i + '].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> 🏠 Común (50/50)</label>' +
-        '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().alquiler[' + i + '].estable=this.checked;debouncedSave()">  Fijo</label>' +
+        '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().alquiler[' + i + '].estable=this.checked;debouncedSave()"> 📌 Fijo</label>' +
       '</div>' +
       (!r.compartido ? 
         '<div class="item-card-row" style="gap:8px;margin-top:4px">' +
@@ -1390,9 +1379,9 @@ function renderSuscripciones(){
         '<button class="btn-danger" style="padding:8px" onclick="delRow(\'suscripciones\',' + i + ')">✕</button>' +
       '</div>' +
       '<div class="item-card-row">' +
-        '<select style="flex:1" onchange="curMonth().suscripciones[' + i + '].titular=this.value;debouncedSave();recalcAll()"><option value="A" ' + (r.titular==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.titular==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<select style="flex:1" onchange="curMonth().suscripciones[' + i + '].titular=this.value;debouncedSave();recalcAll()"><option value="A" ' + (r.titular==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.titular==='B'?'selected':'') + '>🐨 Marta</option></select>' +
         '<select style="flex:1" onchange="curMonth().suscripciones[' + i + '].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ' + (r.tipo==='comun'?'selected':'') + '>🔄 Común</option><option value="personal" ' + (r.tipo==='personal'?'selected':'') + '>👤 Personal</option></select>' +
-        '<label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().suscripciones[' + i + '].estable=this.checked;debouncedSave()">  Fijo</label>' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().suscripciones[' + i + '].estable=this.checked;debouncedSave()"> 📌 Fijo</label>' +
       '</div>' +
     '</div>';
   });
@@ -1412,7 +1401,7 @@ function renderVariablesAsociadas(){
       '<div class="item-card-row">' +
         '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().variablesAsociadas[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
         '<select style="flex:1" onchange="curMonth().variablesAsociadas[' + i + '].persona=this.value;debouncedSave();recalcAll()"><option value="A" ' + (r.persona==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.persona==='B'?'selected':'') + '>🐨 Marta</option></select>' +
-        '<select style="flex:1" onchange="curMonth().variablesAsociadas[' + i + '].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ' + (r.tipo==='comun'?'selected':'') + '>🔄 Común</option><option value="personal" ' + (r.tipo==='personal'?'selected':'') + '>👤 Personal</option></select>' +
+        '<select style="flex:1" onchange="curMonth().variablesAsociadas[' + i + '].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ' + (r.tipo==='comun'?'selected':'') + '>👥 Común</option><option value="personal" ' + (r.tipo==='personal'?'selected':'') + '>👤 Personal</option></select>' +
       '</div>' +
     '</div>';
   });
@@ -1430,9 +1419,9 @@ function renderDeudas(){
         '<button class="btn-danger" style="padding:8px" onclick="delRow(\'deudas\',' + i + ')">✕</button>' +
       '</div>' +
       '<div class="item-card-row">' +
-        '<select style="flex:1" onchange="data.deudas[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '> Marta</option></select>' +
+        '<select style="flex:1" onchange="data.deudas[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '> 🐨 Marta</option></select>' +
         '<span style="font-size:.8rem;color:var(--muted)">→</span>' +
-        '<select style="flex:1" onchange="data.deudas[' + i + '].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.acreedor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.acreedor==='B'?'selected':'') + '> Marta</option></select>' +
+        '<select style="flex:1" onchange="data.deudas[' + i + '].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.acreedor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.acreedor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
         '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.total + '" oninput="data.deudas[' + i + '].total=+this.value;debouncedSave();updateDebtDisplay()">' +
       '</div>' +
     '</div>';
@@ -1451,7 +1440,7 @@ function renderPagos(){
         '<button class="btn-danger" style="padding:8px" onclick="delRow(\'pagos\',' + i + ')">✕</button>' +
       '</div>' +
       '<div class="item-card-row">' +
-        '<select style="flex:1" onchange="data.pagos[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<select style="flex:1" onchange="data.pagos[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
         '<span style="font-size:.8rem;color:var(--muted)">paga a</span>' +
         '<select style="flex:1" onchange="data.pagos[' + i + '].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.acreedor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.acreedor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
         '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="data.pagos[' + i + '].importe=+this.value;debouncedSave();updateDebtDisplay()">' +
@@ -1473,7 +1462,7 @@ function renderAhorro(){
       '</div>' +
       '<div class="item-card-row">' +
         '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().ahorro[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
-        '<select style="flex:1" onchange="curMonth().ahorro[' + i + '].persona=this.value;debouncedSave()"><option value="A" ' + (r.persona==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.persona==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<select style="flex:1" onchange="curMonth().ahorro[' + i + '].persona=this.value;debouncedSave()"><option value="A" ' + (r.persona==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.persona==='B'?'selected':'') + '>🐨 Marta</option></select>' +
       '</div>' +
     '</div>';
   });
@@ -1654,7 +1643,7 @@ function renderAcumuladoAnual() {
   chartInstanceAnual = new Chart(canvas, {
     type: 'bar',
     data: {
-      labels: ['🏠 Vivienda', '🔄 Variables', '📺 Suscripciones', ' Personales'],
+      labels: ['🏠 Vivienda', '🔄 Variables', '📺 Suscripciones', '👤 Personales'],
       datasets: [{
         label: 'Acumulado Anual (€)',
         data: [acum.vivienda, acum.variablesComun, acum.suscripcionesComun, totalPersonal],
@@ -1674,7 +1663,7 @@ function renderAcumuladoAnual() {
   });
 }
 
-function renderPrivateSpace(forceRender = false) {
+function renderPrivateSpace(forceRender = true) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
   const gastos = data.espaciosPrivados[user].gastos;
@@ -1708,10 +1697,12 @@ function renderGastosPrivadosDetalle(gastosMes) {
   const categorias = {
     'ocio': '🎮 Ocio',
     'ropa': '👕 Ropa',
-    'comida': '🍽️ Comida',
+    'comida': '️🍽️ Comida',
     'salud': '💊 Salud',
     'transporte': '🚗 Transporte',
     'regalos': '🎁 Regalos',
+    'prestamo': '💰 prestamo',
+    'bancos': '🏦 bancos',
     'otros': '📦 Otros'
   };
   
@@ -1799,16 +1790,12 @@ function renderPrivateChart() {
   });
 }
 
-// ============================================
-// INICIALIZACIÓN CON RESTAURACIÓN DE SESIÓN
-// ============================================
 if (privateSession.authenticated) {
   const user = privateSession.user;
   const name = user === 'A' ? '🌱 Raul' : '🐨 Marta';
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
-  // Aplicar fondo personalizado al cargar
   const bgLayer = document.getElementById('bgLayer');
   const indicator = document.getElementById('bgIndicator');
   if (bgLayer) {
