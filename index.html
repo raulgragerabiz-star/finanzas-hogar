@@ -4,11 +4,11 @@
 <meta name="theme-color" content="#8b5a2b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MTM Home🐨">
+<meta name="apple-mobile-web-app-title" content="MTM Home🐨🌱">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>MTM Home🐨 · Finanzas Comunes</title>
+<title>MTM Home🐨🌱 · Finanzas Comunes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -33,7 +33,6 @@
     overflow-x: hidden;
   }
 
-  /* ===== FONDO DINÁMICO TEMÁTICO (EUCALIPTO + ORBES) ===== */
   .bg-layer{
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -51,7 +50,6 @@
     50% { background-position: 100% 100%, 0% 0%, 50% 50%, 100% 50%; }
   }
 
-  /* Orbes de luz difusa */
   .orb{
     position: fixed;
     border-radius: 50%;
@@ -93,7 +91,6 @@
     66% { transform: translate(60px, -60px) scale(0.9); }
   }
 
-  /* Hojas de eucalipto flotando */
   .leaves-container{
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -114,7 +111,6 @@
     100% { transform: translateY(110vh) rotate(360deg) translateX(80px); opacity: 0; }
   }
 
-  /* Partículas brillantes */
   .particles{
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -246,7 +242,6 @@
   .modal textarea{width:100%;height:140px;background:rgba(20,12,8,0.6);border:1px solid var(--border);color:#fff5eb;padding:12px;border-radius:10px;font-family:monospace;font-size:14px;margin-bottom:16px;resize:none}
   .chart-container{position:relative;height:260px;margin-top:10px}
 
-  /* PIN PAD */
   .pin-display{
     display:flex;justify-content:center;gap:12px;margin:20px 0;
   }
@@ -281,7 +276,6 @@
   }
   .pin-message.error{color:#fca5a5}
 
-  /* ESPACIO PRIVADO */
   .private-banner{
     background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(236,72,153,0.2));
     border:1px solid rgba(59,130,246,0.3);
@@ -292,8 +286,13 @@
   .private-banner .user-tag{
     font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px;
   }
+  .private-actions{display:flex;gap:8px;flex-wrap:wrap}
   .logout-btn{
     background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);
+    padding:8px 12px;font-size:.8rem;min-height:36px;
+  }
+  .change-pin-btn{
+    background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);
     padding:8px 12px;font-size:.8rem;min-height:36px;
   }
 
@@ -317,11 +316,17 @@
   .person-card.marta:active{background:rgba(236,72,153,0.2)}
   .person-card .emoji{font-size:2rem}
   .person-card .name{font-weight:700;font-size:1.1rem}
+
+  .estable-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    background:rgba(16,185,129,0.2);color:#6ee7b7;
+    padding:4px 8px;border-radius:8px;font-size:.75rem;font-weight:600;
+    border:1px solid rgba(16,185,129,0.3);
+  }
 </style>
 </head>
 <body>
 
-<!-- CAPAS DE FONDO DINÁMICO -->
 <div class="bg-layer"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -329,7 +334,6 @@
 <div class="leaves-container" id="leavesContainer"></div>
 <div class="particles" id="particles"></div>
 
-<!-- MODAL CONFIG FIREBASE -->
 <div class="modal-overlay" id="configModal">
   <div class="modal">
     <h3>⚙️ Configuración Firebase</h3>
@@ -341,18 +345,17 @@
   </div>
 </div>
 
-<!-- MODAL SELECCIONAR USUARIO -->
 <div class="modal-overlay" id="userSelectModal">
   <div class="modal">
     <h3>🔒 Mi Espacio Privado</h3>
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Selecciona tu perfil para acceder a tus gastos personales privados.</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
-        <div class="emoji">👨</div>
+        <div class="emoji">🌱​</div>
         <div class="name">Raul</div>
       </div>
       <div class="person-card marta" onclick="selectUser('B')">
-        <div class="emoji">👩</div>
+        <div class="emoji">🐨</div>
         <div class="name">Marta</div>
       </div>
     </div>
@@ -362,7 +365,6 @@
   </div>
 </div>
 
-<!-- MODAL PIN -->
 <div class="modal-overlay" id="pinModal">
   <div class="modal">
     <h3 id="pinTitle">🔐 Introduce tu PIN</h3>
@@ -390,7 +392,7 @@
 
 <div class="container">
   <div class="app-header">
-    <div class="app-logo">MTM Home🐨</div>
+    <div class="app-logo">MTM Home🐨🌱​</div>
     <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
       <button class="icon-btn" onclick="openUserSelect()">🔒</button>
@@ -411,7 +413,6 @@
     </div>
   </div>
 
-  <!-- RESUMEN -->
   <div id="resumen" class="tab-content active">
     <div class="cuenta-comun-box">
       <div style="font-weight:700;font-size:1.05rem">💼 Aportaciones a la Cuenta Común</div>
@@ -449,7 +450,6 @@
     </div>
   </div>
 
-  <!-- FIJOS Y VARIABLES -->
   <div id="fijos" class="tab-content">
     <div class="section-title">🏡 Alquiler y Suministros</div>
     <div class="card">
@@ -470,7 +470,6 @@
     </div>
   </div>
 
-  <!-- DEUDAS -->
   <div id="deudas" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(180,83,9,0.15));border:1px solid rgba(245,158,11,0.3)">
       <h3 style="color:#fbbf24">💳 Estado de Deudas</h3>
@@ -488,7 +487,6 @@
     </div>
   </div>
 
-  <!-- AHORRO -->
   <div id="ahorro" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(16,185,129,0.25),rgba(5,150,105,0.15));border:1px solid rgba(16,185,129,0.3)">
       <h3 style="color:#6ee7b7">💰 Ahorro del Sobrante (Común)</h3>
@@ -502,7 +500,6 @@
     </div>
   </div>
 
-  <!-- ACUMULADO ANUAL -->
   <div id="anual" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(76,29,149,0.2));border:1px solid rgba(124,58,237,0.3)">
       <h3 style="color:#c4b5fd">📅 Acumulado Anual Total</h3>
@@ -547,11 +544,13 @@
     </div>
   </div>
 
-  <!-- ESPACIO PRIVADO (SOLO VISIBLE TRAS AUTENTICACIÓN) -->
   <div id="privado" class="tab-content">
     <div class="private-banner">
       <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
-      <button class="logout-btn" onclick="logoutPrivate()">🚪 Cerrar sesión</button>
+      <div class="private-actions">
+        <button class="change-pin-btn" onclick="changePin()">🔑 Cambiar PIN</button>
+        <button class="logout-btn" onclick="logoutPrivate()">🚪 Cerrar sesión</button>
+      </div>
     </div>
 
     <div class="card" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(236,72,153,0.15));border:1px solid rgba(59,130,246,0.3)">
@@ -587,7 +586,6 @@
 
 </div>
 
-<!-- Navegación Inferior -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
   <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos</span></button>
@@ -597,9 +595,6 @@
 </div>
 
 <script>
-// ============================================
-// CONFIGURACIÓN Y DATOS
-// ============================================
 let firebaseConfig = {
   apiKey: "AIzaSyC0QOu3nCH_CrI95OFK9asm3Ow3X13nWHA",
   authDomain: "finanzas-hogar-edba8.firebaseapp.com",
@@ -624,13 +619,9 @@ let chartInstanceAnual = null;
 let chartInstancePrivado = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-// Estado de sesión privada
 let privateSession = { authenticated: false, user: null };
-let pinState = { mode: '', currentUser: '', buffer: '', confirmBuffer: '' };
+let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
-// ============================================
-// FONDO DINÁMICO: HOJAS Y PARTÍCULAS
-// ============================================
 function createLeaves() {
   const container = document.getElementById('leavesContainer');
   const leafSVGs = [
@@ -667,9 +658,6 @@ function createParticles() {
 createLeaves();
 createParticles();
 
-// ============================================
-// HASH SIMPLE PARA PIN (no seguridad bancaria)
-// ============================================
 function simpleHash(str) {
   let hash = 5381;
   for (let i = 0; i < str.length; i++) {
@@ -678,9 +666,6 @@ function simpleHash(str) {
   return (hash >>> 0).toString(36);
 }
 
-// ============================================
-// MODALES
-// ============================================
 function openConfigModal(){
   document.getElementById('configModal').classList.add('active');
   document.getElementById('firebaseConfigInput').value = JSON.stringify(firebaseConfig, null, 2);
@@ -699,9 +684,6 @@ function saveFirebaseConfig(){
   }catch(e){alert('Configuración inválida');}
 }
 
-// ============================================
-// FLUJO DE ESPACIO PRIVADO
-// ============================================
 function openUserSelect() {
   if (privateSession.authenticated) {
     switchTab(null, 'privado');
@@ -714,16 +696,16 @@ function selectUser(user) {
   closeModal('userSelectModal');
   pinState.currentUser = user;
   pinState.buffer = '';
-  pinState.confirmBuffer = '';
+  pinState.firstPin = null;
+  pinState.step = '';
   
   const userSpaces = data.espaciosPrivados[user];
   if (!userSpaces.pin) {
-    // Primer acceso: crear PIN
     pinState.mode = 'create';
+    pinState.step = 'first';
     document.getElementById('pinTitle').textContent = '🔐 Crea tu PIN (4 dígitos)';
     document.getElementById('pinSubtitle').textContent = 'Introduce un PIN que solo tú recordarás';
   } else {
-    // Acceso existente: verificar PIN
     pinState.mode = 'login';
     const name = user === 'A' ? 'Raul' : 'Marta';
     document.getElementById('pinTitle').textContent = `🔐 PIN de ${name}`;
@@ -738,15 +720,8 @@ function selectUser(user) {
 
 function updatePinDisplay() {
   const dots = document.querySelectorAll('#pinDisplay .pin-dot');
-  const len = pinState.mode === 'create' && pinState.buffer.length === 4 && !pinState.confirmBuffer ? 0 : pinState.buffer.length;
-  const displayLen = pinState.mode === 'create' && pinState.confirmBuffer ? pinState.confirmBuffer.length : pinState.buffer.length;
-  
   dots.forEach((dot, i) => {
-    if (pinState.mode === 'create' && pinState.buffer.length === 4 && pinState.confirmBuffer) {
-      dot.classList.toggle('filled', i < pinState.confirmBuffer.length);
-    } else {
-      dot.classList.toggle('filled', i < pinState.buffer.length);
-    }
+    dot.classList.toggle('filled', i < pinState.buffer.length);
   });
 }
 
@@ -756,76 +731,23 @@ function pinInput(num) {
   msg.className = 'pin-message';
   
   if (pinState.mode === 'create') {
-    if (pinState.buffer.length < 4) {
-      pinState.buffer += num;
-      updatePinDisplay();
-      if (pinState.buffer.length === 4 && !pinState.confirmBuffer) {
-        setTimeout(() => {
-          document.getElementById('pinSubtitle').textContent = 'Confirma tu PIN introduciéndolo de nuevo';
-          pinState.confirmBuffer = 'waiting';
-          pinState.buffer = '';
-          updatePinDisplay();
-        }, 300);
-      }
-    } else if (pinState.confirmBuffer === 'waiting') {
-      pinState.confirmBuffer = num;
-      updatePinDisplay();
-    } else if (pinState.confirmBuffer.length < 4) {
-      pinState.confirmBuffer += num;
-      updatePinDisplay();
-      if (pinState.confirmBuffer.length === 4) {
-        // Verificar coincidencia
-        if (pinState.buffer === pinState.confirmBuffer) {
-          // PIN creado con éxito (guardamos el buffer original)
-          // Espera: buffer fue reseteado. Necesitamos guardar el PIN antes
-          // Reestructuramos: guardamos en una variable temporal
-        }
-      }
-    }
-    
-    // Lógica simplificada para creación
-    if (pinState.confirmBuffer && pinState.confirmBuffer !== 'waiting' && pinState.confirmBuffer.length === 4) {
-      // buffer tiene el primer PIN, confirmBuffer el segundo
-      // pero buffer fue reseteado... necesitamos otra variable
-    }
-  } else {
-    // Modo login
-    if (pinState.buffer.length < 4) {
-      pinState.buffer += num;
-      updatePinDisplay();
-      if (pinState.buffer.length === 4) {
-        setTimeout(verifyPin, 200);
-      }
-    }
-  }
-}
-
-// Reescribo la lógica de PIN de forma más limpia
-function pinInput(num) {
-  const msg = document.getElementById('pinMessage');
-  msg.textContent = '';
-  msg.className = 'pin-message';
-  
-  if (pinState.mode === 'create') {
-    if (!pinState.firstPin) {
-      // Primera entrada
+    if (pinState.step === 'first') {
       pinState.buffer += num;
       updatePinDisplay();
       if (pinState.buffer.length === 4) {
         pinState.firstPin = pinState.buffer;
         setTimeout(() => {
           pinState.buffer = '';
+          pinState.step = 'confirm';
           document.getElementById('pinSubtitle').textContent = 'Confirma tu PIN introduciéndolo de nuevo';
           updatePinDisplay();
         }, 300);
       }
-    } else {
-      // Confirmación
+    } else if (pinState.step === 'confirm') {
       pinState.buffer += num;
       updatePinDisplay();
       if (pinState.buffer.length === 4) {
         if (pinState.buffer === pinState.firstPin) {
-          // Guardar PIN
           data.espaciosPrivados[pinState.currentUser].pin = simpleHash(pinState.buffer);
           debouncedSave();
           msg.textContent = '✓ PIN creado con éxito';
@@ -839,18 +761,60 @@ function pinInput(num) {
           msg.className = 'pin-message error';
           pinState.buffer = '';
           pinState.firstPin = null;
+          pinState.step = 'first';
           document.getElementById('pinSubtitle').textContent = 'Introduce un PIN de 4 dígitos';
           updatePinDisplay();
         }
       }
     }
-  } else {
-    // Login
+  } else if (pinState.mode === 'login') {
     if (pinState.buffer.length < 4) {
       pinState.buffer += num;
       updatePinDisplay();
       if (pinState.buffer.length === 4) {
         setTimeout(verifyPin, 200);
+      }
+    }
+  } else if (pinState.mode === 'change') {
+    if (pinState.step === 'verify') {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        setTimeout(verifyCurrentPin, 200);
+      }
+    } else if (pinState.step === 'new') {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        pinState.firstPin = pinState.buffer;
+        setTimeout(() => {
+          pinState.buffer = '';
+          pinState.step = 'confirm-new';
+          document.getElementById('pinSubtitle').textContent = 'Confirma tu nuevo PIN';
+          updatePinDisplay();
+        }, 300);
+      }
+    } else if (pinState.step === 'confirm-new') {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        if (pinState.buffer === pinState.firstPin) {
+          data.espaciosPrivados[pinState.currentUser].pin = simpleHash(pinState.buffer);
+          debouncedSave();
+          msg.textContent = '✓ PIN cambiado con éxito';
+          msg.style.color = '#6ee7b7';
+          setTimeout(() => {
+            closeModal('pinModal');
+          }, 600);
+        } else {
+          msg.textContent = 'Los PIN no coinciden. Intenta de nuevo.';
+          msg.className = 'pin-message error';
+          pinState.buffer = '';
+          pinState.firstPin = null;
+          pinState.step = 'new';
+          document.getElementById('pinSubtitle').textContent = 'Introduce tu nuevo PIN de 4 dígitos';
+          updatePinDisplay();
+        }
       }
     }
   }
@@ -876,6 +840,24 @@ function verifyPin() {
   }
 }
 
+function verifyCurrentPin() {
+  const inputHash = simpleHash(pinState.buffer);
+  const storedHash = data.espaciosPrivados[pinState.currentUser].pin;
+  const msg = document.getElementById('pinMessage');
+  
+  if (inputHash === storedHash) {
+    pinState.buffer = '';
+    pinState.step = 'new';
+    document.getElementById('pinSubtitle').textContent = 'Introduce tu nuevo PIN de 4 dígitos';
+    updatePinDisplay();
+  } else {
+    msg.textContent = 'PIN actual incorrecto';
+    msg.className = 'pin-message error';
+    pinState.buffer = '';
+    updatePinDisplay();
+  }
+}
+
 function pinBackspace() {
   if (pinState.buffer.length > 0) {
     pinState.buffer = pinState.buffer.slice(0, -1);
@@ -883,13 +865,26 @@ function pinBackspace() {
   }
 }
 
+function changePin() {
+  if (!privateSession.authenticated) return;
+  pinState.mode = 'change';
+  pinState.step = 'verify';
+  pinState.buffer = '';
+  pinState.firstPin = null;
+  document.getElementById('pinTitle').textContent = '🔑 Cambiar PIN';
+  document.getElementById('pinSubtitle').textContent = 'Introduce tu PIN actual';
+  document.getElementById('pinMessage').textContent = '';
+  document.getElementById('pinMessage').className = 'pin-message';
+  updatePinDisplay();
+  document.getElementById('pinModal').classList.add('active');
+}
+
 function enterPrivateSpace(user) {
   privateSession = { authenticated: true, user: user };
   const name = user === 'A' ? 'Raul' : 'Marta';
-  const emoji = user === 'A' ? '👨' : '👩';
+  const emoji = user === 'A' ? '🌱​' : '🐨​​';
   document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
   
-  // Añadir pestaña dinámicamente si no existe
   let navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (!navBtn) {
     const nav = document.querySelector('.bottom-nav');
@@ -905,15 +900,11 @@ function enterPrivateSpace(user) {
 
 function logoutPrivate() {
   privateSession = { authenticated: false, user: null };
-  // Quitar pestaña privada
   const navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (navBtn) navBtn.remove();
   switchTab(null, 'resumen');
 }
 
-// ============================================
-// GESTIÓN DE DATOS
-// ============================================
 function currentMonthKey(){
   const d = new Date();
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
@@ -1079,8 +1070,20 @@ function createNewMonth(){
     variablesAsociadas: [],
     ahorro: sobrantePrev > 0 ? [{fecha: key + '-01', concepto: 'Ahorro mes anterior', importe: sobrantePrev, persona: 'A'}] : []
   };
+  
+  // Copiar gastos privados estables
+  ['A', 'B'].forEach(user => {
+    const prevGastos = data.espaciosPrivados[user].gastos;
+    const gastosEstables = prevGastos.filter(g => g.estable && g.fecha && g.fecha.startsWith(last));
+    gastosEstables.forEach(g => {
+      const newGasto = {...g, fecha: key + g.fecha.slice(7)};
+      data.espaciosPrivados[user].gastos.push(newGasto);
+    });
+  });
+  
   data.mesActivo = key;
   save(); saveToFirebase(); renderAll();
+  if (privateSession.authenticated) renderPrivateSpace();
 }
 
 function deleteCurrentMonth(){
@@ -1449,23 +1452,17 @@ function renderAcumuladoAnual() {
   });
 }
 
-// ============================================
-// ESPACIO PRIVADO
-// ============================================
 function renderPrivateSpace() {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
   const gastos = data.espaciosPrivados[user].gastos;
   const currentMonth = data.mesActivo;
   
-  // Gastos del mes actual
   const gastosMes = gastos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
   const totalMes = gastosMes.reduce((s, g) => s + (+g.importe || 0), 0);
   
-  // Total anual
   const totalAnual = gastos.reduce((s, g) => s + (+g.importe || 0), 0);
   
-  // Meses con gastos
   const mesesConGastos = new Set(gastos.map(g => g.fecha ? g.fecha.slice(0, 7) : '').filter(Boolean));
   const mediaMes = mesesConGastos.size > 0 ? totalAnual / mesesConGastos.size : 0;
   
@@ -1473,13 +1470,12 @@ function renderPrivateSpace() {
   document.getElementById('privadoTotalAnual').textContent = totalAnual.toFixed(2) + ' €';
   document.getElementById('privadoMediaMes').textContent = mediaMes.toFixed(2) + ' €';
   
-  // Renderizar lista de gastos del mes
   const box = document.getElementById('listPrivado');
   box.innerHTML = '';
   if (gastosMes.length === 0) {
     box.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:.9rem">Sin gastos privados este mes</div>';
   } else {
-    gastosMes.forEach((g, i) => {
+    gastosMes.forEach((g) => {
       const realIdx = gastos.indexOf(g);
       box.innerHTML += `<div class="item-card">
         <div class="item-card-row">
@@ -1499,6 +1495,13 @@ function renderPrivateSpace() {
             <option value="otros" ${g.categoria==='otros'?'selected':''}>📦 Otros</option>
           </select>
         </div>
+        <div class="item-card-row" style="font-size:.85rem;color:var(--muted)">
+          <label style="display:flex;align-items:center;gap:6px">
+            <input type="checkbox" style="width:20px;height:20px" ${g.estable?'checked':''} onchange="data.espaciosPrivados['${user}'].gastos[${realIdx}].estable=this.checked;debouncedSave()">
+            <span>Gasto fijo mensual (se copia automáticamente)</span>
+          </label>
+          ${g.estable ? '<span class="estable-badge">✓ Fijo</span>' : ''}
+        </div>
       </div>`;
     });
   }
@@ -1514,7 +1517,8 @@ function addPrivateExpense() {
     fecha: today,
     concepto: 'Nuevo gasto',
     importe: 0,
-    categoria: 'otros'
+    categoria: 'otros',
+    estable: false
   });
   debouncedSave();
   renderPrivateSpace();
@@ -1533,7 +1537,6 @@ function renderPrivateChart() {
   const user = privateSession.user;
   const gastos = data.espaciosPrivados[user].gastos;
   
-  // Agrupar por categoría
   const categorias = {};
   gastos.forEach(g => {
     const cat = g.categoria || 'otros';
@@ -1570,9 +1573,6 @@ function renderPrivateChart() {
   });
 }
 
-// ============================================
-// INICIALIZACIÓN
-// ============================================
 loadLocal();
 initFirebase();
 renderAll();
