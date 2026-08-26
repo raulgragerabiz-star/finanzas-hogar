@@ -9,7 +9,7 @@ function deleteCurrentMonth(){
     // Eliminamos la clave del mes de la estructura local
     delete data.meses[mesBorrado];
     
-    // Seleccionamos el primer mes disponible como activo
+    // Seleccionamos el primer mes disponible como activo de forma segura
     data.mesActivo = Object.keys(data.meses).sort()[0];
     
     // Guardamos en local
