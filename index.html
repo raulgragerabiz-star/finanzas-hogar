@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="theme-color" content="#2b1810">
+<meta name="theme-color" content="#8b5a2b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MTM Home🐨">
@@ -14,17 +14,16 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#1a100b; --card:rgba(30, 20, 15, 0.9); --card-hover:#2a1b13; --text:#fff5eb; --muted:#d1b5a5;
+    --bg:#2d1f14; --card:rgba(58, 40, 28, 0.75); --card-hover:#4a3220; --text:#fff5eb; --muted:#e8d5c4;
     --primary:#f59e0b; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
-    --border:#4a2e1d; --raul:#3b82f6; --marta:#ec4899;
+    --border:rgba(255, 200, 150, 0.2); --raul:#3b82f6; --marta:#ec4899;
     --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   
-  /* FONDO DINÁMICO OPTIMIZADO PARA MÓVIL (GPU ACCELERATED) */
   body{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background-color: var(--bg);
+    background-color: #3d2817;
     color:var(--text);
     line-height:1.5;
     padding:16px;
@@ -34,50 +33,139 @@
     overflow-x: hidden;
   }
 
-  body::before {
-    content: "";
+  /* ===== FONDO DINÁMICO TEMÁTICO (EUCALIPTO + ORBES) ===== */
+  .bg-layer{
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1;
+    z-index: -10;
     background: 
-      radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.45) 0%, transparent 50%),
-      radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.35) 0%, transparent 50%),
-      linear-gradient(160deg, #3d2212 0%, #22130a 40%, #120a05 100%);
-    background-size: 300% 300%;
-    animation: gradientMove 12s ease-in-out infinite;
-    will-change: background-position;
+      radial-gradient(ellipse at 20% 10%, rgba(245, 158, 11, 0.55) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.25) 0%, transparent 60%),
+      linear-gradient(160deg, #5c3a20 0%, #3d2817 40%, #2a1a10 100%);
+    background-size: 200% 200%;
+    animation: bgShift 18s ease-in-out infinite;
+  }
+  @keyframes bgShift {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%, 100% 50%; }
   }
 
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  /* Orbes de luz difusa */
+  .orb{
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: -9;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .orb-1{
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.6), transparent 70%);
+    top: -50px; left: -50px;
+    animation: orbFloat1 22s ease-in-out infinite;
+  }
+  .orb-2{
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.5), transparent 70%);
+    bottom: -80px; right: -80px;
+    animation: orbFloat2 28s ease-in-out infinite;
+  }
+  .orb-3{
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.45), transparent 70%);
+    top: 40%; left: 60%;
+    animation: orbFloat3 25s ease-in-out infinite;
+  }
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, 120px) scale(1.2); }
+  }
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-100px, -80px) scale(1.15); }
+  }
+  @keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-60px, 80px) scale(1.1); }
+    66% { transform: translate(60px, -60px) scale(0.9); }
   }
 
-  .container{max-width:768px;margin:0 auto;width:100%}
+  /* Hojas de eucalipto flotando */
+  .leaves-container{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -8;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .leaf{
+    position: absolute;
+    opacity: 0.35;
+    animation: leafFall linear infinite;
+    will-change: transform;
+  }
+  @keyframes leafFall {
+    0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+    10% { opacity: 0.35; }
+    90% { opacity: 0.35; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(80px); opacity: 0; }
+  }
+
+  /* Partículas brillantes */
+  .particles{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -7;
+    pointer-events: none;
+  }
+  .particle{
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #fff5eb;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 245, 235, 0.8);
+    animation: particleTwinkle 4s ease-in-out infinite;
+  }
+  @keyframes particleTwinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1.2); }
+  }
+
+  .container{max-width:768px;margin:0 auto;width:100%;position:relative;z-index:1}
   
   .app-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:8px 0}
-  .app-logo{font-size:1.6rem;font-weight:900;letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;color:#fff5eb}
+  .app-logo{font-size:1.6rem;font-weight:900;letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;color:#fff5eb;text-shadow:0 2px 8px rgba(0,0,0,0.3)}
   .app-logo span{color:var(--primary)}
-  .sync-badge{font-size:.7rem;padding:5px 10px;border-radius:12px;font-weight:600;background:#2d1b11;color:#d1b5a5;display:flex;align-items:center;gap:5px;transition:all 0.3s ease}
-  .sync-badge.ok{background:rgba(16,185,129,0.2);color:#34d399}
-  .sync-badge.syncing{background:rgba(245,158,11,0.2);color:#fbbf24}
+  .header-actions{display:flex;gap:8px;align-items:center}
+  .sync-badge{font-size:.7rem;padding:5px 10px;border-radius:12px;font-weight:600;background:rgba(255,255,255,0.1);color:#fff5eb;display:flex;align-items:center;gap:5px;transition:all 0.3s ease;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)}
+  .sync-badge.ok{background:rgba(16,185,129,0.25);color:#6ee7b7}
+  .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24}
+  .icon-btn{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(8px);
+    padding:8px 12px;
+    min-height:36px;
+    border-radius:10px;
+    color:#fff5eb;
+    font-size:.85rem;
+    font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;
+  }
 
-  .active-month-bar{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .active-month-bar{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
   .active-month-title{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
-  /* BOTONES OPTIMIZADOS PARA TÁCTIL */
-  button{padding:10px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9rem;background:#382215;color:#fff5eb;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+  button{padding:10px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9rem;background:rgba(255,255,255,0.1);color:#fff5eb;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)}
   button:active{transform:scale(0.96);opacity:0.8}
-  .btn-primary{background:var(--primary);color:#1a100b}
-  .btn-danger{background:rgba(239,68,68,0.25);color:#fca5a5}
-  .btn-success{background:rgba(16,185,129,0.25);color:#6ee7b7}
+  .btn-primary{background:var(--primary);color:#1a100b;border-color:transparent;font-weight:700;box-shadow:0 2px 10px rgba(245,158,11,0.3)}
+  .btn-danger{background:rgba(239,68,68,0.3);color:#fca5a5;border-color:rgba(239,68,68,0.3)}
+  .btn-success{background:rgba(16,185,129,0.3);color:#6ee7b7;border-color:rgba(16,185,129,0.3)}
 
-  /* TRANSICIONES DE PESTAÑAS MUY NOTORIAS */
-  .tab-content {
-    display: none;
-    visibility: hidden;
-  }
+  .tab-content { display: none; visibility: hidden; }
   .tab-content.active {
     display: block;
     visibility: visible;
@@ -89,13 +177,14 @@
   }
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
-  .card{background:var(--card);backdrop-filter:blur(10px);border-radius:var(--radius);padding:18px;border:1px solid var(--border);margin-bottom:14px;transition:transform 0.2s ease}
+  .card{background:var(--card);backdrop-filter:blur(16px);border-radius:var(--radius);padding:18px;border:1px solid var(--border);margin-bottom:14px;transition:transform 0.2s ease;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
   .card h3{font-size:.7rem;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-  .stat-value{font-size:1.6rem;font-weight:800;color:#fff5eb}
+  .stat-value{font-size:1.6rem;font-weight:800;color:#fff5eb;text-shadow:0 1px 4px rgba(0,0,0,0.2)}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
   .item-card {
-    background: rgba(20, 12, 8, 0.95);
+    background: rgba(40, 25, 15, 0.7);
+    backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 14px;
@@ -106,15 +195,15 @@
   }
   .item-card-row {display: flex;justify-content: space-between;align-items: center;gap: 10px;flex-wrap: wrap;}
   
-  /* INPUTS OPTIMIZADOS PARA MÓVIL (Evita zoom en iOS, target táctil grande) */
   input, select {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid var(--border);
     border-radius: 10px;
-    background: #120a05;
+    background: rgba(20, 12, 8, 0.6);
+    backdrop-filter: blur(4px);
     color: #fff5eb;
-    font-size: 16px; /* CRUCIAL: Previene zoom automático en iOS Safari */
+    font-size: 16px;
     min-height: 44px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     -webkit-appearance: none;
@@ -123,44 +212,127 @@
   input:focus, select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
   }
+  input::placeholder { color: rgba(255, 245, 235, 0.4); }
 
   .add-row{margin-top:8px;color:var(--primary);cursor:pointer;font-size:.95rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:12px 0;width:100%;justify-content:center}
   .add-row:active{opacity:0.7}
   
   .bottom-nav{
     position:fixed;bottom:0;left:0;right:0;
-    background:rgba(26, 16, 11, 0.95);
+    background:rgba(45, 31, 20, 0.85);
     border-top:1px solid var(--border);
     display:flex;justify-content:space-around;
     padding:8px 0 calc(8px + env(safe-area-inset-bottom)) 0;
-    z-index:999;backdrop-filter:blur(16px);
+    z-index:999;backdrop-filter:blur(20px);
   }
   .nav-item{background:none;border:none;color:var(--muted);font-size:.65rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:6px 0;transition:all 0.2s ease}
   .nav-item span.icon{font-size:1.4rem;transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)}
   .nav-item.active{color:var(--primary)}
   .nav-item.active span.icon{transform:translateY(-4px) scale(1.15)}
 
-  .cuenta-comun-box{background:linear-gradient(135deg,#5c2c16,#35180c);border:1px solid #7c3a1e;color:#fff5eb;padding:18px;border-radius:var(--radius);margin-bottom:16px}
+  .cuenta-comun-box{background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(236,72,153,0.15));border:1px solid rgba(245,158,11,0.3);color:#fff5eb;padding:18px;border-radius:var(--radius);margin-bottom:16px;backdrop-filter:blur(12px)}
   .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;align-items:center}
-  .cuenta-inputs input{width:100px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);color:#fff5eb;padding:10px;border-radius:10px;text-align:right;font-weight:700}
+  .cuenta-inputs input{width:100px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:#fff5eb;padding:10px;border-radius:10px;text-align:right;font-weight:700}
   
-  .section-title{font-size:1rem;font-weight:700;color:#fff5eb;margin:24px 0 12px;display:flex;justify-content:space-between;align-items:center}
+  .section-title{font-size:1rem;font-weight:700;color:#fff5eb;margin:24px 0 12px;display:flex;justify-content:space-between;align-items:center;text-shadow:0 1px 4px rgba(0,0,0,0.3)}
   
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px;backdrop-filter:blur(6px);opacity:0;transition:opacity 0.3s ease}
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px;backdrop-filter:blur(8px);opacity:0;transition:opacity 0.3s ease}
   .modal-overlay.active{display:flex;opacity:1}
-  .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:500px;width:100%;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)}
+  .modal{background:rgba(58, 40, 28, 0.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:400px;width:100%;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
   .modal-overlay.active .modal{transform:scale(1)}
-  .modal textarea{width:100%;height:140px;background:#120a05;border:1px solid var(--border);color:#fff5eb;padding:12px;border-radius:10px;font-family:monospace;font-size:14px;margin-bottom:16px;resize:none}
+  .modal h3{color:#fff5eb;margin-bottom:12px;font-size:1.1rem}
+  .modal textarea{width:100%;height:140px;background:rgba(20,12,8,0.6);border:1px solid var(--border);color:#fff5eb;padding:12px;border-radius:10px;font-family:monospace;font-size:14px;margin-bottom:16px;resize:none}
   .chart-container{position:relative;height:260px;margin-top:10px}
+
+  /* PIN PAD */
+  .pin-display{
+    display:flex;justify-content:center;gap:12px;margin:20px 0;
+  }
+  .pin-dot{
+    width:18px;height:18px;border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    border:2px solid rgba(255,255,255,0.3);
+    transition:all 0.2s ease;
+  }
+  .pin-dot.filled{
+    background:var(--primary);
+    border-color:var(--primary);
+    box-shadow:0 0 12px rgba(245,158,11,0.6);
+  }
+  .pin-pad{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;
+  }
+  .pin-key{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    color:#fff5eb;
+    font-size:1.3rem;font-weight:700;
+    padding:16px;min-height:56px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:all 0.15s ease;
+  }
+  .pin-key:active{background:rgba(245,158,11,0.3);transform:scale(0.95)}
+  .pin-key.action{font-size:1rem;color:var(--primary)}
+  .pin-message{
+    text-align:center;color:var(--muted);font-size:.85rem;margin-top:10px;min-height:20px;
+  }
+  .pin-message.error{color:#fca5a5}
+
+  /* ESPACIO PRIVADO */
+  .private-banner{
+    background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(236,72,153,0.2));
+    border:1px solid rgba(59,130,246,0.3);
+    padding:16px;border-radius:var(--radius);margin-bottom:16px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    backdrop-filter:blur(12px);
+  }
+  .private-banner .user-tag{
+    font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px;
+  }
+  .logout-btn{
+    background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);
+    padding:8px 12px;font-size:.8rem;min-height:36px;
+  }
+
+  .person-selector{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;
+  }
+  .person-card{
+    background:rgba(255,255,255,0.05);
+    border:2px solid rgba(255,255,255,0.1);
+    border-radius:14px;padding:20px;
+    cursor:pointer;text-align:center;
+    transition:all 0.2s ease;
+    color:#fff5eb;
+    min-height:100px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  }
+  .person-card:active{transform:scale(0.97)}
+  .person-card.raul{border-color:rgba(59,130,246,0.4)}
+  .person-card.raul:active{background:rgba(59,130,246,0.2)}
+  .person-card.marta{border-color:rgba(236,72,153,0.4)}
+  .person-card.marta:active{background:rgba(236,72,153,0.2)}
+  .person-card .emoji{font-size:2rem}
+  .person-card .name{font-weight:700;font-size:1.1rem}
 </style>
 </head>
 <body>
 
+<!-- CAPAS DE FONDO DINÁMICO -->
+<div class="bg-layer"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="leaves-container" id="leavesContainer"></div>
+<div class="particles" id="particles"></div>
+
+<!-- MODAL CONFIG FIREBASE -->
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h3 style="color:#fff5eb;margin-bottom:12px">⚙️ Configuración Firebase</h3>
+    <h3>⚙️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:10px">
       <button onclick="closeConfigModal()">Cancelar</button>
@@ -169,12 +341,60 @@
   </div>
 </div>
 
+<!-- MODAL SELECCIONAR USUARIO -->
+<div class="modal-overlay" id="userSelectModal">
+  <div class="modal">
+    <h3>🔒 Mi Espacio Privado</h3>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Selecciona tu perfil para acceder a tus gastos personales privados.</p>
+    <div class="person-selector">
+      <div class="person-card raul" onclick="selectUser('A')">
+        <div class="emoji">👨</div>
+        <div class="name">Raul</div>
+      </div>
+      <div class="person-card marta" onclick="selectUser('B')">
+        <div class="emoji">👩</div>
+        <div class="name">Marta</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end">
+      <button onclick="closeModal('userSelectModal')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PIN -->
+<div class="modal-overlay" id="pinModal">
+  <div class="modal">
+    <h3 id="pinTitle">🔐 Introduce tu PIN</h3>
+    <p id="pinSubtitle" style="color:var(--muted);font-size:.85rem;text-align:center"></p>
+    <div class="pin-display" id="pinDisplay">
+      <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+    </div>
+    <div class="pin-message" id="pinMessage"></div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinInput('1')">1</button>
+      <button class="pin-key" onclick="pinInput('2')">2</button>
+      <button class="pin-key" onclick="pinInput('3')">3</button>
+      <button class="pin-key" onclick="pinInput('4')">4</button>
+      <button class="pin-key" onclick="pinInput('5')">5</button>
+      <button class="pin-key" onclick="pinInput('6')">6</button>
+      <button class="pin-key" onclick="pinInput('7')">7</button>
+      <button class="pin-key" onclick="pinInput('8')">8</button>
+      <button class="pin-key" onclick="pinInput('9')">9</button>
+      <button class="pin-key action" onclick="closeModal('pinModal')">✕</button>
+      <button class="pin-key" onclick="pinInput('0')">0</button>
+      <button class="pin-key action" onclick="pinBackspace()">⌫</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="app-header">
     <div class="app-logo">MTM Home🐨</div>
-    <div style="display:flex;gap:8px;align-items:center">
+    <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
-      <button onclick="openConfigModal()" style="padding:8px;min-height:36px">⚙️</button>
+      <button class="icon-btn" onclick="openUserSelect()">🔒</button>
+      <button class="icon-btn" onclick="openConfigModal()">⚙️</button>
     </div>
   </div>
 
@@ -199,9 +419,9 @@
         <label style="font-size:0.9rem">Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
         <label style="font-size:0.9rem">Marta: <input type="number" inputmode="decimal" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
       </div>
-      <div style="margin-top:14px;font-size:.9rem;opacity:.9;line-height:1.6">
+      <div style="margin-top:14px;font-size:.9rem;opacity:.95;line-height:1.6">
         Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes: <b id="gastosComunes">0 €</b><br>
-        Restante común / Ahorro: <b id="restanteAhorro" style="font-size:1.2rem;color:#34d399">1200 €</b>
+        Restante común / Ahorro: <b id="restanteAhorro" style="font-size:1.2rem;color:#6ee7b7">1200 €</b>
       </div>
     </div>
 
@@ -252,7 +472,7 @@
 
   <!-- DEUDAS -->
   <div id="deudas" class="tab-content">
-    <div class="card" style="background:linear-gradient(135deg,#5c2c16,#35180c);border:1px solid #b45309">
+    <div class="card" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(180,83,9,0.15));border:1px solid rgba(245,158,11,0.3)">
       <h3 style="color:#fbbf24">💳 Estado de Deudas</h3>
       <div class="stat-value" id="deudaTotalDisplay" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" id="deudaTotalDetalle" style="color:#fde68a">Sin deudas</div>
@@ -270,8 +490,8 @@
 
   <!-- AHORRO -->
   <div id="ahorro" class="tab-content">
-    <div class="card" style="background:linear-gradient(135deg,#1c4a35,#0d2b1f);border:1px solid #059669">
-      <h3 style="color:#34d399">💰 Ahorro del Sobrante (Común)</h3>
+    <div class="card" style="background:linear-gradient(135deg,rgba(16,185,129,0.25),rgba(5,150,105,0.15));border:1px solid rgba(16,185,129,0.3)">
+      <h3 style="color:#6ee7b7">💰 Ahorro del Sobrante (Común)</h3>
       <div class="stat-value" id="ahorroSobranteBox" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#a7f3d0">Restante común actual que pasa a ahorro</div>
     </div>
@@ -284,7 +504,7 @@
 
   <!-- ACUMULADO ANUAL -->
   <div id="anual" class="tab-content">
-    <div class="card" style="background:linear-gradient(135deg,#4c1d95,#2e1065);border:1px solid #7c3aed">
+    <div class="card" style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(76,29,149,0.2));border:1px solid rgba(124,58,237,0.3)">
       <h3 style="color:#c4b5fd">📅 Acumulado Anual Total</h3>
       <div class="stat-value" id="anualTotalGastos" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#ddd6fe">Suma de todos los meses registrados</div>
@@ -327,6 +547,44 @@
     </div>
   </div>
 
+  <!-- ESPACIO PRIVADO (SOLO VISIBLE TRAS AUTENTICACIÓN) -->
+  <div id="privado" class="tab-content">
+    <div class="private-banner">
+      <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
+      <button class="logout-btn" onclick="logoutPrivate()">🚪 Cerrar sesión</button>
+    </div>
+
+    <div class="card" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(236,72,153,0.15));border:1px solid rgba(59,130,246,0.3)">
+      <h3 style="color:#93c5fd">💼 Mi Economía Personal</h3>
+      <div class="stat-value" id="privadoTotalMes" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
+      <div class="stat-sub" style="color:#bfdbfe">Total gastado este mes en tu espacio privado</div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📅 Acumulado Año</h3>
+        <div class="stat-value" id="privadoTotalAnual" style="color:var(--primary);font-size:1.4rem">0 €</div>
+        <div class="stat-sub">Todos tus gastos privados</div>
+      </div>
+      <div class="card">
+        <h3>📊 Media Mensual</h3>
+        <div class="stat-value" id="privadoMediaMes" style="color:var(--accent);font-size:1.4rem">0 €</div>
+        <div class="stat-sub">Por mes registrado</div>
+      </div>
+    </div>
+
+    <div class="section-title">📝 Mis Gastos Privados del Mes</div>
+    <div class="card">
+      <div id="listPrivado"></div>
+      <button class="add-row" onclick="addPrivateExpense()">➕ Añadir gasto personal</button>
+    </div>
+
+    <div class="card">
+      <h3>Distribución de mis Gastos Privados (Año)</h3>
+      <div class="chart-container"><canvas id="chartPrivado"></canvas></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Navegación Inferior -->
@@ -339,6 +597,9 @@
 </div>
 
 <script>
+// ============================================
+// CONFIGURACIÓN Y DATOS
+// ============================================
 let firebaseConfig = {
   apiKey: "AIzaSyC0QOu3nCH_CrI95OFK9asm3Ow3X13nWHA",
   authDomain: "finanzas-hogar-edba8.firebaseapp.com",
@@ -350,17 +611,83 @@ let firebaseConfig = {
 
 let db = null;
 let unsubscribeFirestore = null;
-let data = { meses: {}, deudas: [], pagos: [], mesActivo: "" };
+let data = { 
+  meses: {}, 
+  deudas: [], 
+  pagos: [], 
+  mesActivo: "",
+  espaciosPrivados: { A: { pin: null, gastos: [] }, B: { pin: null, gastos: [] } }
+};
 let saveTimeout = null;
 let chartInstance = null;
 let chartInstanceAnual = null;
+let chartInstancePrivado = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
+// Estado de sesión privada
+let privateSession = { authenticated: false, user: null };
+let pinState = { mode: '', currentUser: '', buffer: '', confirmBuffer: '' };
+
+// ============================================
+// FONDO DINÁMICO: HOJAS Y PARTÍCULAS
+// ============================================
+function createLeaves() {
+  const container = document.getElementById('leavesContainer');
+  const leafSVGs = [
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 10 20, 5 40, 20 80 C 35 40, 30 20, 20 0 Z" fill="#6ee7b7"/></svg>`,
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 8 25, 5 50, 20 80 C 35 50, 32 25, 20 0 Z" fill="#a7f3d0"/></svg>`,
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 12 20, 8 45, 20 80 C 32 45, 28 20, 20 0 Z" fill="#34d399"/></svg>`
+  ];
+  for (let i = 0; i < 8; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.innerHTML = leafSVGs[i % leafSVGs.length];
+    const size = 20 + Math.random() * 25;
+    leaf.style.width = size + 'px';
+    leaf.style.left = (Math.random() * 100) + '%';
+    leaf.style.animationDuration = (15 + Math.random() * 20) + 's';
+    leaf.style.animationDelay = (Math.random() * 15) + 's';
+    container.appendChild(leaf);
+  }
+}
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.top = (Math.random() * 100) + '%';
+    p.style.animationDelay = (Math.random() * 4) + 's';
+    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+    container.appendChild(p);
+  }
+}
+
+createLeaves();
+createParticles();
+
+// ============================================
+// HASH SIMPLE PARA PIN (no seguridad bancaria)
+// ============================================
+function simpleHash(str) {
+  let hash = 5381;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+// ============================================
+// MODALES
+// ============================================
 function openConfigModal(){
   document.getElementById('configModal').classList.add('active');
   document.getElementById('firebaseConfigInput').value = JSON.stringify(firebaseConfig, null, 2);
 }
 function closeConfigModal(){ document.getElementById('configModal').classList.remove('active'); }
+function closeModal(id){ document.getElementById(id).classList.remove('active'); }
+
 function saveFirebaseConfig(){
   try{
     let config = JSON.parse(document.getElementById('firebaseConfigInput').value);
@@ -372,6 +699,221 @@ function saveFirebaseConfig(){
   }catch(e){alert('Configuración inválida');}
 }
 
+// ============================================
+// FLUJO DE ESPACIO PRIVADO
+// ============================================
+function openUserSelect() {
+  if (privateSession.authenticated) {
+    switchTab(null, 'privado');
+    return;
+  }
+  document.getElementById('userSelectModal').classList.add('active');
+}
+
+function selectUser(user) {
+  closeModal('userSelectModal');
+  pinState.currentUser = user;
+  pinState.buffer = '';
+  pinState.confirmBuffer = '';
+  
+  const userSpaces = data.espaciosPrivados[user];
+  if (!userSpaces.pin) {
+    // Primer acceso: crear PIN
+    pinState.mode = 'create';
+    document.getElementById('pinTitle').textContent = '🔐 Crea tu PIN (4 dígitos)';
+    document.getElementById('pinSubtitle').textContent = 'Introduce un PIN que solo tú recordarás';
+  } else {
+    // Acceso existente: verificar PIN
+    pinState.mode = 'login';
+    const name = user === 'A' ? 'Raul' : 'Marta';
+    document.getElementById('pinTitle').textContent = `🔐 PIN de ${name}`;
+    document.getElementById('pinSubtitle').textContent = 'Introduce tu PIN personal';
+  }
+  
+  updatePinDisplay();
+  document.getElementById('pinMessage').textContent = '';
+  document.getElementById('pinMessage').className = 'pin-message';
+  document.getElementById('pinModal').classList.add('active');
+}
+
+function updatePinDisplay() {
+  const dots = document.querySelectorAll('#pinDisplay .pin-dot');
+  const len = pinState.mode === 'create' && pinState.buffer.length === 4 && !pinState.confirmBuffer ? 0 : pinState.buffer.length;
+  const displayLen = pinState.mode === 'create' && pinState.confirmBuffer ? pinState.confirmBuffer.length : pinState.buffer.length;
+  
+  dots.forEach((dot, i) => {
+    if (pinState.mode === 'create' && pinState.buffer.length === 4 && pinState.confirmBuffer) {
+      dot.classList.toggle('filled', i < pinState.confirmBuffer.length);
+    } else {
+      dot.classList.toggle('filled', i < pinState.buffer.length);
+    }
+  });
+}
+
+function pinInput(num) {
+  const msg = document.getElementById('pinMessage');
+  msg.textContent = '';
+  msg.className = 'pin-message';
+  
+  if (pinState.mode === 'create') {
+    if (pinState.buffer.length < 4) {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4 && !pinState.confirmBuffer) {
+        setTimeout(() => {
+          document.getElementById('pinSubtitle').textContent = 'Confirma tu PIN introduciéndolo de nuevo';
+          pinState.confirmBuffer = 'waiting';
+          pinState.buffer = '';
+          updatePinDisplay();
+        }, 300);
+      }
+    } else if (pinState.confirmBuffer === 'waiting') {
+      pinState.confirmBuffer = num;
+      updatePinDisplay();
+    } else if (pinState.confirmBuffer.length < 4) {
+      pinState.confirmBuffer += num;
+      updatePinDisplay();
+      if (pinState.confirmBuffer.length === 4) {
+        // Verificar coincidencia
+        if (pinState.buffer === pinState.confirmBuffer) {
+          // PIN creado con éxito (guardamos el buffer original)
+          // Espera: buffer fue reseteado. Necesitamos guardar el PIN antes
+          // Reestructuramos: guardamos en una variable temporal
+        }
+      }
+    }
+    
+    // Lógica simplificada para creación
+    if (pinState.confirmBuffer && pinState.confirmBuffer !== 'waiting' && pinState.confirmBuffer.length === 4) {
+      // buffer tiene el primer PIN, confirmBuffer el segundo
+      // pero buffer fue reseteado... necesitamos otra variable
+    }
+  } else {
+    // Modo login
+    if (pinState.buffer.length < 4) {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        setTimeout(verifyPin, 200);
+      }
+    }
+  }
+}
+
+// Reescribo la lógica de PIN de forma más limpia
+function pinInput(num) {
+  const msg = document.getElementById('pinMessage');
+  msg.textContent = '';
+  msg.className = 'pin-message';
+  
+  if (pinState.mode === 'create') {
+    if (!pinState.firstPin) {
+      // Primera entrada
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        pinState.firstPin = pinState.buffer;
+        setTimeout(() => {
+          pinState.buffer = '';
+          document.getElementById('pinSubtitle').textContent = 'Confirma tu PIN introduciéndolo de nuevo';
+          updatePinDisplay();
+        }, 300);
+      }
+    } else {
+      // Confirmación
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        if (pinState.buffer === pinState.firstPin) {
+          // Guardar PIN
+          data.espaciosPrivados[pinState.currentUser].pin = simpleHash(pinState.buffer);
+          debouncedSave();
+          msg.textContent = '✓ PIN creado con éxito';
+          msg.style.color = '#6ee7b7';
+          setTimeout(() => {
+            closeModal('pinModal');
+            enterPrivateSpace(pinState.currentUser);
+          }, 600);
+        } else {
+          msg.textContent = 'Los PIN no coinciden. Intenta de nuevo.';
+          msg.className = 'pin-message error';
+          pinState.buffer = '';
+          pinState.firstPin = null;
+          document.getElementById('pinSubtitle').textContent = 'Introduce un PIN de 4 dígitos';
+          updatePinDisplay();
+        }
+      }
+    }
+  } else {
+    // Login
+    if (pinState.buffer.length < 4) {
+      pinState.buffer += num;
+      updatePinDisplay();
+      if (pinState.buffer.length === 4) {
+        setTimeout(verifyPin, 200);
+      }
+    }
+  }
+}
+
+function verifyPin() {
+  const inputHash = simpleHash(pinState.buffer);
+  const storedHash = data.espaciosPrivados[pinState.currentUser].pin;
+  const msg = document.getElementById('pinMessage');
+  
+  if (inputHash === storedHash) {
+    msg.textContent = '✓ Acceso correcto';
+    msg.style.color = '#6ee7b7';
+    setTimeout(() => {
+      closeModal('pinModal');
+      enterPrivateSpace(pinState.currentUser);
+    }, 400);
+  } else {
+    msg.textContent = 'PIN incorrecto';
+    msg.className = 'pin-message error';
+    pinState.buffer = '';
+    updatePinDisplay();
+  }
+}
+
+function pinBackspace() {
+  if (pinState.buffer.length > 0) {
+    pinState.buffer = pinState.buffer.slice(0, -1);
+    updatePinDisplay();
+  }
+}
+
+function enterPrivateSpace(user) {
+  privateSession = { authenticated: true, user: user };
+  const name = user === 'A' ? 'Raul' : 'Marta';
+  const emoji = user === 'A' ? '👨' : '👩';
+  document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
+  
+  // Añadir pestaña dinámicamente si no existe
+  let navBtn = document.querySelector('.nav-item[onclick*="privado"]');
+  if (!navBtn) {
+    const nav = document.querySelector('.bottom-nav');
+    const btn = document.createElement('button');
+    btn.className = 'nav-item';
+    btn.onclick = (e) => switchTab(e, 'privado');
+    btn.innerHTML = '<span class="icon">🔒</span><span>Mi Espacio</span>';
+    nav.appendChild(btn);
+  }
+  
+  switchTab(null, 'privado');
+}
+
+function logoutPrivate() {
+  privateSession = { authenticated: false, user: null };
+  // Quitar pestaña privada
+  const navBtn = document.querySelector('.nav-item[onclick*="privado"]');
+  if (navBtn) navBtn.remove();
+  switchTab(null, 'resumen');
+}
+
+// ============================================
+// GESTIÓN DE DATOS
+// ============================================
 function currentMonthKey(){
   const d = new Date();
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
@@ -401,6 +943,11 @@ function ensureDataStructure(){
   if(!data.meses || typeof data.meses !== 'object') data.meses = {};
   if(!Array.isArray(data.deudas)) data.deudas = [];
   if(!Array.isArray(data.pagos)) data.pagos = [];
+  if(!data.espaciosPrivados) data.espaciosPrivados = { A: { pin: null, gastos: [] }, B: { pin: null, gastos: [] } };
+  if(!data.espaciosPrivados.A) data.espaciosPrivados.A = { pin: null, gastos: [] };
+  if(!data.espaciosPrivados.B) data.espaciosPrivados.B = { pin: null, gastos: [] };
+  if(!Array.isArray(data.espaciosPrivados.A.gastos)) data.espaciosPrivados.A.gastos = [];
+  if(!Array.isArray(data.espaciosPrivados.B.gastos)) data.espaciosPrivados.B.gastos = [];
   
   const keys = Object.keys(data.meses).sort();
   if(keys.length === 0){
@@ -458,6 +1005,7 @@ function initFirebase(){
           data = remote;
           ensureDataStructure();
           renderAll();
+          if (privateSession.authenticated) renderPrivateSpace();
         }
         setSyncStatus('ok', 'Sincronizado');
       } else {
@@ -570,20 +1118,21 @@ function curMonth(){
 }
 
 function switchTab(e, id){
-  document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+  if (e) {
+    document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+  }
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(id));
-  if(btn) btn.classList.add('active');
   
-  // Pequeño delay para asegurar que la animación CSS se reinicie correctamente
   const target = document.getElementById(id);
   target.classList.remove('active');
-  void target.offsetWidth; // Forzar reflow
+  void target.offsetWidth;
   target.classList.add('active');
   
   if(id === 'resumen') recalcAll();
   if(id === 'deudas') updateDebtDisplay();
   if(id === 'anual') renderAcumuladoAnual();
+  if(id === 'privado') renderPrivateSpace();
 }
 
 function updateCuentaComun(){
@@ -615,8 +1164,8 @@ function renderAlquiler(){
         <button class="btn-danger" style="padding:8px" onclick="delRow('alquiler',${i})">✕</button>
       </div>
       <div class="item-card-row" style="font-size:.85rem;color:var(--muted)">
-        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:18px;height:18px" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> Común (50/50)</label>
-        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:18px;height:18px" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
+        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> Común (50/50)</label>
+        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
       </div>
       ${!r.compartido ? `
       <div class="item-card-row" style="gap:8px;margin-top:4px">
@@ -639,7 +1188,7 @@ function renderSuscripciones(){
       <div class="item-card-row">
         <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select>
         <select style="flex:1" onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
-        <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:18px;height:18px" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
       </div>
     </div>`;
   });
@@ -746,9 +1295,9 @@ function calcAlquilerDebt(k){
   const res = [];
   m.alquiler.forEach(r => {
     if(!r.compartido){
-      const cA = r.importe / 2, cB = r.importe / 2;
+      const cA = r.importe / 2;
       const diff = (r.aportaA || 0) - cA;
-      res.push({mes: k, concepto: r.nombre, total: r.importe, corrA: cA, corrB: cB, diff});
+      res.push({mes: k, concepto: r.nombre, total: r.importe, corrA: cA, corrB: cA, diff});
     }
   });
   return res;
@@ -893,13 +1442,137 @@ function renderAcumuladoAnual() {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#d1b5a5', font: {size: 12} } },
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#e8d5c4', font: {size: 12} } },
         x: { grid: { display: false }, ticks: { color: '#fff5eb', font: { weight: '600', size: 12 } } }
       }
     }
   });
 }
 
+// ============================================
+// ESPACIO PRIVADO
+// ============================================
+function renderPrivateSpace() {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  const gastos = data.espaciosPrivados[user].gastos;
+  const currentMonth = data.mesActivo;
+  
+  // Gastos del mes actual
+  const gastosMes = gastos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
+  const totalMes = gastosMes.reduce((s, g) => s + (+g.importe || 0), 0);
+  
+  // Total anual
+  const totalAnual = gastos.reduce((s, g) => s + (+g.importe || 0), 0);
+  
+  // Meses con gastos
+  const mesesConGastos = new Set(gastos.map(g => g.fecha ? g.fecha.slice(0, 7) : '').filter(Boolean));
+  const mediaMes = mesesConGastos.size > 0 ? totalAnual / mesesConGastos.size : 0;
+  
+  document.getElementById('privadoTotalMes').textContent = totalMes.toFixed(2) + ' €';
+  document.getElementById('privadoTotalAnual').textContent = totalAnual.toFixed(2) + ' €';
+  document.getElementById('privadoMediaMes').textContent = mediaMes.toFixed(2) + ' €';
+  
+  // Renderizar lista de gastos del mes
+  const box = document.getElementById('listPrivado');
+  box.innerHTML = '';
+  if (gastosMes.length === 0) {
+    box.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:.9rem">Sin gastos privados este mes</div>';
+  } else {
+    gastosMes.forEach((g, i) => {
+      const realIdx = gastos.indexOf(g);
+      box.innerHTML += `<div class="item-card">
+        <div class="item-card-row">
+          <input style="flex:1" type="date" value="${g.fecha}" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].fecha=this.value;debouncedSave();renderPrivateSpace()">
+          <input style="flex:1.5" value="${g.concepto}" placeholder="Concepto" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].concepto=this.value;debouncedSave()">
+          <button class="btn-danger" style="padding:8px" onclick="delPrivateExpense(${realIdx})">✕</button>
+        </div>
+        <div class="item-card-row">
+          <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${g.importe}" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].importe=+this.value;debouncedSave();renderPrivateSpace()">
+          <select style="flex:1" onchange="data.espaciosPrivados['${user}'].gastos[${realIdx}].categoria=this.value;debouncedSave();renderPrivateSpace()">
+            <option value="ocio" ${g.categoria==='ocio'?'selected':''}>🎮 Ocio</option>
+            <option value="ropa" ${g.categoria==='ropa'?'selected':''}>👕 Ropa</option>
+            <option value="comida" ${g.categoria==='comida'?'selected':''}>🍽️ Comida personal</option>
+            <option value="salud" ${g.categoria==='salud'?'selected':''}>💊 Salud</option>
+            <option value="transporte" ${g.categoria==='transporte'?'selected':''}>🚗 Transporte</option>
+            <option value="regalos" ${g.categoria==='regalos'?'selected':''}>🎁 Regalos</option>
+            <option value="otros" ${g.categoria==='otros'?'selected':''}>📦 Otros</option>
+          </select>
+        </div>
+      </div>`;
+    });
+  }
+  
+  renderPrivateChart();
+}
+
+function addPrivateExpense() {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  const today = new Date().toISOString().slice(0, 10);
+  data.espaciosPrivados[user].gastos.push({
+    fecha: today,
+    concepto: 'Nuevo gasto',
+    importe: 0,
+    categoria: 'otros'
+  });
+  debouncedSave();
+  renderPrivateSpace();
+}
+
+function delPrivateExpense(idx) {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  data.espaciosPrivados[user].gastos.splice(idx, 1);
+  debouncedSave();
+  renderPrivateSpace();
+}
+
+function renderPrivateChart() {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  const gastos = data.espaciosPrivados[user].gastos;
+  
+  // Agrupar por categoría
+  const categorias = {};
+  gastos.forEach(g => {
+    const cat = g.categoria || 'otros';
+    categorias[cat] = (categorias[cat] || 0) + (+g.importe || 0);
+  });
+  
+  const labels = Object.keys(categorias);
+  const values = Object.values(categorias);
+  const colors = ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6', '#ef4444', '#6366f1'];
+  
+  const canvas = document.getElementById('chartPrivado');
+  if (!canvas) return;
+  if (chartInstancePrivado) chartInstancePrivado.destroy();
+  
+  if (labels.length === 0) {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    return;
+  }
+  
+  chartInstancePrivado = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels: labels.map(l => l.charAt(0).toUpperCase() + l.slice(1)),
+      datasets: [{data: values, backgroundColor: colors.slice(0, labels.length), borderWidth: 0}]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#fff5eb', font: {size: 12}, padding: 12 } }
+      },
+      cutout: '60%'
+    }
+  });
+}
+
+// ============================================
+// INICIALIZACIÓN
+// ============================================
 loadLocal();
 initFirebase();
 renderAll();
