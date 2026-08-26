@@ -35,43 +35,51 @@
 
   /* FONDO DINÁMICO GENERAL */
   .bg-layer{
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -10;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    z-index: -10 !important;
     background: 
       radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.55) 0%, transparent 55%),
       radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%),
       radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%),
-      linear-gradient(160deg, #4a7c59 0%, #3d5a47 40%, #2d1f14 100%);
-    background-size: 200% 200%;
-    animation: bgShift 18s ease-in-out infinite;
+      linear-gradient(160deg, #4a7c59 0%, #3d5a47 40%, #2d1f14 100%) !important;
+    background-size: 200% 200% !important;
+    animation: bgShift 18s ease-in-out infinite !important;
   }
   
-  /* FONDO RAUL - PLANTA/NATURALEZA */
+  /* FONDO RAUL - PLANTA/NATURALEZA (Verde intenso) */
   .bg-layer.raul{
     background: 
-      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.6) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 80%, rgba(110, 231, 183, 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(52, 211, 153, 0.3) 0%, transparent 60%),
-      linear-gradient(135deg, #065f46 0%, #047857 40%, #064e3b 100%);
-    background-size: 200% 200%;
-    animation: bgShift 20s ease-in-out infinite;
+      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.7) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(52, 211, 153, 0.6) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(110, 231, 183, 0.4) 0%, transparent 60%),
+      linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%) !important;
+    background-size: 200% 200% !important;
+    animation: bgShiftRaul 20s ease-in-out infinite !important;
   }
   
-  /* FONDO MARTA - KOALA/EUCALIPTO */
+  /* FONDO MARTA - KOALA/EUCALIPTO (Rosa/Morado cálido) */
   .bg-layer.marta{
     background: 
-      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.5) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 85%, rgba(245, 158, 11, 0.4) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(251, 191, 36, 0.3) 0%, transparent 60%),
-      linear-gradient(135deg, #7c2d12 0%, #9a3412 40%, #78350f 100%);
-    background-size: 200% 200%;
-    animation: bgShift 22s ease-in-out infinite;
+      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.6) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.4) 0%, transparent 60%),
+      linear-gradient(135deg, #831843 0%, #9d174d 40%, #a21caf 100%) !important;
+    background-size: 200% 200% !important;
+    animation: bgShiftMarta 22s ease-in-out infinite !important;
   }
   
   @keyframes bgShift {
     0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 50%; }
     50% { background-position: 100% 100%, 0% 0%, 50% 50%, 100% 50%; }
+  }
+  @keyframes bgShiftRaul {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%; }
+  }
+  @keyframes bgShiftMarta {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%; }
   }
 
   .orb{
@@ -365,7 +373,6 @@
     border:1px solid rgba(16,185,129,0.3);
   }
   
-  /* Lista de gastos detallados */
   .gasto-detalle{
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
@@ -394,11 +401,41 @@
     color: var(--primary);
     font-size: 1.1rem;
   }
+
+  /* Indicador visual de fondo activo */
+  .bg-indicator{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .bg-indicator.visible{
+    opacity: 1;
+  }
+  .bg-indicator.raul{
+    background: rgba(16, 185, 129, 0.3);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.5);
+  }
+  .bg-indicator.marta{
+    background: rgba(236, 72, 153, 0.3);
+    color: #f9a8d4;
+    border: 1px solid rgba(236, 72, 153, 0.5);
+  }
 </style>
 </head>
 <body>
 
 <div class="bg-layer" id="bgLayer"></div>
+<div class="bg-indicator" id="bgIndicator"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
@@ -408,7 +445,7 @@
 <!-- MODAL CONFIG FIREBASE -->
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h3>⚙️ Configuración Firebase</h3>
+    <h3>️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:10px">
       <button onclick="closeConfigModal()">Cancelar</button>
@@ -424,11 +461,11 @@
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Selecciona tu perfil para acceder a tus gastos personales privados.</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
-        <div class="emoji"></div>
+        <div class="emoji">🌱</div>
         <div class="name">Raul</div>
       </div>
       <div class="person-card marta" onclick="selectUser('B')">
-        <div class="emoji">🐨</div>
+        <div class="emoji"></div>
         <div class="name">Marta</div>
       </div>
     </div>
@@ -459,7 +496,7 @@
       <button class="pin-key" onclick="pinInput('9')">9</button>
       <button class="pin-key action" onclick="closeModal('pinModal')">✕</button>
       <button class="pin-key" onclick="pinInput('0')">0</button>
-      <button class="pin-key action" onclick="pinBackspace()">⌫</button>
+      <button class="pin-key action" onclick="pinBackspace()"></button>
     </div>
   </div>
 </div>
@@ -470,7 +507,7 @@
     <div class="app-logo">MTM Home 🐨🌱</div>
     <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
-      <button class="icon-btn" onclick="openUserSelect()">🔒</button>
+      <button class="icon-btn" onclick="openUserSelect()"></button>
       <button class="icon-btn" onclick="openConfigModal()">⚙️</button>
     </div>
   </div>
@@ -485,11 +522,11 @@
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button onclick="goToCurrentMonth()" class="btn-primary" style="padding:8px 12px">📅 Hoy</button>
       <button onclick="createNewMonth()" class="btn-success" style="padding:8px 12px">➕ Mes</button>
-      <button onclick="deleteCurrentMonth()" class="btn-danger" style="padding:8px 12px">️</button>
+      <button onclick="deleteCurrentMonth()" class="btn-danger" style="padding:8px 12px">🗑️</button>
     </div>
   </div>
 
-  <!-- ===================== RESUMEN ===================== -->
+  <!-- RESUMEN -->
   <div id="resumen" class="tab-content active">
     <div class="cuenta-comun-box">
       <div style="font-weight:700;font-size:1.05rem">💼 Aportaciones a la Cuenta Común</div>
@@ -505,7 +542,7 @@
 
     <div class="grid">
       <div class="card">
-        <h3> Gastos Personales</h3>
+        <h3>👤 Gastos Personales</h3>
         <div class="stat-value" id="gastoPersonalTotal" style="color:var(--primary);font-size:1.4rem">0 €</div>
         <div class="stat-sub">🌱: <span id="gastoPersonalRaul">0 €</span> | 🐨: <span id="gastoPersonalMarta">0 €</span></div>
       </div>
@@ -522,12 +559,12 @@
     </div>
 
     <div class="card">
-      <h3>📊 Distribución Gastos Personales</h3>
+      <h3> Distribución Gastos Personales</h3>
       <div class="chart-container"><canvas id="chartPersonales"></canvas></div>
     </div>
   </div>
 
-  <!-- ===================== FIJOS Y VARIABLES ===================== -->
+  <!-- FIJOS Y VARIABLES -->
   <div id="fijos" class="tab-content">
     <div class="section-title">🏠 Alquiler y Suministros</div>
     <div class="card">
@@ -544,11 +581,11 @@
     <div class="section-title">🔄 Gastos Variables Asociados</div>
     <div class="card">
       <div id="listVariablesAsociadas"></div>
-      <button class="add-row" onclick="addRow('variablesAsociadas')">➕ Añadir gasto variable</button>
+      <button class="add-row" onclick="addRow('variablesAsociadas')"> Añadir gasto variable</button>
     </div>
   </div>
 
-  <!-- ===================== DEUDAS ===================== -->
+  <!-- DEUDAS -->
   <div id="deudas" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(180,83,9,0.15));border:1px solid rgba(245,158,11,0.3)">
       <h3 style="color:#fbbf24">💳 Estado de Deudas</h3>
@@ -566,7 +603,7 @@
     </div>
   </div>
 
-  <!-- ===================== AHORRO ===================== -->
+  <!-- AHORRO -->
   <div id="ahorro" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(16,185,129,0.25),rgba(5,150,105,0.15));border:1px solid rgba(16,185,129,0.3)">
       <h3 style="color:#6ee7b7">💰 Ahorro del Sobrante (Común)</h3>
@@ -580,7 +617,7 @@
     </div>
   </div>
 
-  <!-- ===================== ACUMULADO ANUAL ===================== -->
+  <!-- ACUMULADO ANUAL -->
   <div id="anual" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(76,29,149,0.2));border:1px solid rgba(124,58,237,0.3)">
       <h3 style="color:#c4b5fd">📅 Acumulado Anual Total</h3>
@@ -602,20 +639,20 @@
         <div class="stat-value" id="anualSuscripciones" style="color:#3b82f6;font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
-        <h3>👤 Personales</h3>
+        <h3> Personales</h3>
         <div class="stat-value" id="anualPersonales" style="color:#ec4899;font-size:1.3rem">0 €</div>
       </div>
     </div>
 
     <div class="card">
-      <h3>📊 Distribución Anual por Concepto</h3>
+      <h3> Distribución Anual por Concepto</h3>
       <div class="chart-container"><canvas id="chartAnual"></canvas></div>
     </div>
     
-    <div class="section-title">👥 Desglose Personal Anual</div>
+    <div class="section-title"> Desglose Personal Anual</div>
     <div class="grid">
       <div class="card" style="border-left: 4px solid var(--raul)">
-        <h3>🌱 Gastos Raul</h3>
+        <h3> Gastos Raul</h3>
         <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.3rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
@@ -625,13 +662,13 @@
     </div>
   </div>
 
-  <!-- ===================== ESPACIO PRIVADO ===================== -->
+  <!-- ESPACIO PRIVADO -->
   <div id="privado" class="tab-content">
     <div class="private-banner">
-      <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
+      <div class="user-tag" id="privateUserTag"> Espacio Privado</div>
       <div class="private-actions">
-        <button class="change-pin-btn" onclick="changePin()"> Cambiar PIN</button>
-        <button class="logout-btn" onclick="logoutPrivate()"> Cerrar sesión</button>
+        <button class="change-pin-btn" onclick="changePin()">🔑 Cambiar PIN</button>
+        <button class="logout-btn" onclick="logoutPrivate()">🚪 Cerrar sesión</button>
       </div>
     </div>
 
@@ -672,15 +709,12 @@
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
   <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos</span></button>
-  <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon"></span><span>Deudas</span></button>
+  <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
-  <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
+  <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon"></span><span>Anual</span></button>
 </div>
 
 <script>
-// ============================================
-// CONFIGURACIÓN FIREBASE
-// ============================================
 let firebaseConfig = {
   apiKey: "AIzaSyC0QOu3nCH_CrI95OFK9asm3Ow3X13nWHA",
   authDomain: "finanzas-hogar-edba8.firebaseapp.com",
@@ -705,7 +739,6 @@ let chartInstanceAnual = null;
 let chartInstancePrivado = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-// Persistencia de sesión en sessionStorage
 let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { authenticated: false, user: null };
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
@@ -715,6 +748,7 @@ let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: ''
 function createLeaves() {
   const container = document.getElementById('leavesContainer');
   if (!container) return;
+  container.innerHTML = '';
   const leafSVGs = [
     `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 10 20, 5 40, 20 80 C 35 40, 30 20, 20 0 Z" fill="#6ee7b7"/></svg>`,
     `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 8 25, 5 50, 20 80 C 35 50, 32 25, 20 0 Z" fill="#a7f3d0"/></svg>`,
@@ -736,6 +770,7 @@ function createLeaves() {
 function createParticles() {
   const container = document.getElementById('particles');
   if (!container) return;
+  container.innerHTML = '';
   for (let i = 0; i < 20; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
@@ -750,9 +785,6 @@ function createParticles() {
 createLeaves();
 createParticles();
 
-// ============================================
-// HASH SIMPLE PARA PIN
-// ============================================
 function simpleHash(str) {
   let hash = 5381;
   for (let i = 0; i < str.length; i++) {
@@ -761,9 +793,6 @@ function simpleHash(str) {
   return (hash >>> 0).toString(36);
 }
 
-// ============================================
-// MODALES
-// ============================================
 function openConfigModal(){
   const modal = document.getElementById('configModal');
   if (modal) modal.classList.add('active');
@@ -792,9 +821,6 @@ function saveFirebaseConfig(){
   }catch(e){alert('Configuración inválida');}
 }
 
-// ============================================
-// FLUJO DE ESPACIO PRIVADO
-// ============================================
 function openUserSelect() {
   if (privateSession.authenticated) {
     switchTab(null, 'privado');
@@ -817,14 +843,14 @@ function selectUser(user) {
     pinState.step = 'first';
     const title = document.getElementById('pinTitle');
     const subtitle = document.getElementById('pinSubtitle');
-    if (title) title.textContent = '🔐 Crea tu PIN (4 dígitos)';
+    if (title) title.textContent = ' Crea tu PIN (4 dígitos)';
     if (subtitle) subtitle.textContent = 'Introduce un PIN que solo tú recordarás';
   } else {
     pinState.mode = 'login';
     const name = user === 'A' ? 'Raul 🌱' : 'Marta 🐨';
     const title = document.getElementById('pinTitle');
     const subtitle = document.getElementById('pinSubtitle');
-    if (title) title.textContent = `🔐 PIN de ${name}`;
+    if (title) title.textContent = '🔐 PIN de ' + name;
     if (subtitle) subtitle.textContent = 'Introduce tu PIN personal';
   }
   
@@ -994,21 +1020,46 @@ function changePin() {
   if (modal) modal.classList.add('active');
 }
 
+// ============================================
+// ENTRAR EN ESPACIO PRIVADO - CAMBIO DE FONDO
+// ============================================
 function enterPrivateSpace(user) {
   privateSession = { authenticated: true, user: user };
   sessionStorage.setItem('privateSession', JSON.stringify(privateSession));
   
-  // Cambiar fondo según usuario
+  // CAMBIAR FONDO SEGÚN USUARIO
   const bgLayer = document.getElementById('bgLayer');
+  const indicator = document.getElementById('bgIndicator');
+  
   if (bgLayer) {
-    bgLayer.className = 'bg-layer ' + (user === 'A' ? 'raul' : 'marta');
+    // Forzar reflow para que el cambio de clase se aplique
+    bgLayer.className = 'bg-layer';
+    void bgLayer.offsetWidth;
+    
+    if (user === 'A') {
+      bgLayer.className = 'bg-layer raul';
+      if (indicator) {
+        indicator.className = 'bg-indicator raul visible';
+        indicator.textContent = '🌱 Modo Raul';
+      }
+    } else {
+      bgLayer.className = 'bg-layer marta';
+      if (indicator) {
+        indicator.className = 'bg-indicator marta visible';
+        indicator.textContent = '🐨 Modo Marta';
+      }
+    }
   }
+  
+  // Ocultar indicador después de 3 segundos
+  setTimeout(() => {
+    if (indicator) indicator.classList.remove('visible');
+  }, 3000);
   
   const name = user === 'A' ? ' Raul' : '🐨 Marta';
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
-  // Añadir botón de Mi Espacio si no existe
   let navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (!navBtn) {
     const nav = document.querySelector('.bottom-nav');
@@ -1028,10 +1079,14 @@ function logoutPrivate() {
   privateSession = { authenticated: false, user: null };
   sessionStorage.removeItem('privateSession');
   
-  // Restaurar fondo general
+  // RESTAURAR FONDO GENERAL
   const bgLayer = document.getElementById('bgLayer');
+  const indicator = document.getElementById('bgIndicator');
   if (bgLayer) {
     bgLayer.className = 'bg-layer';
+  }
+  if (indicator) {
+    indicator.classList.remove('visible');
   }
   
   const navBtn = document.querySelector('.nav-item[onclick*="privado"]');
@@ -1039,9 +1094,6 @@ function logoutPrivate() {
   switchTab(null, 'resumen');
 }
 
-// ============================================
-// GESTIÓN DE DATOS
-// ============================================
 function currentMonthKey(){
   const d = new Date();
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
@@ -1230,7 +1282,7 @@ function deleteCurrentMonth(){
     alert('No puedes borrar el único mes.');
     return;
   }
-  if(confirm(`¿Borrar definitivamente ${getMonthLabel(data.mesActivo)}?`)){
+  if(confirm('¿Borrar definitivamente ' + getMonthLabel(data.mesActivo) + '?')){
     const mesBorrado = data.mesActivo;
     delete data.meses[mesBorrado];
     const keys = Object.keys(data.meses).sort();
@@ -1307,22 +1359,22 @@ function renderAlquiler(){
   if (!box) return;
   box.innerHTML = '';
   curMonth().alquiler.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:2" value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()">
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('alquiler',${i})">✕</button>
-      </div>
-      <div class="item-card-row" style="font-size:.85rem;color:var(--muted)">
-        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> 🏠 Común (50/50)</label>
-        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> 📌 Fijo</label>
-      </div>
-      ${!r.compartido ? `
-      <div class="item-card-row" style="gap:8px;margin-top:4px">
-        <span style="font-size:.8rem;color:var(--muted)">🌱:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
-        <span style="font-size:.8rem;color:var(--muted)">:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
-      </div>`:''}
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:2" value="' + r.nombre + '" oninput="curMonth().alquiler[' + i + '].nombre=this.value;debouncedSave()">' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().alquiler[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'alquiler\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row" style="font-size:.85rem;color:var(--muted)">' +
+        '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ' + (r.compartido?'checked':'') + ' onchange="curMonth().alquiler[' + i + '].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> 🏠 Común (50/50)</label>' +
+        '<label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().alquiler[' + i + '].estable=this.checked;debouncedSave()">  Fijo</label>' +
+      '</div>' +
+      (!r.compartido ? 
+        '<div class="item-card-row" style="gap:8px;margin-top:4px">' +
+          '<span style="font-size:.8rem;color:var(--muted)">🌱 Raul:</span><input type="number" inputmode="decimal" step="0.01" value="' + (r.aportaA||0) + '" oninput="curMonth().alquiler[' + i + '].aportaA=+this.value;debouncedSave()">' +
+          '<span style="font-size:.8rem;color:var(--muted)">🐨 Marta:</span><input type="number" inputmode="decimal" step="0.01" value="' + (r.aportaB||0) + '" oninput="curMonth().alquiler[' + i + '].aportaB=+this.value;debouncedSave()">' +
+        '</div>' : '') +
+    '</div>';
   });
 }
 
@@ -1331,18 +1383,18 @@ function renderSuscripciones(){
   if (!box) return;
   box.innerHTML = '';
   curMonth().suscripciones.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:2" value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()">
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('suscripciones',${i})">✕</button>
-      </div>
-      <div class="item-card-row">
-        <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}> Raul</option><option value="B" ${r.titular==='B'?'selected':''}>🐨 Marta</option></select>
-        <select style="flex:1" onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>🔄 Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>👤 Personal</option></select>
-        <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> 📌 Fijo</label>
-      </div>
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:2" value="' + r.nombre + '" oninput="curMonth().suscripciones[' + i + '].nombre=this.value;debouncedSave()">' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().suscripciones[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'suscripciones\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row">' +
+        '<select style="flex:1" onchange="curMonth().suscripciones[' + i + '].titular=this.value;debouncedSave();recalcAll()"><option value="A" ' + (r.titular==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.titular==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<select style="flex:1" onchange="curMonth().suscripciones[' + i + '].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ' + (r.tipo==='comun'?'selected':'') + '>🔄 Común</option><option value="personal" ' + (r.tipo==='personal'?'selected':'') + '>👤 Personal</option></select>' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ' + (r.estable?'checked':'') + ' onchange="curMonth().suscripciones[' + i + '].estable=this.checked;debouncedSave()">  Fijo</label>' +
+      '</div>' +
+    '</div>';
   });
 }
 
@@ -1351,18 +1403,18 @@ function renderVariablesAsociadas(){
   if (!box) return;
   box.innerHTML = '';
   curMonth().variablesAsociadas.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().variablesAsociadas[${i}].fecha=this.value;debouncedSave()">
-        <input style="flex:1.5" value="${r.concepto}" placeholder="Concepto" oninput="curMonth().variablesAsociadas[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('variablesAsociadas',${i})">✕</button>
-      </div>
-      <div class="item-card-row">
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().variablesAsociadas[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}> Raul</option><option value="B" ${r.persona==='B'?'selected':''}>🐨 Marta</option></select>
-        <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>🔄 Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>👤 Personal</option></select>
-      </div>
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="date" value="' + r.fecha + '" oninput="curMonth().variablesAsociadas[' + i + '].fecha=this.value;debouncedSave()">' +
+        '<input style="flex:1.5" value="' + r.concepto + '" placeholder="Concepto" oninput="curMonth().variablesAsociadas[' + i + '].concepto=this.value;debouncedSave()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'variablesAsociadas\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().variablesAsociadas[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
+        '<select style="flex:1" onchange="curMonth().variablesAsociadas[' + i + '].persona=this.value;debouncedSave();recalcAll()"><option value="A" ' + (r.persona==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.persona==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<select style="flex:1" onchange="curMonth().variablesAsociadas[' + i + '].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ' + (r.tipo==='comun'?'selected':'') + '>🔄 Común</option><option value="personal" ' + (r.tipo==='personal'?'selected':'') + '>👤 Personal</option></select>' +
+      '</div>' +
+    '</div>';
   });
 }
 
@@ -1371,19 +1423,19 @@ function renderDeudas(){
   if (!box) return;
   box.innerHTML = '';
   data.deudas.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:1" type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()">
-        <input style="flex:1.5" value="${r.descripcion||''}" placeholder="Descripción" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('deudas',${i})">✕</button>
-      </div>
-      <div class="item-card-row">
-        <select style="flex:1" onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>🐨 Marta</option></select>
-        <span style="font-size:.8rem;color:var(--muted)">→</span>
-        <select style="flex:1" onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>🐨 Marta</option></select>
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()">
-      </div>
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="date" value="' + r.fecha + '" oninput="data.deudas[' + i + '].fecha=this.value;debouncedSave()">' +
+        '<input style="flex:1.5" value="' + (r.descripcion||'') + '" placeholder="Descripción" oninput="data.deudas[' + i + '].descripcion=this.value;debouncedSave()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'deudas\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row">' +
+        '<select style="flex:1" onchange="data.deudas[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '> Marta</option></select>' +
+        '<span style="font-size:.8rem;color:var(--muted)">→</span>' +
+        '<select style="flex:1" onchange="data.deudas[' + i + '].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.acreedor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.acreedor==='B'?'selected':'') + '> Marta</option></select>' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.total + '" oninput="data.deudas[' + i + '].total=+this.value;debouncedSave();updateDebtDisplay()">' +
+      '</div>' +
+    '</div>';
   });
 }
 
@@ -1392,19 +1444,19 @@ function renderPagos(){
   if (!box) return;
   box.innerHTML = '';
   data.pagos.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:1" type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()">
-        <input style="flex:1.5" value="${r.concepto||''}" placeholder="Concepto" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('pagos',${i})">✕</button>
-      </div>
-      <div class="item-card-row">
-        <select style="flex:1" onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>🐨 Marta</option></select>
-        <span style="font-size:.8rem;color:var(--muted)">paga a</span>
-        <select style="flex:1" onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>🐨 Marta</option></select>
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()">
-      </div>
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="date" value="' + r.fecha + '" oninput="data.pagos[' + i + '].fecha=this.value;debouncedSave()">' +
+        '<input style="flex:1.5" value="' + (r.concepto||'') + '" placeholder="Concepto" oninput="data.pagos[' + i + '].concepto=this.value;debouncedSave()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'pagos\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row">' +
+        '<select style="flex:1" onchange="data.pagos[' + i + '].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.deudor==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.deudor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<span style="font-size:.8rem;color:var(--muted)">paga a</span>' +
+        '<select style="flex:1" onchange="data.pagos[' + i + '].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ' + (r.acreedor==='A'?'selected':'') + '>🌱 Raul</option><option value="B" ' + (r.acreedor==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="data.pagos[' + i + '].importe=+this.value;debouncedSave();updateDebtDisplay()">' +
+      '</div>' +
+    '</div>';
   });
 }
 
@@ -1413,17 +1465,17 @@ function renderAhorro(){
   if (!box) return;
   box.innerHTML = '';
   curMonth().ahorro.forEach((r, i) => {
-    box.innerHTML += `<div class="item-card">
-      <div class="item-card-row">
-        <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()">
-        <input style="flex:1.5" value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:8px" onclick="delRow('ahorro',${i})">✕</button>
-      </div>
-      <div class="item-card-row">
-        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <select style="flex:1" onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.persona==='B'?'selected':''}>🐨 Marta</option></select>
-      </div>
-    </div>`;
+    box.innerHTML += '<div class="item-card">' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="date" value="' + r.fecha + '" oninput="curMonth().ahorro[' + i + '].fecha=this.value;debouncedSave()">' +
+        '<input style="flex:1.5" value="' + r.concepto + '" oninput="curMonth().ahorro[' + i + '].concepto=this.value;debouncedSave()">' +
+        '<button class="btn-danger" style="padding:8px" onclick="delRow(\'ahorro\',' + i + ')">✕</button>' +
+      '</div>' +
+      '<div class="item-card-row">' +
+        '<input style="flex:1" type="number" inputmode="decimal" step="0.01" value="' + r.importe + '" oninput="curMonth().ahorro[' + i + '].importe=+this.value;debouncedSave();recalcAll()">' +
+        '<select style="flex:1" onchange="curMonth().ahorro[' + i + '].persona=this.value;debouncedSave()"><option value="A" ' + (r.persona==='A'?'selected':'') + '> Raul</option><option value="B" ' + (r.persona==='B'?'selected':'') + '>🐨 Marta</option></select>' +
+      '</div>' +
+    '</div>';
   });
 }
 
@@ -1504,11 +1556,11 @@ function renderDeudaAuto(){
   box.innerHTML = '';
   Object.keys(data.meses).sort().forEach(k => {
     calcAlquilerDebt(k).forEach(d => {
-      box.innerHTML += `<div class="item-card" style="font-size:.85rem">
-        <div class="item-card-row"><b>${getMonthLabel(k)}</b> - ${d.concepto}</div>
-        <div class="item-card-row" style="color:var(--muted)">Total: ${d.total.toFixed(0)}€ | 50%: ${d.corrA.toFixed(0)}€</div>
-        <div class="item-card-row">Dif: <b>${d.diff.toFixed(2)} €</b></div>
-      </div>`;
+      box.innerHTML += '<div class="item-card" style="font-size:.85rem">' +
+        '<div class="item-card-row"><b>' + getMonthLabel(k) + '</b> - ' + d.concepto + '</div>' +
+        '<div class="item-card-row" style="color:var(--muted)">Total: ' + d.total.toFixed(0) + '€ | 50%: ' + d.corrA.toFixed(0) + '€</div>' +
+        '<div class="item-card-row">Dif: <b>' + d.diff.toFixed(2) + ' €</b></div>' +
+      '</div>';
     });
   });
 }
@@ -1554,7 +1606,7 @@ function renderChart(gR, gM){
   chartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: [' Raul', '🐨 Marta'],
+      labels: ['🌱 Raul', '🐨 Marta'],
       datasets: [{data: [gR, gM], backgroundColor: ['#10b981', '#ec4899'], borderWidth: 0}]
     },
     options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff5eb', font: {size: 14}}}}, cutout: '65%'}
@@ -1602,7 +1654,7 @@ function renderAcumuladoAnual() {
   chartInstanceAnual = new Chart(canvas, {
     type: 'bar',
     data: {
-      labels: ['🏠 Vivienda', '🔄 Variables', '📺 Suscripciones', '👤 Personales'],
+      labels: ['🏠 Vivienda', '🔄 Variables', '📺 Suscripciones', ' Personales'],
       datasets: [{
         label: 'Acumulado Anual (€)',
         data: [acum.vivienda, acum.variablesComun, acum.suscripcionesComun, totalPersonal],
@@ -1622,9 +1674,6 @@ function renderAcumuladoAnual() {
   });
 }
 
-// ============================================
-// ESPACIO PRIVADO CON DETALLE DE GASTOS
-// ============================================
 function renderPrivateSpace(forceRender = false) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
@@ -1642,11 +1691,7 @@ function renderPrivateSpace(forceRender = false) {
   set('privadoTotalAnual', totalAnual.toFixed(2) + ' €');
   set('privadoMediaMes', mediaMes.toFixed(2) + ' €');
   
-  // Renderizar lista detallada de gastos
-  if (forceRender || true) {
-    renderGastosPrivadosDetalle(gastosMes);
-  }
-  
+  renderGastosPrivadosDetalle(gastosMes);
   renderPrivateChart();
 }
 
@@ -1670,21 +1715,19 @@ function renderGastosPrivadosDetalle(gastosMes) {
     'otros': '📦 Otros'
   };
   
-  gastosMes.forEach((g, idx) => {
+  gastosMes.forEach((g) => {
     const realIdx = data.espaciosPrivados[privateSession.user].gastos.indexOf(g);
-    const catName = categorias[g.categoria] || ' Otros';
-    html += `
-      <div class="gasto-detalle">
-        <div class="info">
-          <div class="concepto">${g.concepto}</div>
-          <div class="categoria">${catName} • ${g.fecha}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="importe">${(+g.importe || 0).toFixed(2)} €</div>
-          <button class="btn-danger" style="padding:6px 10px;min-height:36px" onclick="delPrivateExpense(${realIdx})">✕</button>
-        </div>
-      </div>
-    `;
+    const catName = categorias[g.categoria] || '📦 Otros';
+    html += '<div class="gasto-detalle">' +
+      '<div class="info">' +
+        '<div class="concepto">' + g.concepto + '</div>' +
+        '<div class="categoria">' + catName + ' • ' + g.fecha + '</div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:12px">' +
+        '<div class="importe">' + (+g.importe || 0).toFixed(2) + ' €</div>' +
+        '<button class="btn-danger" style="padding:6px 10px;min-height:36px" onclick="delPrivateExpense(' + realIdx + ')">✕</button>' +
+      '</div>' +
+    '</div>';
   });
   
   box.innerHTML = html;
@@ -1765,10 +1808,16 @@ if (privateSession.authenticated) {
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
-  // Aplicar fondo personalizado
+  // Aplicar fondo personalizado al cargar
   const bgLayer = document.getElementById('bgLayer');
+  const indicator = document.getElementById('bgIndicator');
   if (bgLayer) {
     bgLayer.className = 'bg-layer ' + (user === 'A' ? 'raul' : 'marta');
+  }
+  if (indicator) {
+    indicator.className = 'bg-indicator ' + (user === 'A' ? 'raul' : 'marta') + ' visible';
+    indicator.textContent = (user === 'A' ? '🌱 Modo Raul' : '🐨 Modo Marta');
+    setTimeout(() => { indicator.classList.remove('visible'); }, 3000);
   }
   
   const nav = document.querySelector('.bottom-nav');
