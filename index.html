@@ -4,136 +4,165 @@
 <meta name="theme-color" content="#2b1810">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MTM Home">
+<meta name="apple-mobile-web-app-title" content="MTM Home🐨">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MTM Home · Finanzas Comunes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MTM Home🐨 · Finanzas Comunes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
   :root{
-    --bg:#1a100b; --card:rgba(30, 20, 15, 0.85); --card-hover:#2a1b13; --text:#fff5eb; --muted:#d1b5a5;
+    --bg:#1a100b; --card:rgba(30, 20, 15, 0.9); --card-hover:#2a1b13; --text:#fff5eb; --muted:#d1b5a5;
     --primary:#f59e0b; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
     --border:#4a2e1d; --raul:#3b82f6; --marta:#ec4899;
     --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   
-  /* FONDO DINÁMICO MEJORADO */
+  /* FONDO DINÁMICO OPTIMIZADO PARA MÓVIL (GPU ACCELERATED) */
   body{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     background-color: var(--bg);
-    background-image: 
-      radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.35) 0px, transparent 50%),
-      radial-gradient(circle at 20% 90%, rgba(236, 72, 153, 0.25) 0px, transparent 50%),
-      linear-gradient(135deg, #3d2212 0%, #22130a 40%, #120a05 100%);
-    background-size: 200% 200%, 200% 200%, 400% 400%;
-    background-attachment: fixed;
-    animation: dynamicGradient 20s ease infinite;
     color:var(--text);
     line-height:1.5;
     padding:16px;
-    padding-bottom:110px;
+    padding-bottom:calc(90px + env(safe-area-inset-bottom));
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
   }
 
-  @keyframes dynamicGradient {
-    0% { background-position: 0% 0%, 100% 100%, 0% 50%; }
-    50% { background-position: 100% 100%, 0% 0%, 100% 50%; }
-    100% { background-position: 0% 0%, 100% 100%, 0% 50%; }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: 
+      radial-gradient(circle at 15% 15%, rgba(245, 158, 11, 0.45) 0%, transparent 50%),
+      radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.35) 0%, transparent 50%),
+      linear-gradient(160deg, #3d2212 0%, #22130a 40%, #120a05 100%);
+    background-size: 300% 300%;
+    animation: gradientMove 12s ease-in-out infinite;
+    will-change: background-position;
   }
 
-  .container{max-width:768px;margin:0 auto}
-  .tricount-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:10px 0}
-  .tricount-logo{font-size:1.8rem;font-weight:900;letter-spacing:-1px;display:flex;align-items:center;gap:8px;color:#fff5eb}
-  .tricount-logo span{color:var(--primary)}
-  .sync-badge{font-size:.7rem;padding:4px 10px;border-radius:12px;font-weight:600;background:#2d1b11;color:#d1b5a5;display:flex;align-items:center;gap:4px;transition:all 0.3s ease}
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container{max-width:768px;margin:0 auto;width:100%}
+  
+  .app-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:8px 0}
+  .app-logo{font-size:1.6rem;font-weight:900;letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;color:#fff5eb}
+  .app-logo span{color:var(--primary)}
+  .sync-badge{font-size:.7rem;padding:5px 10px;border-radius:12px;font-weight:600;background:#2d1b11;color:#d1b5a5;display:flex;align-items:center;gap:5px;transition:all 0.3s ease}
   .sync-badge.ok{background:rgba(16,185,129,0.2);color:#34d399}
   .sync-badge.syncing{background:rgba(245,158,11,0.2);color:#fbbf24}
 
-  .active-month-bar{background:var(--card);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;transition:transform 0.2s ease}
-  .active-month-title{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
+  .active-month-bar{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .active-month-title{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:8px;text-transform:capitalize}
   
-  button{padding:8px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.85rem;background:#382215;color:#fff5eb;transition:all .2s ease;display:inline-flex;align-items:center;gap:6px}
-  button:hover{background:#4d2f1d;transform:translateY(-1px)}
-  button:active{transform:translateY(1px)}
+  /* BOTONES OPTIMIZADOS PARA TÁCTIL */
+  button{padding:10px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9rem;background:#382215;color:#fff5eb;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px}
+  button:active{transform:scale(0.96);opacity:0.8}
   .btn-primary{background:var(--primary);color:#1a100b}
-  .btn-primary:hover{background:#d97706}
   .btn-danger{background:rgba(239,68,68,0.25);color:#fca5a5}
-  .btn-danger:hover{background:rgba(239,68,68,0.4)}
   .btn-success{background:rgba(16,185,129,0.25);color:#6ee7b7}
-  .btn-success:hover{background:rgba(16,185,129,0.4)}
 
-  /* TRANSICIONES DE PESTAÑAS MEJORADAS */
-  .tab-content{
+  /* TRANSICIONES DE PESTAÑAS MUY NOTORIAS */
+  .tab-content {
     display: none;
-    opacity: 0;
-    transform: translateY(15px);
+    visibility: hidden;
   }
-  .tab-content.active{
+  .tab-content.active {
     display: block;
-    animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    visibility: visible;
+    animation: slideUpBounce 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
-  @keyframes slideUpFade {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes slideUpBounce {
+    0% { opacity: 0; transform: translateY(30px) scale(0.97); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:16px}
-  .card{background:var(--card);backdrop-filter:blur(8px);border-radius:var(--radius);padding:20px;border:1px solid var(--border);margin-bottom:16px;transition:transform 0.2s ease, border-color 0.2s ease}
-  .card:hover{transform:translateY(-2px);border-color:rgba(245,158,11,0.3)}
-  .card h3{font-size:.75rem;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-  .stat-value{font-size:1.7rem;font-weight:800;color:#fff5eb}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .card{background:var(--card);backdrop-filter:blur(10px);border-radius:var(--radius);padding:18px;border:1px solid var(--border);margin-bottom:14px;transition:transform 0.2s ease}
+  .card h3{font-size:.7rem;margin-bottom:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .stat-value{font-size:1.6rem;font-weight:800;color:#fff5eb}
   .stat-sub{font-size:.8rem;color:var(--muted);margin-top:4px}
 
   .item-card {
-    background: rgba(20, 12, 8, 0.9);
+    background: rgba(20, 12, 8, 0.95);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 10px;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: border-color 0.2s ease;
+    gap: 10px;
   }
-  .item-card:hover { border-color: rgba(245,158,11,0.4); }
-  .item-card-row {display: flex;justify-content: space-between;align-items: center;gap: 10px;}
-  input, select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#120a05;color:#fff5eb;font-size:.85rem;transition:border-color 0.2s ease}
+  .item-card-row {display: flex;justify-content: space-between;align-items: center;gap: 10px;flex-wrap: wrap;}
+  
+  /* INPUTS OPTIMIZADOS PARA MÓVIL (Evita zoom en iOS, target táctil grande) */
+  input, select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #120a05;
+    color: #fff5eb;
+    font-size: 16px; /* CRUCIAL: Previene zoom automático en iOS Safari */
+    min-height: 44px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-appearance: none;
+  }
   input[type="number"] { text-align: right; }
-  input:focus, select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 2px rgba(245,158,11,0.15)}
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  }
 
-  .add-row{margin-top:12px;color:var(--primary);cursor:pointer;font-size:.9rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:8px 0;transition:opacity 0.2s}
-  .add-row:hover{opacity:0.8}
+  .add-row{margin-top:8px;color:var(--primary);cursor:pointer;font-size:.95rem;font-weight:600;background:none;border:none;display:flex;align-items:center;gap:6px;padding:12px 0;width:100%;justify-content:center}
+  .add-row:active{opacity:0.7}
   
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(26, 16, 11, 0.95);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0;z-index:999;backdrop-filter:blur(12px)}
-  .nav-item{background:none;border:none;color:var(--muted);font-size:.7rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:4px 0;transition:all 0.3s ease}
-  .nav-item span.icon{font-size:1.3rem;transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)}
+  .bottom-nav{
+    position:fixed;bottom:0;left:0;right:0;
+    background:rgba(26, 16, 11, 0.95);
+    border-top:1px solid var(--border);
+    display:flex;justify-content:space-around;
+    padding:8px 0 calc(8px + env(safe-area-inset-bottom)) 0;
+    z-index:999;backdrop-filter:blur(16px);
+  }
+  .nav-item{background:none;border:none;color:var(--muted);font-size:.65rem;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:1;padding:6px 0;transition:all 0.2s ease}
+  .nav-item span.icon{font-size:1.4rem;transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)}
   .nav-item.active{color:var(--primary)}
-  .nav-item.active span.icon{transform:translateY(-4px) scale(1.1)}
+  .nav-item.active span.icon{transform:translateY(-4px) scale(1.15)}
 
-  .cuenta-comun-box{background:linear-gradient(135deg,#5c2c16,#35180c);border:1px solid #7c3a1e;color:#fff5eb;padding:20px;border-radius:var(--radius);margin-bottom:16px;transition:transform 0.2s ease}
-  .cuenta-comun-box:hover{transform:translateY(-2px)}
-  .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;align-items:center}
-  .cuenta-inputs input{width:110px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);color:#fff5eb;padding:8px;border-radius:8px;text-align:right;font-weight:700}
+  .cuenta-comun-box{background:linear-gradient(135deg,#5c2c16,#35180c);border:1px solid #7c3a1e;color:#fff5eb;padding:18px;border-radius:var(--radius);margin-bottom:16px}
+  .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;align-items:center}
+  .cuenta-inputs input{width:100px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);color:#fff5eb;padding:10px;border-radius:10px;text-align:right;font-weight:700}
   
-  .section-title{font-size:1rem;font-weight:700;color:#fff5eb;margin:20px 0 10px;display:flex;justify-content:space-between;align-items:center}
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s ease}
+  .section-title{font-size:1rem;font-weight:700;color:#fff5eb;margin:24px 0 12px;display:flex;justify-content:space-between;align-items:center}
+  
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px;backdrop-filter:blur(6px);opacity:0;transition:opacity 0.3s ease}
   .modal-overlay.active{display:flex;opacity:1}
-  .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:500px;width:100%;transform:scale(0.95);transition:transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)}
+  .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:500px;width:100%;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)}
   .modal-overlay.active .modal{transform:scale(1)}
-  .modal textarea{width:100%;height:140px;background:#120a05;border:1px solid var(--border);color:#fff5eb;padding:10px;border-radius:8px;font-family:monospace;font-size:.8rem;margin-bottom:14px}
-  .chart-container{position:relative;height:240px;margin-top:10px}
+  .modal textarea{width:100%;height:140px;background:#120a05;border:1px solid var(--border);color:#fff5eb;padding:12px;border-radius:10px;font-family:monospace;font-size:14px;margin-bottom:16px;resize:none}
+  .chart-container{position:relative;height:260px;margin-top:10px}
 </style>
 </head>
 <body>
 
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h3 style="color:#fff5eb;margin-bottom:10px">⚙️ Configuración Firebase</h3>
+    <h3 style="color:#fff5eb;margin-bottom:12px">⚙️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
-    <div style="display:flex;justify-content:flex-end;gap:8px">
+    <div style="display:flex;justify-content:flex-end;gap:10px">
       <button onclick="closeConfigModal()">Cancelar</button>
       <button class="btn-primary" onclick="saveFirebaseConfig()">Guardar</button>
     </div>
@@ -141,24 +170,24 @@
 </div>
 
 <div class="container">
-  <div class="tricount-header">
-    <div class="tricount-logo">MTM <span>Home</span></div>
+  <div class="app-header">
+    <div class="app-logo">MTM Home🐨</div>
     <div style="display:flex;gap:8px;align-items:center">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
-      <button onclick="openConfigModal()" style="padding:6px 10px;font-size:.75rem">⚙️</button>
+      <button onclick="openConfigModal()" style="padding:8px;min-height:36px">⚙️</button>
     </div>
   </div>
 
   <div class="active-month-bar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <button onclick="prevMonth()">◀</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button onclick="prevMonth()" style="padding:8px 12px">◀</button>
       <div class="active-month-title" id="monthLabel">-</div>
-      <button onclick="nextMonth()">▶</button>
+      <button onclick="nextMonth()" style="padding:8px 12px">▶</button>
     </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button onclick="goToCurrentMonth()" class="btn-primary" style="padding:6px 12px;font-size:.8rem">📅 Hoy</button>
-      <button onclick="createNewMonth()" class="btn-success" style="padding:6px 12px;font-size:.8rem">➕ Mes</button>
-      <button onclick="deleteCurrentMonth()" class="btn-danger" style="padding:6px 12px;font-size:.8rem">🗑️ Borrar</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="goToCurrentMonth()" class="btn-primary" style="padding:8px 12px">📅 Hoy</button>
+      <button onclick="createNewMonth()" class="btn-success" style="padding:8px 12px">➕ Mes</button>
+      <button onclick="deleteCurrentMonth()" class="btn-danger" style="padding:8px 12px">🗑️</button>
     </div>
   </div>
 
@@ -167,29 +196,29 @@
     <div class="cuenta-comun-box">
       <div style="font-weight:700;font-size:1.05rem">💼 Aportaciones a la Cuenta Común</div>
       <div class="cuenta-inputs">
-        <label>Aporta Raul: <input type="number" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
-        <label>Aporta Marta: <input type="number" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
+        <label style="font-size:0.9rem">Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
+        <label style="font-size:0.9rem">Marta: <input type="number" inputmode="decimal" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
       </div>
-      <div style="margin-top:12px;font-size:.85rem;opacity:.9">
-        Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes totales: <b id="gastosComunes">0 €</b><br>
-        Restante común / Ahorro: <b id="restanteAhorro" style="font-size:1.1rem">1200 €</b>
+      <div style="margin-top:14px;font-size:.9rem;opacity:.9;line-height:1.6">
+        Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes: <b id="gastosComunes">0 €</b><br>
+        Restante común / Ahorro: <b id="restanteAhorro" style="font-size:1.2rem;color:#34d399">1200 €</b>
       </div>
     </div>
 
     <div class="grid">
       <div class="card">
         <h3>Gastos Personales</h3>
-        <div class="stat-value" id="gastoPersonalTotal" style="color:var(--primary)">0 €</div>
-        <div class="stat-sub">Raul: <span id="gastoPersonalRaul">0 €</span> | Marta: <span id="gastoPersonalMarta">0 €</span></div>
+        <div class="stat-value" id="gastoPersonalTotal" style="color:var(--primary);font-size:1.4rem">0 €</div>
+        <div class="stat-sub">R: <span id="gastoPersonalRaul">0 €</span> | M: <span id="gastoPersonalMarta">0 €</span></div>
       </div>
       <div class="card">
         <h3>Ahorro del mes</h3>
-        <div class="stat-value" id="ahorroMes" style="color:var(--accent)">0 €</div>
+        <div class="stat-value" id="ahorroMes" style="color:var(--accent);font-size:1.4rem">0 €</div>
         <div class="stat-sub">Restante común neto</div>
       </div>
       <div class="card">
         <h3>Deuda acumulada</h3>
-        <div class="stat-value" id="deudaAcumulada" style="color:var(--warning)">0 €</div>
+        <div class="stat-value" id="deudaAcumulada" style="color:var(--warning);font-size:1.4rem">0 €</div>
         <div class="stat-sub" id="deudaDetalle">Sin deudas</div>
       </div>
     </div>
@@ -202,13 +231,13 @@
 
   <!-- FIJOS Y VARIABLES -->
   <div id="fijos" class="tab-content">
-    <div class="section-title">🏡 Alquiler y Suministros (Casa)</div>
+    <div class="section-title">🏡 Alquiler y Suministros</div>
     <div class="card">
       <div id="listAlquiler"></div>
       <button class="add-row" onclick="addRow('alquiler')">➕ Añadir gasto de casa</button>
     </div>
 
-    <div class="section-title">📺 Suscripciones (Comunes / Personales)</div>
+    <div class="section-title">📺 Suscripciones</div>
     <div class="card">
       <div id="listSuscripciones"></div>
       <button class="add-row" onclick="addRow('suscripciones')">➕ Añadir suscripción</button>
@@ -217,7 +246,7 @@
     <div class="section-title">🛒 Gastos Variables Asociados</div>
     <div class="card">
       <div id="listVariablesAsociadas"></div>
-      <button class="add-row" onclick="addRow('variablesAsociadas')">➕ Añadir gasto variable común</button>
+      <button class="add-row" onclick="addRow('variablesAsociadas')">➕ Añadir gasto variable</button>
     </div>
   </div>
 
@@ -225,7 +254,7 @@
   <div id="deudas" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,#5c2c16,#35180c);border:1px solid #b45309">
       <h3 style="color:#fbbf24">💳 Estado de Deudas</h3>
-      <div class="stat-value" id="deudaTotalDisplay" style="color:#fff5eb;margin-top:6px">0 €</div>
+      <div class="stat-value" id="deudaTotalDisplay" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" id="deudaTotalDetalle" style="color:#fde68a">Sin deudas</div>
     </div>
     <div class="section-title">📊 Desglose de Gastos No Compartidos</div>
@@ -243,7 +272,7 @@
   <div id="ahorro" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,#1c4a35,#0d2b1f);border:1px solid #059669">
       <h3 style="color:#34d399">💰 Ahorro del Sobrante (Común)</h3>
-      <div class="stat-value" id="ahorroSobranteBox" style="color:#fff5eb;margin-top:6px">0 €</div>
+      <div class="stat-value" id="ahorroSobranteBox" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#a7f3d0">Restante común actual que pasa a ahorro</div>
     </div>
     <div class="section-title">💎 Ahorros Puntuales / Hucha</div>
@@ -257,30 +286,26 @@
   <div id="anual" class="tab-content">
     <div class="card" style="background:linear-gradient(135deg,#4c1d95,#2e1065);border:1px solid #7c3aed">
       <h3 style="color:#c4b5fd">📅 Acumulado Anual Total</h3>
-      <div class="stat-value" id="anualTotalGastos" style="color:#fff5eb;margin-top:6px">0 €</div>
+      <div class="stat-value" id="anualTotalGastos" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#ddd6fe">Suma de todos los meses registrados</div>
     </div>
 
     <div class="grid">
       <div class="card">
         <h3>🏠 Vivienda</h3>
-        <div class="stat-value" id="anualVivienda" style="color:#f59e0b;font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Alquiler + Suministros</div>
+        <div class="stat-value" id="anualVivienda" style="color:#f59e0b;font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
         <h3>🔄 Variables</h3>
-        <div class="stat-value" id="anualVariables" style="color:#10b981;font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Supermercado, ocio, etc.</div>
+        <div class="stat-value" id="anualVariables" style="color:#10b981;font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
         <h3>📺 Suscripciones</h3>
-        <div class="stat-value" id="anualSuscripciones" style="color:#3b82f6;font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Comunes</div>
+        <div class="stat-value" id="anualSuscripciones" style="color:#3b82f6;font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
         <h3>👤 Personales</h3>
-        <div class="stat-value" id="anualPersonales" style="color:#ec4899;font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Raul + Marta</div>
+        <div class="stat-value" id="anualPersonales" style="color:#ec4899;font-size:1.3rem">0 €</div>
       </div>
     </div>
 
@@ -293,11 +318,11 @@
     <div class="grid">
       <div class="card" style="border-left: 4px solid var(--raul)">
         <h3>Gastos Raul</h3>
-        <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.4rem">0 €</div>
+        <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.3rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
         <h3>Gastos Marta</h3>
-        <div class="stat-value" id="anualPersonalMarta" style="color:var(--marta);font-size:1.4rem">0 €</div>
+        <div class="stat-value" id="anualPersonalMarta" style="color:var(--marta);font-size:1.3rem">0 €</div>
       </div>
     </div>
   </div>
@@ -307,7 +332,7 @@
 <!-- Navegación Inferior -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
-  <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos & Var</span></button>
+  <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
   <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
@@ -378,7 +403,6 @@ function ensureDataStructure(){
   if(!Array.isArray(data.pagos)) data.pagos = [];
   
   const keys = Object.keys(data.meses).sort();
-  
   if(keys.length === 0){
     const cur = currentMonthKey();
     data.meses[cur] = defaultMonthData();
@@ -519,16 +543,14 @@ function deleteCurrentMonth(){
   if(confirm(`¿Borrar definitivamente ${getMonthLabel(data.mesActivo)}?`)){
     const mesBorrado = data.mesActivo;
     delete data.meses[mesBorrado];
-    
     const keys = Object.keys(data.meses).sort();
     data.mesActivo = keys[keys.length - 1];
-    
     save();
     if(db){
       setSyncStatus('syncing', 'Borrando...');
       db.collection('hogar').doc('dataFinanzasComunes').set(data)
         .then(() => { setSyncStatus('ok', 'Sincronizado'); renderAll(); })
-        .catch(() => { setSyncStatus('error', 'Error al sincronizar'); });
+        .catch(() => { setSyncStatus('error', 'Error'); });
     } else {
       renderAll();
     }
@@ -552,7 +574,12 @@ function switchTab(e, id){
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   const btn = Array.from(document.querySelectorAll('.nav-item')).find(el => el.getAttribute('onclick').includes(id));
   if(btn) btn.classList.add('active');
-  document.getElementById(id).classList.add('active');
+  
+  // Pequeño delay para asegurar que la animación CSS se reinicie correctamente
+  const target = document.getElementById(id);
+  target.classList.remove('active');
+  void target.offsetWidth; // Forzar reflow
+  target.classList.add('active');
   
   if(id === 'resumen') recalcAll();
   if(id === 'deudas') updateDebtDisplay();
@@ -584,17 +611,17 @@ function renderAlquiler(){
     box.innerHTML += `<div class="item-card">
       <div class="item-card-row">
         <input style="flex:2" value="${r.nombre}" oninput="curMonth().alquiler[${i}].nombre=this.value;debouncedSave()">
-        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('alquiler',${i})">✕</button>
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().alquiler[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <button class="btn-danger" style="padding:8px" onclick="delRow('alquiler',${i})">✕</button>
       </div>
-      <div class="item-card-row" style="font-size:.8rem;color:var(--muted)">
-        <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" style="width:auto" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> Común (50/50)</label>
-        <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" style="width:auto" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> Fijo mes</label>
+      <div class="item-card-row" style="font-size:.85rem;color:var(--muted)">
+        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:18px;height:18px" ${r.compartido?'checked':''} onchange="curMonth().alquiler[${i}].compartido=this.checked;debouncedSave();renderAlquiler();recalcAll()"> Común (50/50)</label>
+        <label style="display:flex;align-items:center;gap:6px"><input type="checkbox" style="width:18px;height:18px" ${r.estable?'checked':''} onchange="curMonth().alquiler[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
       </div>
       ${!r.compartido ? `
-      <div class="item-card-row" style="gap:6px;margin-top:4px">
-        <span style="font-size:.75rem;color:var(--muted)">Aporta R:</span><input type="number" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
-        <span style="font-size:.75rem;color:var(--muted)">Aporta M:</span><input type="number" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
+      <div class="item-card-row" style="gap:8px;margin-top:4px">
+        <span style="font-size:.8rem;color:var(--muted)">R:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
+        <span style="font-size:.8rem;color:var(--muted)">M:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
       </div>`:''}
     </div>`;
   });
@@ -606,13 +633,13 @@ function renderSuscripciones(){
     box.innerHTML += `<div class="item-card">
       <div class="item-card-row">
         <input style="flex:2" value="${r.nombre}" oninput="curMonth().suscripciones[${i}].nombre=this.value;debouncedSave()">
-        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('suscripciones',${i})">✕</button>
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().suscripciones[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <button class="btn-danger" style="padding:8px" onclick="delRow('suscripciones',${i})">✕</button>
       </div>
       <div class="item-card-row">
         <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select>
         <select style="flex:1" onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
-        <label style="display:flex;align-items:center;gap:4px;font-size:.8rem;color:var(--muted)"><input type="checkbox" style="width:auto" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:18px;height:18px" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
       </div>
     </div>`;
   });
@@ -625,10 +652,10 @@ function renderVariablesAsociadas(){
       <div class="item-card-row">
         <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().variablesAsociadas[${i}].fecha=this.value;debouncedSave()">
         <input style="flex:1.5" value="${r.concepto}" placeholder="Concepto" oninput="curMonth().variablesAsociadas[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('variablesAsociadas',${i})">✕</button>
+        <button class="btn-danger" style="padding:8px" onclick="delRow('variablesAsociadas',${i})">✕</button>
       </div>
       <div class="item-card-row">
-        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().variablesAsociadas[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().variablesAsociadas[${i}].importe=+this.value;debouncedSave();recalcAll()">
         <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
         <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
       </div>
@@ -643,13 +670,13 @@ function renderDeudas(){
       <div class="item-card-row">
         <input style="flex:1" type="date" value="${r.fecha}" oninput="data.deudas[${i}].fecha=this.value;debouncedSave()">
         <input style="flex:1.5" value="${r.descripcion||''}" placeholder="Descripción" oninput="data.deudas[${i}].descripcion=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('deudas',${i})">✕</button>
+        <button class="btn-danger" style="padding:8px" onclick="delRow('deudas',${i})">✕</button>
       </div>
       <div class="item-card-row">
         <select style="flex:1" onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
         <span style="font-size:.8rem;color:var(--muted)">→</span>
         <select style="flex:1" onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
-        <input style="flex:1" type="number" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()">
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()">
       </div>
     </div>`;
   });
@@ -662,13 +689,13 @@ function renderPagos(){
       <div class="item-card-row">
         <input style="flex:1" type="date" value="${r.fecha}" oninput="data.pagos[${i}].fecha=this.value;debouncedSave()">
         <input style="flex:1.5" value="${r.concepto||''}" placeholder="Concepto" oninput="data.pagos[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('pagos',${i})">✕</button>
+        <button class="btn-danger" style="padding:8px" onclick="delRow('pagos',${i})">✕</button>
       </div>
       <div class="item-card-row">
         <select style="flex:1" onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
         <span style="font-size:.8rem;color:var(--muted)">paga a</span>
         <select style="flex:1" onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
-        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()">
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()">
       </div>
     </div>`;
   });
@@ -681,10 +708,10 @@ function renderAhorro(){
       <div class="item-card-row">
         <input style="flex:1" type="date" value="${r.fecha}" oninput="curMonth().ahorro[${i}].fecha=this.value;debouncedSave()">
         <input style="flex:1.5" value="${r.concepto}" oninput="curMonth().ahorro[${i}].concepto=this.value;debouncedSave()">
-        <button class="btn-danger" style="padding:6px 10px" onclick="delRow('ahorro',${i})">✕</button>
+        <button class="btn-danger" style="padding:8px" onclick="delRow('ahorro',${i})">✕</button>
       </div>
       <div class="item-card-row">
-        <input style="flex:1" type="number" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()">
+        <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()">
         <select style="flex:1" onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
       </div>
     </div>`;
@@ -810,7 +837,7 @@ function renderChart(gR, gM){
       labels: ['Raul', 'Marta'],
       datasets: [{data: [gR, gM], backgroundColor: ['#3b82f6', '#ec4899'], borderWidth: 0}]
     },
-    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff5eb'}}}, cutout: '70%'}
+    options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff5eb', font: {size: 14}}}}, cutout: '65%'}
   });
 }
 
@@ -866,8 +893,8 @@ function renderAcumuladoAnual() {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#d1b5a5' } },
-        x: { grid: { display: false }, ticks: { color: '#fff5eb', font: { weight: '600' } } }
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#d1b5a5', font: {size: 12} } },
+        x: { grid: { display: false }, ticks: { color: '#fff5eb', font: { weight: '600', size: 12 } } }
       }
     }
   });
