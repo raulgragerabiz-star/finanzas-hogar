@@ -33,35 +33,35 @@
     overflow-x: hidden;
   }
 
+  /* 1. FONDO APP GENERAL (Verde/Marrón neutro) */
   .bg-layer{
     position: fixed !important;
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     z-index: -10 !important;
     background: 
-      radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.55) 0%, transparent 55%) !important,
-      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%) !important,
-      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%) !important,
+      radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.4) 0%, transparent 55%) !important,
+      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.3) 0%, transparent 55%) !important,
       linear-gradient(160deg, #4a7c59 0%, #3d5a47 40%, #2d1f14 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShift 18s ease-in-out infinite !important;
   }
   
+  /* 2. FONDO PRIVADA RAUL (Verde Esmeralda Intenso / Naturaleza) */
   .bg-layer.raul{
     background: 
-      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.7) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 90% 80%, rgba(52, 211, 153, 0.6) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 50% 50%, rgba(110, 231, 183, 0.4) 0%, transparent 60%) !important,
-      linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%) !important;
+      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.8) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 90% 80%, rgba(52, 211, 153, 0.7) 0%, transparent 50%) !important,
+      linear-gradient(135deg, #064e3b 0%, #065f46 40%, #022c22 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftRaul 20s ease-in-out infinite !important;
   }
   
+  /* 3. FONDO PRIVADA MARTA (Rosa/Morado Cálido / Koala) */
   .bg-layer.marta{
     background: 
-      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.6) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.5) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.4) 0%, transparent 60%) !important,
-      linear-gradient(135deg, #831843 0%, #9d174d 40%, #a21caf 100%) !important;
+      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.7) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.6) 0%, transparent 50%) !important,
+      linear-gradient(135deg, #831843 0%, #9d174d 40%, #4a044e 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftMarta 22s ease-in-out infinite !important;
   }
@@ -614,19 +614,19 @@
     <div class="card" style="background:linear-gradient(135deg,rgba(110,231,183,0.2),rgba(236,72,153,0.15));border:1px solid rgba(110,231,183,0.3)">
       <h3 style="color:#93c5fd">💼 Mi Economía Personal</h3>
       <div class="stat-value" id="privadoTotalMes" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
-      <div class="stat-sub" style="color:#bfdbfe">Total gastado este mes en tu espacio privado</div>
+      <div class="stat-sub" style="color:#bfdbfe">Total de gastos puntuales y estables de este mes</div>
     </div>
 
     <div class="grid">
       <div class="card">
-        <h3>📅 Acumulado Año</h3>
-        <div class="stat-value" id="privadoTotalAnual" style="color:var(--primary);font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Todos tus gastos privados</div>
+        <h3>💵 Gasto de este Mes</h3>
+        <div class="stat-value" id="privadoTotalMesCard" style="color:var(--primary);font-size:1.4rem">0 €</div>
+        <div class="stat-sub">Total del mes actual</div>
       </div>
       <div class="card">
-        <h3>📊 Media Mensual</h3>
-        <div class="stat-value" id="privadoMediaMes" style="color:var(--accent);font-size:1.4rem">0 €</div>
-        <div class="stat-sub">Por mes registrado</div>
+        <h3>📈 Acumulado Histórico</h3>
+        <div class="stat-value" id="privadoTotalAnual" style="color:var(--accent);font-size:1.4rem">0 €</div>
+        <div class="stat-sub">Suma de todos los meses registrados</div>
       </div>
     </div>
 
@@ -1192,11 +1192,15 @@ function createNewMonth(){
     ahorro: sobrantePrev > 0 ? [{fecha: key + '-01', concepto: 'Ahorro mes anterior', importe: sobrantePrev, persona: 'A'}] : []
   };
   
+  // Copiar gastos privados estables del mes anterior al nuevo mes
   ['A', 'B'].forEach(user => {
     const prevGastos = data.espaciosPrivados[user].gastos;
     const gastosEstables = prevGastos.filter(g => g.estable && g.fecha && g.fecha.startsWith(last));
     gastosEstables.forEach(g => {
-      const newGasto = {...g, fecha: key + g.fecha.slice(7)};
+      const newGasto = {
+        ...g,
+        fecha: key + g.fecha.slice(7) // Mantiene el día, cambia el mes/año
+      };
       data.espaciosPrivados[user].gastos.push(newGasto);
     });
   });
@@ -1604,7 +1608,7 @@ function renderAcumuladoAnual() {
 }
 
 // ==========================================
-// ESPACIO PRIVADO (CORREGIDO PARA EDICIÓN)
+// ESPACIO PRIVADO (CORREGIDO Y MEJORADO)
 // ==========================================
 function renderPrivateSpace(forceRender = true) {
   if (!privateSession.authenticated) return;
@@ -1615,13 +1619,11 @@ function renderPrivateSpace(forceRender = true) {
   const gastosMes = gastos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
   const totalMes = gastosMes.reduce((s, g) => s + (+g.importe || 0), 0);
   const totalAnual = gastos.reduce((s, g) => s + (+g.importe || 0), 0);
-  const mesesConGastos = new Set(gastos.map(g => g.fecha ? g.fecha.slice(0, 7) : '').filter(Boolean));
-  const mediaMes = mesesConGastos.size > 0 ? totalAnual / mesesConGastos.size : 0;
   
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   set('privadoTotalMes', totalMes.toFixed(2) + ' €');
+  set('privadoTotalMesCard', totalMes.toFixed(2) + ' €');
   set('privadoTotalAnual', totalAnual.toFixed(2) + ' €');
-  set('privadoMediaMes', mediaMes.toFixed(2) + ' €');
   
   // Solo renderizamos la lista si forceRender es true (al añadir/borrar)
   // Esto evita que se pierda el foco del teclado al escribir
@@ -1645,7 +1647,6 @@ function renderGastosPrivadosDetalle(gastosMes) {
   gastosMes.forEach((g) => {
     const realIdx = data.espaciosPrivados[privateSession.user].gastos.indexOf(g);
     
-    // Ahora se renderiza como campos editables (igual que el resto de la app)
     html += '<div class="item-card">' +
       '<div class="item-card-row">' +
         '<input style="flex:1" type="date" value="' + g.fecha + '" oninput="updatePrivateExpense(' + realIdx + ',\'fecha\',this.value)">' +
@@ -1665,6 +1666,12 @@ function renderGastosPrivadosDetalle(gastosMes) {
           '<option value="bancos" ' + (g.categoria==='bancos'?'selected':'') + '>🏦 Bancos</option>' +
           '<option value="otros" ' + (g.categoria==='otros'?'selected':'') + '>📦 Otros</option>' +
         '</select>' +
+      '</div>' +
+      '<div class="item-card-row" style="font-size:.85rem;color:var(--muted);margin-top:4px;">' +
+        '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;width:100%;">' +
+          '<input type="checkbox" style="width:20px;height:20px;min-width:20px;" ' + (g.estable ? 'checked' : '') + ' onchange="updatePrivateExpense(' + realIdx + ',\'estable\',this.checked)">' +
+          '<span>🔄 Gasto estable (se copia a los siguientes meses)</span>' +
+        '</label>' +
       '</div>' +
     '</div>';
   });
