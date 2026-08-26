@@ -351,7 +351,7 @@
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:8px">Selecciona tu perfil para acceder a tus gastos personales privados.</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
-        <div class="emoji">🌱​</div>
+        <div class="emoji">🌱</div>
         <div class="name">Raul</div>
       </div>
       <div class="person-card marta" onclick="selectUser('B')">
@@ -392,7 +392,7 @@
 
 <div class="container">
   <div class="app-header">
-    <div class="app-logo">MTM Home🐨🌱​</div>
+    <div class="app-logo">MTM Home🐨🌱</div>
     <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
       <button class="icon-btn" onclick="openUserSelect()">🔒</button>
@@ -619,7 +619,8 @@ let chartInstanceAnual = null;
 let chartInstancePrivado = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-let privateSession = { authenticated: false, user: null };
+// SOLUCIÓN 3: Persistencia de sesión en sessionStorage
+let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { authenticated: false, user: null };
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
 function createLeaves() {
@@ -881,8 +882,10 @@ function changePin() {
 
 function enterPrivateSpace(user) {
   privateSession = { authenticated: true, user: user };
+  sessionStorage.setItem('privateSession', JSON.stringify(privateSession)); // SOLUCIÓN 3
+  
   const name = user === 'A' ? 'Raul' : 'Marta';
-  const emoji = user === 'A' ? '🌱​' : '🐨​​';
+  const emoji = user === 'A' ? '🌱' : '🐨';
   document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
   
   let navBtn = document.querySelector('.nav-item[onclick*="privado"]');
@@ -900,6 +903,7 @@ function enterPrivateSpace(user) {
 
 function logoutPrivate() {
   privateSession = { authenticated: false, user: null };
+  sessionStorage.removeItem('privateSession'); // SOLUCIÓN 3
   const navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (navBtn) navBtn.remove();
   switchTab(null, 'resumen');
@@ -921,7 +925,9 @@ function defaultMonthData(){
     ],
     suscripciones: [
       {nombre:'Netflix', importe: 12.99, titular:'A', tipo:'comun', estable: true},
-      {nombre:'Spotify', importe: 14.99, titular:'A', tipo:'comun', estable: true}
+      {nombre:'Spotify', importe: 14.99, titular:'B', tipo:'comun', estable: true}
+      {nombre:'HBO', importe: 0.00, titular:'B', tipo:'comun', estable: true}
+      {nombre:'Amazon Prime', importe: 0.00, titular:'A', tipo:'comun', estable: true}
     ],
     variablesAsociadas: [
       {fecha: new Date().toISOString().slice(0,10), concepto:'Supermercado', importe: 150, persona:'A', tipo:'comun'}
@@ -1071,7 +1077,6 @@ function createNewMonth(){
     ahorro: sobrantePrev > 0 ? [{fecha: key + '-01', concepto: 'Ahorro mes anterior', importe: sobrantePrev, persona: 'A'}] : []
   };
   
-  // Copiar gastos privados estables
   ['A', 'B'].forEach(user => {
     const prevGastos = data.espaciosPrivados[user].gastos;
     const gastosEstables = prevGastos.filter(g => g.estable && g.fecha && g.fecha.startsWith(last));
@@ -1452,7 +1457,8 @@ function renderAcumuladoAnual() {
   });
 }
 
-function renderPrivateSpace() {
+// SOLUCIÓN 1 y 2: Separar renderizado de lista de actualización de totales
+function renderPrivateSpace(forceRender = false) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
   const gastos = data.espaciosPrivados[user].gastos;
@@ -1470,6 +1476,22 @@ function renderPrivateSpace() {
   document.getElementById('privadoTotalAnual').textContent = totalAnual.toFixed(2) + ' €';
   document.getElementById('privadoMediaMes').textContent = mediaMes.toFixed(2) + ' €';
   
+  // Solo renderizar la lista completa si es necesario (añadir/eliminar o forzar)
+  if (forceRender) {
+    renderPrivateList();
+  }
+  
+  renderPrivateChart();
+}
+
+function renderPrivateList() {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  const gastos = data.espaciosPrivados[user].gastos;
+  const currentMonth = data.mesActivo;
+  
+  const gastosMes = gastos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
+  
   const box = document.getElementById('listPrivado');
   box.innerHTML = '';
   if (gastosMes.length === 0) {
@@ -1479,25 +1501,27 @@ function renderPrivateSpace() {
       const realIdx = gastos.indexOf(g);
       box.innerHTML += `<div class="item-card">
         <div class="item-card-row">
-          <input style="flex:1" type="date" value="${g.fecha}" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].fecha=this.value;debouncedSave();renderPrivateSpace()">
-          <input style="flex:1.5" value="${g.concepto}" placeholder="Concepto" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].concepto=this.value;debouncedSave()">
+          <input style="flex:1" type="date" value="${g.fecha}" oninput="updatePrivateExpense(${realIdx},'fecha',this.value)">
+          <input style="flex:1.5" value="${g.concepto}" placeholder="Concepto" oninput="updatePrivateExpense(${realIdx},'concepto',this.value)">
           <button class="btn-danger" style="padding:8px" onclick="delPrivateExpense(${realIdx})">✕</button>
         </div>
         <div class="item-card-row">
-          <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${g.importe}" oninput="data.espaciosPrivados['${user}'].gastos[${realIdx}].importe=+this.value;debouncedSave();renderPrivateSpace()">
-          <select style="flex:1" onchange="data.espaciosPrivados['${user}'].gastos[${realIdx}].categoria=this.value;debouncedSave();renderPrivateSpace()">
+          <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${g.importe}" oninput="updatePrivateExpense(${realIdx},'importe',+this.value)">
+          <select style="flex:1" onchange="updatePrivateExpense(${realIdx},'categoria',this.value)">
             <option value="ocio" ${g.categoria==='ocio'?'selected':''}>🎮 Ocio</option>
             <option value="ropa" ${g.categoria==='ropa'?'selected':''}>👕 Ropa</option>
             <option value="comida" ${g.categoria==='comida'?'selected':''}>🍽️ Comida personal</option>
             <option value="salud" ${g.categoria==='salud'?'selected':''}>💊 Salud</option>
             <option value="transporte" ${g.categoria==='transporte'?'selected':''}>🚗 Transporte</option>
             <option value="regalos" ${g.categoria==='regalos'?'selected':''}>🎁 Regalos</option>
+            <option value="prestamos" ${g.categoria==='regalos'?'selected':'💰'}> Prestamos</option>
+            <option value="deudas" ${g.categoria==='regalos'?'selected':'💳'}> Deudas</option>
             <option value="otros" ${g.categoria==='otros'?'selected':''}>📦 Otros</option>
           </select>
         </div>
         <div class="item-card-row" style="font-size:.85rem;color:var(--muted)">
           <label style="display:flex;align-items:center;gap:6px">
-            <input type="checkbox" style="width:20px;height:20px" ${g.estable?'checked':''} onchange="data.espaciosPrivados['${user}'].gastos[${realIdx}].estable=this.checked;debouncedSave()">
+            <input type="checkbox" style="width:20px;height:20px" ${g.estable?'checked':''} onchange="updatePrivateExpense(${realIdx},'estable',this.checked)">
             <span>Gasto fijo mensual (se copia automáticamente)</span>
           </label>
           ${g.estable ? '<span class="estable-badge">✓ Fijo</span>' : ''}
@@ -1505,8 +1529,15 @@ function renderPrivateSpace() {
       </div>`;
     });
   }
-  
-  renderPrivateChart();
+}
+
+// SOLUCIÓN 1: Actualizar solo datos sin reconstruir DOM
+function updatePrivateExpense(idx, field, value) {
+  if (!privateSession.authenticated) return;
+  const user = privateSession.user;
+  data.espaciosPrivados[user].gastos[idx][field] = value;
+  debouncedSave();
+  renderPrivateSpace(false); // Solo actualiza totales, no reconstruye lista
 }
 
 function addPrivateExpense() {
@@ -1521,7 +1552,7 @@ function addPrivateExpense() {
     estable: false
   });
   debouncedSave();
-  renderPrivateSpace();
+  renderPrivateSpace(true); // Forzar renderizado de lista al añadir
 }
 
 function delPrivateExpense(idx) {
@@ -1529,7 +1560,7 @@ function delPrivateExpense(idx) {
   const user = privateSession.user;
   data.espaciosPrivados[user].gastos.splice(idx, 1);
   debouncedSave();
-  renderPrivateSpace();
+  renderPrivateSpace(true); // Forzar renderizado de lista al eliminar
 }
 
 function renderPrivateChart() {
@@ -1573,9 +1604,25 @@ function renderPrivateChart() {
   });
 }
 
+// Restaurar sesión al cargar
+if (privateSession.authenticated) {
+  const user = privateSession.user;
+  const name = user === 'A' ? 'Raul' : 'Marta';
+  const emoji = user === 'A' ? '🌱' : '🐨';
+  document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
+  
+  const nav = document.querySelector('.bottom-nav');
+  const btn = document.createElement('button');
+  btn.className = 'nav-item';
+  btn.onclick = (e) => switchTab(e, 'privado');
+  btn.innerHTML = '<span class="icon">🔒</span><span>Mi Espacio</span>';
+  nav.appendChild(btn);
+}
+
 loadLocal();
 initFirebase();
 renderAll();
+if (privateSession.authenticated) renderPrivateSpace(true);
 </script>
 </body>
 </html>
