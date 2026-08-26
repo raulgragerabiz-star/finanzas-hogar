@@ -289,7 +289,7 @@ function defaultMonthData(){
   };
 }
 
-// ARRANQUE LIMPIO Y RESPETUOSO CON LOS MESES BORRADOS:
+// CONTROL ESTRICTO: NO CREAR AUTOMÁTICAMENTE EL MES ACTUAL SI YA EXISTÍAN DATOS Y FUE BORRADO
 function ensureDataStructure(){
   if(!data.meses || typeof data.meses !== 'object') data.meses = {};
   if(!Array.isArray(data.deudas)) data.deudas = [];
@@ -297,14 +297,12 @@ function ensureDataStructure(){
   
   const keys = Object.keys(data.meses).sort();
   
-  // Si no hay ningún mes guardado, creamos el actual por primera vez.
+  // Solo si está completamente vacío se inicia con el actual. Si hay meses, nos quedamos con el último grabado.
   if(keys.length === 0){
     const cur = currentMonthKey();
     data.meses[cur] = defaultMonthData();
     data.mesActivo = cur;
   } else {
-    // Si hay meses pero el mesActivo no está definido o ya no existe (porque se borró),
-    // nos situamos en el último mes disponible grabado, evitando regenerar meses pasados.
     if(!data.mesActivo || !data.meses[data.mesActivo]){
       data.mesActivo = keys[keys.length - 1];
     }
@@ -456,8 +454,16 @@ function deleteCurrentMonth(){
   }
 }
 
+// CORRECCIÓN CRUCIAL: curMonth JAMÁS recrea automáticamente un mes faltante o borrado por debajo
 function curMonth(){
-  if(!data.meses[data.mesActivo]) data.meses[data.mesActivo] = defaultMonthData();
+  const keys = Object.keys(data.meses).sort();
+  if(keys.length === 0){
+    const cur = currentMonthKey();
+    data.meses[cur] = defaultMonthData();
+    data.mesActivo = cur;
+  } else if(!data.mesActivo || !data.meses[data.mesActivo]){
+    data.mesActivo = keys[keys.length - 1];
+  }
   return data.meses[data.mesActivo];
 }
 
