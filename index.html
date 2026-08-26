@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta name="theme-color" content="#8b5a2b">
+<meta name="theme-color" content="#4a7c59">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MTM Home🐨🌱">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>MTM Home🐨🌱 · Finanzas Comunes</title>
+<title>MTM Home🐨 · Finanzas Comunes</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
   :root{
     --bg:#2d1f14; --card:rgba(58, 40, 28, 0.75); --card-hover:#4a3220; --text:#fff5eb; --muted:#e8d5c4;
-    --primary:#f59e0b; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
-    --border:rgba(255, 200, 150, 0.2); --raul:#3b82f6; --marta:#ec4899;
+    --primary:#6ee7b7; --accent:#10b981; --danger:#ef4444; --warning:#f59e0b; 
+    --border:rgba(110, 231, 183, 0.2); --raul:#10b981; --marta:#ec4899;
     --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -38,10 +38,10 @@
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: -10;
     background: 
-      radial-gradient(ellipse at 20% 10%, rgba(245, 158, 11, 0.55) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 10%, rgba(110, 231, 183, 0.55) 0%, transparent 55%),
       radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.4) 0%, transparent 55%),
-      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.25) 0%, transparent 60%),
-      linear-gradient(160deg, #5c3a20 0%, #3d2817 40%, #2a1a10 100%);
+      radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%),
+      linear-gradient(160deg, #4a7c59 0%, #3d5a47 40%, #2d1f14 100%);
     background-size: 200% 200%;
     animation: bgShift 18s ease-in-out infinite;
   }
@@ -61,7 +61,7 @@
   }
   .orb-1{
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(245, 158, 11, 0.6), transparent 70%);
+    background: radial-gradient(circle, rgba(110, 231, 183, 0.6), transparent 70%);
     top: -50px; left: -50px;
     animation: orbFloat1 22s ease-in-out infinite;
   }
@@ -134,11 +134,9 @@
   
   .app-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding:8px 0}
   .app-logo{font-size:1.6rem;font-weight:900;letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;color:#fff5eb;text-shadow:0 2px 8px rgba(0,0,0,0.3)}
-  .app-logo span{color:var(--primary)}
   .header-actions{display:flex;gap:8px;align-items:center}
-  .sync-badge{font-size:.7rem;padding:5px 10px;border-radius:12px;font-weight:600;background:rgba(255,255,255,0.1);color:#fff5eb;display:flex;align-items:center;gap:5px;transition:all 0.3s ease;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)}
-  .sync-badge.ok{background:rgba(16,185,129,0.25);color:#6ee7b7}
-  .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24}
+  .sync-badge{font-size:.7rem;padding:5px 10px;border-radius:12px;font-weight:600;background:rgba(110,231,183,0.25);color:#6ee7b7;display:flex;align-items:center;gap:5px;transition:all 0.3s ease;backdrop-filter:blur(8px);border:1px solid rgba(110,231,183,0.3)}
+  .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24;border-color:rgba(245,158,11,0.3)}
   .icon-btn{
     background:rgba(255,255,255,0.1);
     border:1px solid rgba(255,255,255,0.15);
@@ -157,7 +155,7 @@
   
   button{padding:10px 14px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9rem;background:rgba(255,255,255,0.1);color:#fff5eb;transition:all .15s ease;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1)}
   button:active{transform:scale(0.96);opacity:0.8}
-  .btn-primary{background:var(--primary);color:#1a100b;border-color:transparent;font-weight:700;box-shadow:0 2px 10px rgba(245,158,11,0.3)}
+  .btn-primary{background:var(--primary);color:#1a100b;border-color:transparent;font-weight:700;box-shadow:0 2px 10px rgba(110,231,183,0.3)}
   .btn-danger{background:rgba(239,68,68,0.3);color:#fca5a5;border-color:rgba(239,68,68,0.3)}
   .btn-success{background:rgba(16,185,129,0.3);color:#6ee7b7;border-color:rgba(16,185,129,0.3)}
 
@@ -208,7 +206,7 @@
   input:focus, select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.25);
   }
   input::placeholder { color: rgba(255, 245, 235, 0.4); }
 
@@ -228,7 +226,7 @@
   .nav-item.active{color:var(--primary)}
   .nav-item.active span.icon{transform:translateY(-4px) scale(1.15)}
 
-  .cuenta-comun-box{background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(236,72,153,0.15));border:1px solid rgba(245,158,11,0.3);color:#fff5eb;padding:18px;border-radius:var(--radius);margin-bottom:16px;backdrop-filter:blur(12px)}
+  .cuenta-comun-box{background:linear-gradient(135deg,rgba(110,231,183,0.25),rgba(16,185,129,0.15));border:1px solid rgba(110,231,183,0.3);color:#fff5eb;padding:18px;border-radius:var(--radius);margin-bottom:16px;backdrop-filter:blur(12px)}
   .cuenta-inputs{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;align-items:center}
   .cuenta-inputs input{width:100px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.2);color:#fff5eb;padding:10px;border-radius:10px;text-align:right;font-weight:700}
   
@@ -254,7 +252,7 @@
   .pin-dot.filled{
     background:var(--primary);
     border-color:var(--primary);
-    box-shadow:0 0 12px rgba(245,158,11,0.6);
+    box-shadow:0 0 12px rgba(110,231,183,0.6);
   }
   .pin-pad{
     display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;
@@ -269,7 +267,7 @@
     cursor:pointer;
     transition:all 0.15s ease;
   }
-  .pin-key:active{background:rgba(245,158,11,0.3);transform:scale(0.95)}
+  .pin-key:active{background:rgba(110,231,183,0.3);transform:scale(0.95)}
   .pin-key.action{font-size:1rem;color:var(--primary)}
   .pin-message{
     text-align:center;color:var(--muted);font-size:.85rem;margin-top:10px;min-height:20px;
@@ -277,8 +275,8 @@
   .pin-message.error{color:#fca5a5}
 
   .private-banner{
-    background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(236,72,153,0.2));
-    border:1px solid rgba(59,130,246,0.3);
+    background:linear-gradient(135deg,rgba(110,231,183,0.25),rgba(236,72,153,0.2));
+    border:1px solid rgba(110,231,183,0.3);
     padding:16px;border-radius:var(--radius);margin-bottom:16px;
     display:flex;justify-content:space-between;align-items:center;gap:12px;
     backdrop-filter:blur(12px);
@@ -310,8 +308,8 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
   }
   .person-card:active{transform:scale(0.97)}
-  .person-card.raul{border-color:rgba(59,130,246,0.4)}
-  .person-card.raul:active{background:rgba(59,130,246,0.2)}
+  .person-card.raul{border-color:rgba(16,185,129,0.4)}
+  .person-card.raul:active{background:rgba(16,185,129,0.2)}
   .person-card.marta{border-color:rgba(236,72,153,0.4)}
   .person-card.marta:active{background:rgba(236,72,153,0.2)}
   .person-card .emoji{font-size:2rem}
@@ -336,7 +334,7 @@
 
 <div class="modal-overlay" id="configModal">
   <div class="modal">
-    <h3>⚙️ Configuración Firebase</h3>
+    <h3>️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:10px">
       <button onclick="closeConfigModal()">Cancelar</button>
@@ -355,7 +353,7 @@
         <div class="name">Raul</div>
       </div>
       <div class="person-card marta" onclick="selectUser('B')">
-        <div class="emoji">🐨</div>
+        <div class="emoji"></div>
         <div class="name">Marta</div>
       </div>
     </div>
@@ -392,7 +390,7 @@
 
 <div class="container">
   <div class="app-header">
-    <div class="app-logo">MTM Home🐨🌱</div>
+    <div class="app-logo">MTM Home🐨</div>
     <div class="header-actions">
       <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
       <button class="icon-btn" onclick="openUserSelect()">🔒</button>
@@ -417,8 +415,8 @@
     <div class="cuenta-comun-box">
       <div style="font-weight:700;font-size:1.05rem">💼 Aportaciones a la Cuenta Común</div>
       <div class="cuenta-inputs">
-        <label style="font-size:0.9rem">Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
-        <label style="font-size:0.9rem">Marta: <input type="number" inputmode="decimal" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
+        <label style="font-size:0.9rem">🌱 Raul: <input type="number" inputmode="decimal" id="aportaCuentaA" value="700" oninput="updateCuentaComun()"></label>
+        <label style="font-size:0.9rem">🐨 Marta: <input type="number" inputmode="decimal" id="aportaCuentaB" value="500" oninput="updateCuentaComun()"></label>
       </div>
       <div style="margin-top:14px;font-size:.9rem;opacity:.95;line-height:1.6">
         Total aportado: <b id="totalCuenta">1200 €</b> · Gastos comunes: <b id="gastosComunes">0 €</b><br>
@@ -430,7 +428,7 @@
       <div class="card">
         <h3>Gastos Personales</h3>
         <div class="stat-value" id="gastoPersonalTotal" style="color:var(--primary);font-size:1.4rem">0 €</div>
-        <div class="stat-sub">R: <span id="gastoPersonalRaul">0 €</span> | M: <span id="gastoPersonalMarta">0 €</span></div>
+        <div class="stat-sub">🌱: <span id="gastoPersonalRaul">0 €</span> | 🐨: <span id="gastoPersonalMarta">0 €</span></div>
       </div>
       <div class="card">
         <h3>Ahorro del mes</h3>
@@ -451,7 +449,7 @@
   </div>
 
   <div id="fijos" class="tab-content">
-    <div class="section-title">🏡 Alquiler y Suministros</div>
+    <div class="section-title"> Alquiler y Suministros</div>
     <div class="card">
       <div id="listAlquiler"></div>
       <button class="add-row" onclick="addRow('alquiler')">➕ Añadir gasto de casa</button>
@@ -476,7 +474,7 @@
       <div class="stat-value" id="deudaTotalDisplay" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" id="deudaTotalDetalle" style="color:#fde68a">Sin deudas</div>
     </div>
-    <div class="section-title">📊 Desglose de Gastos No Compartidos</div>
+    <div class="section-title"> Desglose de Gastos No Compartidos</div>
     <div class="card"><div id="listDeudaAuto"></div></div>
     <div class="section-title">💸 Préstamos / Pagos</div>
     <div class="card">
@@ -534,11 +532,11 @@
     <div class="section-title">Desglose Personal Anual</div>
     <div class="grid">
       <div class="card" style="border-left: 4px solid var(--raul)">
-        <h3>Gastos Raul</h3>
+        <h3>🌱 Gastos Raul</h3>
         <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.3rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
-        <h3>Gastos Marta</h3>
+        <h3>🐨 Gastos Marta</h3>
         <div class="stat-value" id="anualPersonalMarta" style="color:var(--marta);font-size:1.3rem">0 €</div>
       </div>
     </div>
@@ -553,7 +551,7 @@
       </div>
     </div>
 
-    <div class="card" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(236,72,153,0.15));border:1px solid rgba(59,130,246,0.3)">
+    <div class="card" style="background:linear-gradient(135deg,rgba(110,231,183,0.2),rgba(236,72,153,0.15));border:1px solid rgba(110,231,183,0.3)">
       <h3 style="color:#93c5fd">💼 Mi Economía Personal</h3>
       <div class="stat-value" id="privadoTotalMes" style="color:#fff5eb;margin-top:6px;font-size:1.5rem">0 €</div>
       <div class="stat-sub" style="color:#bfdbfe">Total gastado este mes en tu espacio privado</div>
@@ -590,7 +588,7 @@
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
   <button class="nav-item" onclick="switchTab(event,'fijos')"><span class="icon">🏠</span><span>Fijos</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
-  <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
+  <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon"></span><span>Ahorro</span></button>
   <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
 </div>
 
@@ -619,7 +617,6 @@ let chartInstanceAnual = null;
 let chartInstancePrivado = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-// SOLUCIÓN 3: Persistencia de sesión en sessionStorage
 let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { authenticated: false, user: null };
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
@@ -708,7 +705,7 @@ function selectUser(user) {
     document.getElementById('pinSubtitle').textContent = 'Introduce un PIN que solo tú recordarás';
   } else {
     pinState.mode = 'login';
-    const name = user === 'A' ? 'Raul' : 'Marta';
+    const name = user === 'A' ? 'Raul 🌱' : 'Marta ';
     document.getElementById('pinTitle').textContent = `🔐 PIN de ${name}`;
     document.getElementById('pinSubtitle').textContent = 'Introduce tu PIN personal';
   }
@@ -882,11 +879,10 @@ function changePin() {
 
 function enterPrivateSpace(user) {
   privateSession = { authenticated: true, user: user };
-  sessionStorage.setItem('privateSession', JSON.stringify(privateSession)); // SOLUCIÓN 3
+  sessionStorage.setItem('privateSession', JSON.stringify(privateSession));
   
-  const name = user === 'A' ? 'Raul' : 'Marta';
-  const emoji = user === 'A' ? '🌱' : '🐨';
-  document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
+  const name = user === 'A' ? 'Raul 🌱' : 'Marta 🐨';
+  document.getElementById('privateUserTag').innerHTML = name + ' - Espacio Privado';
   
   let navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (!navBtn) {
@@ -903,7 +899,7 @@ function enterPrivateSpace(user) {
 
 function logoutPrivate() {
   privateSession = { authenticated: false, user: null };
-  sessionStorage.removeItem('privateSession'); // SOLUCIÓN 3
+  sessionStorage.removeItem('privateSession');
   const navBtn = document.querySelector('.nav-item[onclick*="privado"]');
   if (navBtn) navBtn.remove();
   switchTab(null, 'resumen');
@@ -925,9 +921,9 @@ function defaultMonthData(){
     ],
     suscripciones: [
       {nombre:'Netflix', importe: 12.99, titular:'A', tipo:'comun', estable: true},
-      {nombre:'Spotify', importe: 14.99, titular:'B', tipo:'comun', estable: true}
-      {nombre:'HBO', importe: 0.00, titular:'B', tipo:'comun', estable: true}
-      {nombre:'Amazon Prime', importe: 0.00, titular:'A', tipo:'comun', estable: true}
+      {nombre:'HBO', importe: 9.99, titular:'A', tipo:'comun', estable: true},
+      {nombre:'Amazon Prime', importe: 4.99, titular:'A', tipo:'comun', estable: true},
+      {nombre:'Spotify', importe: 14.99, titular:'A', tipo:'comun', estable: true}
     ],
     variablesAsociadas: [
       {fecha: new Date().toISOString().slice(0,10), concepto:'Supermercado', importe: 150, persona:'A', tipo:'comun'}
@@ -1133,9 +1129,11 @@ function switchTab(e, id){
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   
   const target = document.getElementById(id);
-  target.classList.remove('active');
-  void target.offsetWidth;
-  target.classList.add('active');
+  if(target){
+    target.classList.remove('active');
+    void target.offsetWidth;
+    target.classList.add('active');
+  }
   
   if(id === 'resumen') recalcAll();
   if(id === 'deudas') updateDebtDisplay();
@@ -1177,8 +1175,8 @@ function renderAlquiler(){
       </div>
       ${!r.compartido ? `
       <div class="item-card-row" style="gap:8px;margin-top:4px">
-        <span style="font-size:.8rem;color:var(--muted)">R:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
-        <span style="font-size:.8rem;color:var(--muted)">M:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
+        <span style="font-size:.8rem;color:var(--muted)">:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaA||0}" oninput="curMonth().alquiler[${i}].aportaA=+this.value;debouncedSave()">
+        <span style="font-size:.8rem;color:var(--muted)">🐨:</span><input type="number" inputmode="decimal" step="0.01" value="${r.aportaB||0}" oninput="curMonth().alquiler[${i}].aportaB=+this.value;debouncedSave()">
       </div>`:''}
     </div>`;
   });
@@ -1194,7 +1192,7 @@ function renderSuscripciones(){
         <button class="btn-danger" style="padding:8px" onclick="delRow('suscripciones',${i})">✕</button>
       </div>
       <div class="item-card-row">
-        <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>Raul</option><option value="B" ${r.titular==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().suscripciones[${i}].titular=this.value;debouncedSave();recalcAll()"><option value="A" ${r.titular==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.titular==='B'?'selected':''}>🐨 Marta</option></select>
         <select style="flex:1" onchange="curMonth().suscripciones[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
         <label style="display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)"><input type="checkbox" style="width:20px;height:20px" ${r.estable?'checked':''} onchange="curMonth().suscripciones[${i}].estable=this.checked;debouncedSave()"> Fijo</label>
       </div>
@@ -1213,7 +1211,7 @@ function renderVariablesAsociadas(){
       </div>
       <div class="item-card-row">
         <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().variablesAsociadas[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].persona=this.value;debouncedSave();recalcAll()"><option value="A" ${r.persona==='A'?'selected':''}> Raul</option><option value="B" ${r.persona==='B'?'selected':''}> Marta</option></select>
         <select style="flex:1" onchange="curMonth().variablesAsociadas[${i}].tipo=this.value;debouncedSave();recalcAll()"><option value="comun" ${r.tipo==='comun'?'selected':''}>Común</option><option value="personal" ${r.tipo==='personal'?'selected':''}>Personal</option></select>
       </div>
     </div>`;
@@ -1230,9 +1228,9 @@ function renderDeudas(){
         <button class="btn-danger" style="padding:8px" onclick="delRow('deudas',${i})">✕</button>
       </div>
       <div class="item-card-row">
-        <select style="flex:1" onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="data.deudas[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>🐨 Marta</option></select>
         <span style="font-size:.8rem;color:var(--muted)">→</span>
-        <select style="flex:1" onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="data.deudas[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>🐨 Marta</option></select>
         <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.total}" oninput="data.deudas[${i}].total=+this.value;debouncedSave();updateDebtDisplay()">
       </div>
     </div>`;
@@ -1249,9 +1247,9 @@ function renderPagos(){
         <button class="btn-danger" style="padding:8px" onclick="delRow('pagos',${i})">✕</button>
       </div>
       <div class="item-card-row">
-        <select style="flex:1" onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>Raul</option><option value="B" ${r.deudor==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="data.pagos[${i}].deudor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.deudor==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.deudor==='B'?'selected':''}> Marta</option></select>
         <span style="font-size:.8rem;color:var(--muted)">paga a</span>
-        <select style="flex:1" onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}>Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="data.pagos[${i}].acreedor=this.value;debouncedSave();updateDebtDisplay()"><option value="A" ${r.acreedor==='A'?'selected':''}> Raul</option><option value="B" ${r.acreedor==='B'?'selected':''}>🐨 Marta</option></select>
         <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="data.pagos[${i}].importe=+this.value;debouncedSave();updateDebtDisplay()">
       </div>
     </div>`;
@@ -1269,7 +1267,7 @@ function renderAhorro(){
       </div>
       <div class="item-card-row">
         <input style="flex:1" type="number" inputmode="decimal" step="0.01" value="${r.importe}" oninput="curMonth().ahorro[${i}].importe=+this.value;debouncedSave();recalcAll()">
-        <select style="flex:1" onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>Raul</option><option value="B" ${r.persona==='B'?'selected':''}>Marta</option></select>
+        <select style="flex:1" onchange="curMonth().ahorro[${i}].persona=this.value;debouncedSave()"><option value="A" ${r.persona==='A'?'selected':''}>🌱 Raul</option><option value="B" ${r.persona==='B'?'selected':''}>🐨 Marta</option></select>
       </div>
     </div>`;
   });
@@ -1329,12 +1327,12 @@ function updateDebtDisplay(){
   const d = calcDeudaTotal();
   document.getElementById('deudaTotalDisplay').textContent = d.abs.toFixed(2) + ' €';
   const el = document.getElementById('deudaTotalDetalle');
-  if(d.neto > 0.01) el.innerHTML = 'Marta debe a Raul: <b>' + d.abs.toFixed(2) + ' €</b>';
-  else if(d.neto < -0.01) el.innerHTML = 'Raul debe a Marta: <b>' + d.abs.toFixed(2) + ' €</b>';
+  if(d.neto > 0.01) el.innerHTML = '🐨 Marta debe a  Raul: <b>' + d.abs.toFixed(2) + ' €</b>';
+  else if(d.neto < -0.01) el.innerHTML = '🌱 Raul debe a  Marta: <b>' + d.abs.toFixed(2) + ' €</b>';
   else el.textContent = 'Cuentas equilibradas';
 
   document.getElementById('deudaAcumulada').textContent = d.abs.toFixed(2) + ' €';
-  document.getElementById('deudaDetalle').innerHTML = d.neto > 0.01 ? 'Marta debe a Raul' : (d.neto < -0.01 ? 'Raul debe a Marta' : 'Equilibrado');
+  document.getElementById('deudaDetalle').innerHTML = d.neto > 0.01 ? '🐨 Marta debe a 🌱 Raul' : (d.neto < -0.01 ? '🌱 Raul debe a 🐨 Marta' : 'Equilibrado');
 }
 
 function renderDeudaAuto(){
@@ -1391,8 +1389,8 @@ function renderChart(gR, gM){
   chartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: ['Raul', 'Marta'],
-      datasets: [{data: [gR, gM], backgroundColor: ['#3b82f6', '#ec4899'], borderWidth: 0}]
+      labels: [' Raul', '🐨 Marta'],
+      datasets: [{data: [gR, gM], backgroundColor: ['#10b981', '#ec4899'], borderWidth: 0}]
     },
     options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff5eb', font: {size: 14}}}}, cutout: '65%'}
   });
@@ -1457,7 +1455,6 @@ function renderAcumuladoAnual() {
   });
 }
 
-// SOLUCIÓN 1 y 2: Separar renderizado de lista de actualización de totales
 function renderPrivateSpace(forceRender = false) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
@@ -1476,7 +1473,6 @@ function renderPrivateSpace(forceRender = false) {
   document.getElementById('privadoTotalAnual').textContent = totalAnual.toFixed(2) + ' €';
   document.getElementById('privadoMediaMes').textContent = mediaMes.toFixed(2) + ' €';
   
-  // Solo renderizar la lista completa si es necesario (añadir/eliminar o forzar)
   if (forceRender) {
     renderPrivateList();
   }
@@ -1510,12 +1506,10 @@ function renderPrivateList() {
           <select style="flex:1" onchange="updatePrivateExpense(${realIdx},'categoria',this.value)">
             <option value="ocio" ${g.categoria==='ocio'?'selected':''}>🎮 Ocio</option>
             <option value="ropa" ${g.categoria==='ropa'?'selected':''}>👕 Ropa</option>
-            <option value="comida" ${g.categoria==='comida'?'selected':''}>🍽️ Comida personal</option>
+            <option value="comida" ${g.categoria==='comida'?'selected':''}>️ Comida personal</option>
             <option value="salud" ${g.categoria==='salud'?'selected':''}>💊 Salud</option>
             <option value="transporte" ${g.categoria==='transporte'?'selected':''}>🚗 Transporte</option>
             <option value="regalos" ${g.categoria==='regalos'?'selected':''}>🎁 Regalos</option>
-            <option value="prestamos" ${g.categoria==='regalos'?'selected':'💰'}> Prestamos</option>
-            <option value="deudas" ${g.categoria==='regalos'?'selected':'💳'}> Deudas</option>
             <option value="otros" ${g.categoria==='otros'?'selected':''}>📦 Otros</option>
           </select>
         </div>
@@ -1531,13 +1525,12 @@ function renderPrivateList() {
   }
 }
 
-// SOLUCIÓN 1: Actualizar solo datos sin reconstruir DOM
 function updatePrivateExpense(idx, field, value) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
   data.espaciosPrivados[user].gastos[idx][field] = value;
   debouncedSave();
-  renderPrivateSpace(false); // Solo actualiza totales, no reconstruye lista
+  renderPrivateSpace(false);
 }
 
 function addPrivateExpense() {
@@ -1552,7 +1545,7 @@ function addPrivateExpense() {
     estable: false
   });
   debouncedSave();
-  renderPrivateSpace(true); // Forzar renderizado de lista al añadir
+  renderPrivateSpace(true);
 }
 
 function delPrivateExpense(idx) {
@@ -1560,7 +1553,7 @@ function delPrivateExpense(idx) {
   const user = privateSession.user;
   data.espaciosPrivados[user].gastos.splice(idx, 1);
   debouncedSave();
-  renderPrivateSpace(true); // Forzar renderizado de lista al eliminar
+  renderPrivateSpace(true);
 }
 
 function renderPrivateChart() {
@@ -1604,12 +1597,10 @@ function renderPrivateChart() {
   });
 }
 
-// Restaurar sesión al cargar
 if (privateSession.authenticated) {
   const user = privateSession.user;
-  const name = user === 'A' ? 'Raul' : 'Marta';
-  const emoji = user === 'A' ? '🌱' : '🐨';
-  document.getElementById('privateUserTag').innerHTML = `${emoji} Espacio Privado de ${name}`;
+  const name = user === 'A' ? '🌱 Raul' : '🐨 Marta';
+  document.getElementById('privateUserTag').innerHTML = name + ' - Espacio Privado';
   
   const nav = document.querySelector('.bottom-nav');
   const btn = document.createElement('button');
