@@ -1,33 +1,41 @@
-function deleteCurrentMonth(){
-  if(Object.keys(data.meses).length <= 1){
-    alert('No puedes borrar el único mes.');
-    return;
-  }
-  if(confirm(`¿Borrar definitivamente ${getMonthLabel(data.mesActivo)}?`)){
-    const mesBorrado = data.mesActivo;
-    
-    // Eliminamos la clave del mes de la estructura local
-    delete data.meses[mesBorrado];
-    
-    // Seleccionamos el primer mes disponible como activo de forma segura
-    data.mesActivo = Object.keys(data.meses).sort()[0];
-    
-    // Guardamos en local
-    save();
-    
-    // Forzamos la sincronización mandando el objeto completo actualizado a Firebase
-    if(db){
-      setSyncStatus('syncing','Borrando...');
-      db.collection('hogar').doc('dataFinanzasComunes').set(data)
-        .then(()=>{
-          setSyncStatus('ok','Sincronizado');
-          renderAll();
-        })
-        .catch(()=>{
-          setSyncStatus('error','Error al sincronizar borrado');
-        });
-    } else {
-      renderAll();
+function ensureDataStructure(){
+  if(!data.meses || typeof data.meses!=='object') data.meses={};
+  if(!Array.isArray(data.deudas)) data.deudas=[];
+  if(!Array.isArray(data.pagos)) data.pagos=[];
+  
+  const keys = Object.keys(data.meses).sort();
+  
+  // Si no hay ningún mes creado, creamos el actual
+  if(keys.length === 0){
+    const cur = currentMonthKey();
+    data.meses[cur] = defaultMonthData();
+    data.mesActivo = cur;
+  } else {
+    // Si el mes activo actual ya no existe (porque fue borrado), 
+    // nos posicionamos en el último mes disponible en lugar de forzar el borrado.
+    if(!data.mesActivo || !data.meses[data.mesActivo]){
+      data.mesActivo = keys[keys.length - 1];
     }
   }
+}
+
+function loadLocal(){
+  const s = localStorage.getItem('hogarDataComunesMTM');
+  if(s){
+    try{ data = JSON.parse(s); }catch(e){}
+  }
+  ensureDataStructure();
+}
+
+function goToCurrentMonth(){
+  const cur = currentMonthKey();
+  // Si el usuario pulsa "Hoy", si el mes actual ya existe va a él, 
+  // y si no existe (por ejemplo, si borró agosto y quiere ir al mes actual de septiembre), lo crea de forma limpia.
+  if(!data.meses[cur]){
+    data.meses[cur] = defaultMonthData();
+  }
+  data.mesActivo = cur;
+  save();
+  saveToFirebase();
+  renderAll();
 }
