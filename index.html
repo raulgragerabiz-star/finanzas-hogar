@@ -289,17 +289,22 @@ function defaultMonthData(){
   };
 }
 
+// ARRANQUE LIMPIO Y RESPETUOSO CON LOS MESES BORRADOS:
 function ensureDataStructure(){
   if(!data.meses || typeof data.meses !== 'object') data.meses = {};
   if(!Array.isArray(data.deudas)) data.deudas = [];
   if(!Array.isArray(data.pagos)) data.pagos = [];
   
   const keys = Object.keys(data.meses).sort();
+  
+  // Si no hay ningún mes guardado, creamos el actual por primera vez.
   if(keys.length === 0){
     const cur = currentMonthKey();
     data.meses[cur] = defaultMonthData();
     data.mesActivo = cur;
   } else {
+    // Si hay meses pero el mesActivo no está definido o ya no existe (porque se borró),
+    // nos situamos en el último mes disponible grabado, evitando regenerar meses pasados.
     if(!data.mesActivo || !data.meses[data.mesActivo]){
       data.mesActivo = keys[keys.length - 1];
     }
