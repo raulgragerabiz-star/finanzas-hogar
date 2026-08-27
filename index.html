@@ -1239,11 +1239,15 @@ function saveExpenseFromModal() {
   if (!name) { alert('Introduce un concepto'); return; }
   
   const expense = {
-    nombre: name, importe: amount, fecha: date, tipo: type, estable: fixed,
+    nombre: name, 
+    importe: amount, 
+    fecha: date, 
+    tipo: type, 
+    estable: fixed,
     aportaA: type === 'individual' ? aportaA : 0,
     aportaB: type === 'individual' ? aportaB : 0,
     compartido: type === 'comun',
-    payer: type === 'individual' ? payer : undefined
+    payer: type === 'individual' ? payer : null  // ← CAMBIADO: null en vez de undefined
   };
   
   if (category === 'suscripciones') expense.titular = type === 'individual' ? payer : 'A';
