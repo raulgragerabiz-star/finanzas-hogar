@@ -496,23 +496,23 @@
 
     <div class="grid">
       <div class="card">
-        <h3> Gastos Comunes</h3>
+        <h3>👥 Gastos Comunes</h3>
         <div class="stat-value" id="gastoComunTotal" style="color:var(--primary);font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
-        <h3>👤 Gastos Individuales</h3>
+        <h3> Gastos Individuales</h3>
         <div class="stat-value" id="gastoPersonalTotal" style="color:var(--marta);font-size:1.3rem">0 €</div>
         <div class="stat-sub">🌱: <span id="gastoPersonalRaul">0 €</span> · 🐨: <span id="gastoPersonalMarta">0 €</span></div>
       </div>
       <div class="card">
-        <h3>💳 Deuda Acumulada</h3>
+        <h3> Deuda Acumulada</h3>
         <div class="stat-value" id="deudaAcumulada" style="color:var(--warning);font-size:1.3rem">0 €</div>
         <div class="stat-sub" id="deudaDetalle">Sin deudas</div>
       </div>
     </div>
 
     <div class="card">
-      <h3>📊 Distribución Gastos Personales</h3>
+      <h3> Distribución Gastos Personales</h3>
       <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartPersonales"></canvas></div>
     </div>
   </div>
@@ -528,7 +528,7 @@
     </div>
 
     <div class="section-title">
-      <span> Suscripciones</span>
+      <span>📺 Suscripciones</span>
       <button class="btn-success btn-small" onclick="openExpenseModal('suscripciones')">➕</button>
     </div>
     <div class="card">
@@ -536,7 +536,7 @@
     </div>
 
     <div class="section-title">
-      <span>🛒 Alimentación y Hogar</span>
+      <span> Alimentación y Hogar</span>
       <button class="btn-success btn-small" onclick="openExpenseModal('variablesAsociadas')">➕</button>
     </div>
     <div class="card">
@@ -553,7 +553,7 @@
     </div>
 
     <div class="section-title">
-      <span>💸 Préstamos</span>
+      <span> Préstamos</span>
       <button class="btn-success btn-small" onclick="openDebtModal('deuda')">➕</button>
     </div>
     <div class="card">
@@ -578,7 +578,7 @@
     </div>
 
     <div class="section-title">
-      <span> Ahorros Puntuales</span>
+      <span>💎 Ahorros Puntuales</span>
       <button class="btn-success btn-small" onclick="openSavingsModal()">➕</button>
     </div>
     <div class="card">
@@ -625,7 +625,7 @@
         <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.2rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
-        <h3> Gastos Marta</h3>
+        <h3>🐨 Gastos Marta</h3>
         <div class="stat-value" id="anualPersonalMarta" style="color:var(--marta);font-size:1.2rem">0 €</div>
       </div>
     </div>
@@ -634,10 +634,10 @@
   <!-- TAB 6: MI ESPACIO 🔒 -->
   <div id="privado" class="tab-content">
     <div class="private-banner">
-      <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
+      <div class="user-tag" id="privateUserTag"> Espacio Privado</div>
       <div class="private-actions">
         <button class="change-pin-btn" onclick="changePin()" title="Cambiar PIN">🔑</button>
-        <button class="logout-btn" onclick="logoutPrivate()">🚪 Salir</button>
+        <button class="logout-btn" onclick="logoutPrivate()"> Salir</button>
       </div>
     </div>
 
@@ -654,7 +654,7 @@
         <div class="stat-sub">Gastos mes actual</div>
       </div>
       <div class="card">
-        <h3> Acumulado</h3>
+        <h3>📈 Acumulado</h3>
         <div class="stat-value" id="privadoTotalAnual" style="color:var(--accent);font-size:1.3rem">0 €</div>
         <div class="stat-sub">Suma histórica</div>
       </div>
@@ -679,7 +679,7 @@
 <!-- NAVEGACIÓN INFERIOR CON ICONO DE COMÚN RECUPERADO -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
-  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon"></span><span>Común</span></button>
+  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon">🏠</span><span>Común</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
   <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
@@ -701,8 +701,8 @@
 <!-- MODAL SELECCIONAR USUARIO -->
 <div class="modal-overlay" id="userSelectModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('userSelectModal')"></button>
-    <h3> Mi Espacio Privado</h3>
+    <button class="modal-close" onclick="closeModal('userSelectModal')">✕</button>
+    <h3>🔒 Mi Espacio Privado</h3>
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:6px">Selecciona tu perfil</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
@@ -721,7 +721,7 @@
 <div class="modal-overlay" id="pinModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('pinModal')">✕</button>
-    <h3 id="pinTitle">🔐 Introduce tu PIN</h3>
+    <h3 id="pinTitle"> Introduce tu PIN</h3>
     <p id="pinSubtitle" style="color:var(--muted);font-size:.8rem;text-align:center"></p>
     <div class="pin-display" id="pinDisplay">
       <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
@@ -787,15 +787,22 @@
           <input type="number" inputmode="decimal" step="0.01" id="expenseModalAportaB" placeholder="0.00">
         </div>
       </div>
+      <div class="form-group">
+        <label>¿Quién paga?</label>
+        <select id="expenseModalPayer">
+          <option value="A">🌱 Raul</option>
+          <option value="B">🐨 Marta</option>
+        </select>
+      </div>
     </div>
     
     <div class="checkbox-row">
       <input type="checkbox" id="expenseModalFixed">
-      <label for="expenseModalFixed">📌 Gasto fijo (se duplica en meses nuevos)</label>
+      <label for="expenseModalFixed"> Gasto fijo (se duplica en meses nuevos)</label>
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn-danger" id="expenseModalDelete" onclick="deleteExpenseFromModal()" style="display:none;flex:1">️</button>
+      <button class="btn-danger" id="expenseModalDelete" onclick="deleteExpenseFromModal()" style="display:none;flex:1">🗑️</button>
       <button class="btn-primary" onclick="saveExpenseFromModal()" style="flex:2">💾 Guardar</button>
     </div>
   </div>
@@ -852,8 +859,8 @@
 <!-- MODAL AHORRO -->
 <div class="modal-overlay" id="savingsModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('savingsModal')"></button>
-    <h3 id="savingsModalTitle">💎 Añadir ahorro</h3>
+    <button class="modal-close" onclick="closeModal('savingsModal')">✕</button>
+    <h3 id="savingsModalTitle"> Añadir ahorro</h3>
     <input type="hidden" id="savingsModalIndex" value="-1">
     
     <div class="form-row">
@@ -881,7 +888,7 @@
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn-danger" id="savingsModalDelete" onclick="deleteSavingsFromModal()" style="display:none;flex:1">️</button>
+      <button class="btn-danger" id="savingsModalDelete" onclick="deleteSavingsFromModal()" style="display:none;flex:1">🗑️</button>
       <button class="btn-primary" onclick="saveSavingsFromModal()" style="flex:2">💾 Guardar</button>
     </div>
   </div>
@@ -920,7 +927,7 @@
         <option value="transporte">🚗 Transporte</option>
         <option value="regalos">🎁 Regalos</option>
         <option value="prestamo">💰 Préstamo</option>
-        <option value="banco"> Banco</option>
+        <option value="banco">🏦 Banco</option>
         <option value="otros">📦 Otros</option>
       </select>
     </div>
@@ -966,9 +973,9 @@ let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { a
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
 const CATEGORY_ICONS = {
-  alquiler: '', suscripciones: '📺', variablesAsociadas: '🛒',
-  ocio: '🎮', ropa: '', comida: '🍽️', salud: '💊',
-  transporte: '', regalos: '🎁', prestamo: '💰', banco: '', otros: '📦'
+  alquiler: '🏠', suscripciones: '📺', variablesAsociadas: '🛒',
+  ocio: '🎮', ropa: '👕', comida: '️🍽️', salud: '💊',
+  transporte: '🚗', regalos: '🎁', prestamo: '💰', banco: '🏦', otros: '📦'
 };
 
 // ==========================================
@@ -1065,7 +1072,7 @@ function selectUser(user) {
     if (subtitle) subtitle.textContent = 'Introduce un PIN que solo tú recordarás';
   } else {
     pinState.mode = 'login';
-    const name = user === 'A' ? 'Raul ' : 'Marta 🐨';
+    const name = user === 'A' ? '🌱Raul ' : 'Marta 🐨';
     const title = document.getElementById('pinTitle');
     const subtitle = document.getElementById('pinSubtitle');
     if (title) title.textContent = '🔐 PIN de ' + name;
@@ -1568,13 +1575,13 @@ function renderExpenseRow(r, i, category) {
   // Determinar si es individual y quién paga
   let payerInfo = '';
   if (r.tipo === 'individual') {
-    // Para suscripciones usamos titular, para variables usamos persona
-    const payer = r.titular || r.persona || 'A';
+    // Usar el campo payer si existe, sino usar titular/persona
+    const payer = r.payer || r.titular || r.persona || 'A';
     const payerIcon = payer === 'A' ? '🌱' : '🐨';
     const payerName = payer === 'A' ? 'Raul' : 'Marta';
     payerInfo = `<span class="exp-tag personal">${payerIcon} ${payerName}</span>`;
   } else {
-    payerInfo = '<span class="exp-tag comun">👥 Común</span>';
+    payerInfo = '<span class="exp-tag comun"> Común</span>';
   }
   
   const fijoTag = r.estable ? '<span class="exp-tag fijo">📌 Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
@@ -1644,6 +1651,8 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalType').value = r.tipo === 'individual' ? 'individual' : 'comun';
     document.getElementById('expenseModalAportaA').value = r.aportaA !== undefined ? r.aportaA : 0;
     document.getElementById('expenseModalAportaB').value = r.aportaB !== undefined ? r.aportaB : 0;
+    // Cargar quién paga
+    document.getElementById('expenseModalPayer').value = r.payer || r.titular || r.persona || 'A';
     document.getElementById('expenseModalFixed').checked = !!r.estable;
   } else {
     document.getElementById('expenseModalName').value = '';
@@ -1652,6 +1661,7 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalType').value = 'comun';
     document.getElementById('expenseModalAportaA').value = '';
     document.getElementById('expenseModalAportaB').value = '';
+    document.getElementById('expenseModalPayer').value = 'A';
     document.getElementById('expenseModalFixed').checked = false;
   }
   
@@ -1669,6 +1679,7 @@ function saveExpenseFromModal() {
   const type = document.getElementById('expenseModalType').value;
   const aportaA = parseFloat(document.getElementById('expenseModalAportaA').value) || 0;
   const aportaB = parseFloat(document.getElementById('expenseModalAportaB').value) || 0;
+  const payer = document.getElementById('expenseModalPayer').value;
   const fixed = document.getElementById('expenseModalFixed').checked;
   
   if (!name) { alert('Introduce un concepto'); return; }
@@ -1681,14 +1692,15 @@ function saveExpenseFromModal() {
     estable: fixed,
     aportaA: type === 'individual' ? aportaA : 0,
     aportaB: type === 'individual' ? aportaB : 0,
-    compartido: type === 'comun'
+    compartido: type === 'comun',
+    payer: type === 'individual' ? payer : undefined
   };
   
-  // Para suscripciones y variables, guardar quién lo paga
+  // Para suscripciones y variables, guardar quién lo paga en los campos correspondientes
   if (category === 'suscripciones') {
-    expense.titular = type === 'individual' ? (aportaA > aportaB ? 'A' : 'B') : 'A';
+    expense.titular = type === 'individual' ? payer : 'A';
   } else if (category === 'variablesAsociadas') {
-    expense.persona = type === 'individual' ? (aportaA > aportaB ? 'A' : 'B') : 'A';
+    expense.persona = type === 'individual' ? payer : 'A';
   }
   
   if (index >= 0) {
@@ -1722,11 +1734,11 @@ function renderDeudas(){
   }
   box.innerHTML = data.deudas.map((r, i) => {
     const debtorIcon = r.deudor === 'A' ? '🌱' : '🐨';
-    const creditorIcon = r.acreedor === 'A' ? '🌱' : '';
+    const creditorIcon = r.acreedor === 'A' ? '🌱' : '🐨';
     const debtorName = r.deudor === 'A' ? 'Raul' : 'Marta';
     const creditorName = r.acreedor === 'A' ? 'Raul' : 'Marta';
     return '<div class="expense-row" onclick="openDebtModal(\'deuda\',' + i + ')">' +
-      '<div class="exp-icon">💸</div>' +
+      '<div class="exp-icon"></div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + (r.descripcion || 'Préstamo') + '</div>' +
         '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span>📅 ' + r.fecha + '</span></div>' +
@@ -1745,11 +1757,11 @@ function renderPagos(){
   }
   box.innerHTML = data.pagos.map((r, i) => {
     const debtorIcon = r.deudor === 'A' ? '🌱' : '🐨';
-    const creditorIcon = r.acreedor === 'A' ? '🌱' : '';
+    const creditorIcon = r.acreedor === 'A' ? '🌱' : '🐨';
     const debtorName = r.deudor === 'A' ? 'Raul' : 'Marta';
     const creditorName = r.acreedor === 'A' ? 'Raul' : 'Marta';
     return '<div class="expense-row" onclick="openDebtModal(\'pago\',' + i + ')">' +
-      '<div class="exp-icon">💰</div>' +
+      '<div class="exp-icon"></div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + (r.concepto || 'Abono') + '</div>' +
         '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span>📅 ' + r.fecha + '</span></div>' +
@@ -1857,7 +1869,7 @@ function updateDebtDisplay(){
   }
   if (acum) acum.textContent = d.abs.toFixed(2) + ' €';
   if (detalle2) {
-    if(d.neto > 0.01) detalle2.innerHTML = '🐨 Marta debe a  Raul';
+    if(d.neto > 0.01) detalle2.innerHTML = '🐨 Marta debe a 🌱 Raul';
     else if(d.neto < -0.01) detalle2.innerHTML = '🌱 Raul debe a 🐨 Marta';
     else detalle2.textContent = 'Equilibrado ✓';
   }
@@ -1962,11 +1974,12 @@ function recalcAll(){
   set('gastoComunTotal', gastC.toFixed(0) + ' €');
 
   // CÁLCULO CORREGIDO: Sumar todos los gastos individuales (tipo === 'individual')
-  const gR = m.suscripciones.filter(r => r.tipo === 'individual' && r.titular === 'A').reduce((s, r) => s + r.importe, 0) +
-             m.variablesAsociadas.filter(r => r.tipo === 'individual' && r.persona === 'A').reduce((s, r) => s + r.importe, 0);
+  // Usar el campo payer si existe, sino titular/persona
+  const gR = m.suscripciones.filter(r => r.tipo === 'individual' && (r.payer || r.titular) === 'A').reduce((s, r) => s + r.importe, 0) +
+             m.variablesAsociadas.filter(r => r.tipo === 'individual' && (r.payer || r.persona) === 'A').reduce((s, r) => s + r.importe, 0);
 
-  const gM = m.suscripciones.filter(r => r.tipo === 'individual' && r.titular === 'B').reduce((s, r) => s + r.importe, 0) +
-             m.variablesAsociadas.filter(r => r.tipo === 'individual' && r.persona === 'B').reduce((s, r) => s + r.importe, 0);
+  const gM = m.suscripciones.filter(r => r.tipo === 'individual' && (r.payer || r.titular) === 'B').reduce((s, r) => s + r.importe, 0) +
+             m.variablesAsociadas.filter(r => r.tipo === 'individual' && (r.payer || r.persona) === 'B').reduce((s, r) => s + r.importe, 0);
 
   const gTotPersonal = gR + gM;
 
@@ -1985,7 +1998,7 @@ function renderChart(gR, gM){
   chartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: ['🌱 Raul', ' Marta'],
+      labels: ['🌱 Raul', '🐨 Marta'],
       datasets: [{data: [gR, gM], backgroundColor: ['#10b981', '#ec4899'], borderWidth: 0}]
     },
     options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff8f0', font: {size: 13}}}}, cutout: '65%'}
@@ -1998,13 +2011,13 @@ function calcularAcumuladoAnual() {
     m.alquiler.forEach(r => { acum.vivienda += r.importe; acum.totalGastos += r.importe; });
     m.suscripciones.forEach(r => {
       if (r.tipo === 'comun' || !r.tipo) { acum.suscripcionesComun += r.importe; } 
-      else if (r.titular === 'A') { acum.personalRaul += r.importe; } 
+      else if ((r.payer || r.titular) === 'A') { acum.personalRaul += r.importe; } 
       else { acum.personalMarta += r.importe; }
       acum.totalGastos += r.importe;
     });
     m.variablesAsociadas.forEach(r => {
       if (r.tipo === 'comun' || !r.tipo) { acum.variablesComun += r.importe; } 
-      else if (r.persona === 'A') { acum.personalRaul += r.importe; } 
+      else if ((r.payer || r.persona) === 'A') { acum.personalRaul += r.importe; } 
       else { acum.personalMarta += r.importe; }
       acum.totalGastos += r.importe;
     });
@@ -2083,7 +2096,7 @@ function renderGastosPrivadosDetalle(gastosMes) {
   
   const categorias = {
     'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '🍽️ Comida',
-    'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': ' Regalos',
+    'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': '🎁 Regalos',
     'prestamo': '💰 Préstamo', 'banco': '🏦 Banco',
     'otros': '📦 Otros'
   };
