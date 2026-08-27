@@ -496,7 +496,7 @@
 
     <div class="grid">
       <div class="card">
-        <h3>👥 Gastos Comunes</h3>
+        <h3> Gastos Comunes</h3>
         <div class="stat-value" id="gastoComunTotal" style="color:var(--primary);font-size:1.3rem">0 €</div>
       </div>
       <div class="card">
@@ -528,7 +528,7 @@
     </div>
 
     <div class="section-title">
-      <span>📺 Suscripciones</span>
+      <span> Suscripciones</span>
       <button class="btn-success btn-small" onclick="openExpenseModal('suscripciones')">➕</button>
     </div>
     <div class="card">
@@ -537,7 +537,7 @@
 
     <div class="section-title">
       <span>🛒 Alimentación y Hogar</span>
-      <button class="btn-success btn-small" onclick="openExpenseModal('variablesAsociadas')"></button>
+      <button class="btn-success btn-small" onclick="openExpenseModal('variablesAsociadas')">➕</button>
     </div>
     <div class="card">
       <div id="listVariablesAsociadas"></div>
@@ -578,7 +578,7 @@
     </div>
 
     <div class="section-title">
-      <span>💎 Ahorros Puntuales</span>
+      <span> Ahorros Puntuales</span>
       <button class="btn-success btn-small" onclick="openSavingsModal()">➕</button>
     </div>
     <div class="card">
@@ -625,7 +625,7 @@
         <div class="stat-value" id="anualPersonalRaul" style="color:var(--raul);font-size:1.2rem">0 €</div>
       </div>
       <div class="card" style="border-left: 4px solid var(--marta)">
-        <h3>🐨 Gastos Marta</h3>
+        <h3> Gastos Marta</h3>
         <div class="stat-value" id="anualPersonalMarta" style="color:var(--marta);font-size:1.2rem">0 €</div>
       </div>
     </div>
@@ -636,7 +636,7 @@
     <div class="private-banner">
       <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
       <div class="private-actions">
-        <button class="change-pin-btn" onclick="changePin()" title="Cambiar PIN"></button>
+        <button class="change-pin-btn" onclick="changePin()" title="Cambiar PIN">🔑</button>
         <button class="logout-btn" onclick="logoutPrivate()">🚪 Salir</button>
       </div>
     </div>
@@ -649,7 +649,7 @@
 
     <div class="grid">
       <div class="card">
-        <h3> Este Mes</h3>
+        <h3>💵 Este Mes</h3>
         <div class="stat-value" id="privadoTotalMesCard" style="color:var(--primary);font-size:1.3rem">0 €</div>
         <div class="stat-sub">Gastos mes actual</div>
       </div>
@@ -669,7 +669,7 @@
     </div>
 
     <div class="card">
-      <h3> Distribución por Conceptos</h3>
+      <h3>📊 Distribución por Conceptos</h3>
       <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartPrivado"></canvas></div>
     </div>
   </div>
@@ -679,7 +679,7 @@
 <!-- NAVEGACIÓN INFERIOR CON ICONO DE COMÚN RECUPERADO -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
-  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon">🏠</span><span>Común</span></button>
+  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon"></span><span>Común</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
   <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
@@ -701,8 +701,8 @@
 <!-- MODAL SELECCIONAR USUARIO -->
 <div class="modal-overlay" id="userSelectModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('userSelectModal')">✕</button>
-    <h3>🔒 Mi Espacio Privado</h3>
+    <button class="modal-close" onclick="closeModal('userSelectModal')"></button>
+    <h3> Mi Espacio Privado</h3>
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:6px">Selecciona tu perfil</p>
     <div class="person-selector">
       <div class="person-card raul" onclick="selectUser('A')">
@@ -739,7 +739,7 @@
       <button class="pin-key" onclick="pinInput('9')">9</button>
       <button class="pin-key action" onclick="closeModal('pinModal')">✕</button>
       <button class="pin-key" onclick="pinInput('0')">0</button>
-      <button class="pin-key action" onclick="pinBackspace()"></button>
+      <button class="pin-key action" onclick="pinBackspace()">⌫</button>
     </div>
   </div>
 </div>
@@ -747,7 +747,7 @@
 <!-- MODAL GASTO COMUN -->
 <div class="modal-overlay" id="expenseModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('expenseModal')">✕</button>
+    <button class="modal-close" onclick="closeModal('expenseModal')"></button>
     <h3 id="expenseModalTitle">✏️ Editar gasto</h3>
     <input type="hidden" id="expenseModalCategory">
     <input type="hidden" id="expenseModalIndex" value="-1">
@@ -795,8 +795,8 @@
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn-danger" id="expenseModalDelete" onclick="deleteExpenseFromModal()" style="display:none;flex:1">🗑️</button>
-      <button class="btn-primary" onclick="saveExpenseFromModal()" style="flex:2"> Guardar</button>
+      <button class="btn-danger" id="expenseModalDelete" onclick="deleteExpenseFromModal()" style="display:none;flex:1">️</button>
+      <button class="btn-primary" onclick="saveExpenseFromModal()" style="flex:2">💾 Guardar</button>
     </div>
   </div>
 </div>
@@ -805,7 +805,7 @@
 <div class="modal-overlay" id="debtModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('debtModal')">✕</button>
-    <h3 id="debtModalTitle"> Registrar préstamo</h3>
+    <h3 id="debtModalTitle">💸 Registrar préstamo</h3>
     <input type="hidden" id="debtModalType" value="deuda">
     <input type="hidden" id="debtModalIndex" value="-1">
     
@@ -852,7 +852,7 @@
 <!-- MODAL AHORRO -->
 <div class="modal-overlay" id="savingsModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('savingsModal')">✕</button>
+    <button class="modal-close" onclick="closeModal('savingsModal')"></button>
     <h3 id="savingsModalTitle">💎 Añadir ahorro</h3>
     <input type="hidden" id="savingsModalIndex" value="-1">
     
@@ -881,8 +881,8 @@
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn-danger" id="savingsModalDelete" onclick="deleteSavingsFromModal()" style="display:none;flex:1">🗑️</button>
-      <button class="btn-primary" onclick="saveSavingsFromModal()" style="flex:2"> Guardar</button>
+      <button class="btn-danger" id="savingsModalDelete" onclick="deleteSavingsFromModal()" style="display:none;flex:1">️</button>
+      <button class="btn-primary" onclick="saveSavingsFromModal()" style="flex:2">💾 Guardar</button>
     </div>
   </div>
 </div>
@@ -919,8 +919,8 @@
         <option value="salud">💊 Salud</option>
         <option value="transporte">🚗 Transporte</option>
         <option value="regalos">🎁 Regalos</option>
-        <option value="Prestamo">💰 Regalos</option>
-        <option value="Banco">🏦 Banco</optio
+        <option value="prestamo">💰 Préstamo</option>
+        <option value="banco"> Banco</option>
         <option value="otros">📦 Otros</option>
       </select>
     </div>
@@ -966,9 +966,9 @@ let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { a
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
 const CATEGORY_ICONS = {
-  alquiler: '🏠', suscripciones: '📺', variablesAsociadas: '🛒',
-  ocio: '🎮', ropa: '👕', comida: '🍽️', salud: '💊',
-  transporte: '🚗', regalos: '🎁', prestamo: '💰', bancos: '🏦', otros: '📦'
+  alquiler: '', suscripciones: '📺', variablesAsociadas: '🛒',
+  ocio: '🎮', ropa: '', comida: '🍽️', salud: '💊',
+  transporte: '', regalos: '🎁', prestamo: '💰', banco: '', otros: '📦'
 };
 
 // ==========================================
@@ -1065,7 +1065,7 @@ function selectUser(user) {
     if (subtitle) subtitle.textContent = 'Introduce un PIN que solo tú recordarás';
   } else {
     pinState.mode = 'login';
-    const name = user === 'A' ? 'Raul 🌱' : 'Marta 🐨';
+    const name = user === 'A' ? 'Raul ' : 'Marta 🐨';
     const title = document.getElementById('pinTitle');
     const subtitle = document.getElementById('pinSubtitle');
     if (title) title.textContent = '🔐 PIN de ' + name;
@@ -1559,18 +1559,31 @@ function renderAll(){
   recalcAll();
 }
 
+// ==========================================
+// RENDERIZADO DE FILAS DE GASTO CON ICONOS
+// ==========================================
 function renderExpenseRow(r, i, category) {
   const icon = CATEGORY_ICONS[category] || '📦';
-  const tipoTag = r.tipo === 'individual' 
-    ? '<span class="exp-tag personal">👤 Individual</span>'
-    : '<span class="exp-tag comun">👥 Común</span>';
+  
+  // Determinar si es individual y quién paga
+  let payerInfo = '';
+  if (r.tipo === 'individual') {
+    // Para suscripciones usamos titular, para variables usamos persona
+    const payer = r.titular || r.persona || 'A';
+    const payerIcon = payer === 'A' ? '🌱' : '🐨';
+    const payerName = payer === 'A' ? 'Raul' : 'Marta';
+    payerInfo = `<span class="exp-tag personal">${payerIcon} ${payerName}</span>`;
+  } else {
+    payerInfo = '<span class="exp-tag comun">👥 Común</span>';
+  }
+  
   const fijoTag = r.estable ? '<span class="exp-tag fijo">📌 Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
   
   return '<div class="expense-row" onclick="openExpenseModal(\'' + category + '\',' + i + ')">' +
     '<div class="exp-icon">' + icon + '</div>' +
     '<div class="exp-info">' +
       '<div class="exp-name">' + r.nombre + '</div>' +
-      '<div class="exp-meta">' + tipoTag + ' ' + fijoTag + '</div>' +
+      '<div class="exp-meta">' + payerInfo + ' ' + fijoTag + '</div>' +
     '</div>' +
     '<div class="exp-amount">' + (+r.importe || 0).toFixed(2) + ' €</div>' +
   '</div>';
@@ -1629,7 +1642,6 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalAmount').value = r.importe || 0;
     document.getElementById('expenseModalDate').value = r.fecha || today;
     document.getElementById('expenseModalType').value = r.tipo === 'individual' ? 'individual' : 'comun';
-    // CORRECCIÓN: Cargar los importes individuales guardados
     document.getElementById('expenseModalAportaA').value = r.aportaA !== undefined ? r.aportaA : 0;
     document.getElementById('expenseModalAportaB').value = r.aportaB !== undefined ? r.aportaB : 0;
     document.getElementById('expenseModalFixed').checked = !!r.estable;
@@ -1655,7 +1667,6 @@ function saveExpenseFromModal() {
   const amount = parseFloat(document.getElementById('expenseModalAmount').value) || 0;
   const date = document.getElementById('expenseModalDate').value;
   const type = document.getElementById('expenseModalType').value;
-  // CORRECCIÓN: Obtener los importes individuales
   const aportaA = parseFloat(document.getElementById('expenseModalAportaA').value) || 0;
   const aportaB = parseFloat(document.getElementById('expenseModalAportaB').value) || 0;
   const fixed = document.getElementById('expenseModalFixed').checked;
@@ -1667,18 +1678,17 @@ function saveExpenseFromModal() {
     importe: amount,
     fecha: date,
     tipo: type,
-    estable: fixed
+    estable: fixed,
+    aportaA: type === 'individual' ? aportaA : 0,
+    aportaB: type === 'individual' ? aportaB : 0,
+    compartido: type === 'comun'
   };
   
-  // CORRECCIÓN: Guardar los importes individuales correctamente
-  if (type === 'individual') {
-    expense.aportaA = aportaA;
-    expense.aportaB = aportaB;
-    expense.compartido = false;
-  } else {
-    expense.aportaA = 0;
-    expense.aportaB = 0;
-    expense.compartido = true;
+  // Para suscripciones y variables, guardar quién lo paga
+  if (category === 'suscripciones') {
+    expense.titular = type === 'individual' ? (aportaA > aportaB ? 'A' : 'B') : 'A';
+  } else if (category === 'variablesAsociadas') {
+    expense.persona = type === 'individual' ? (aportaA > aportaB ? 'A' : 'B') : 'A';
   }
   
   if (index >= 0) {
@@ -1712,7 +1722,7 @@ function renderDeudas(){
   }
   box.innerHTML = data.deudas.map((r, i) => {
     const debtorIcon = r.deudor === 'A' ? '🌱' : '🐨';
-    const creditorIcon = r.acreedor === 'A' ? '🌱' : '🐨';
+    const creditorIcon = r.acreedor === 'A' ? '🌱' : '';
     const debtorName = r.deudor === 'A' ? 'Raul' : 'Marta';
     const creditorName = r.acreedor === 'A' ? 'Raul' : 'Marta';
     return '<div class="expense-row" onclick="openDebtModal(\'deuda\',' + i + ')">' +
@@ -1735,14 +1745,14 @@ function renderPagos(){
   }
   box.innerHTML = data.pagos.map((r, i) => {
     const debtorIcon = r.deudor === 'A' ? '🌱' : '🐨';
-    const creditorIcon = r.acreedor === 'A' ? '🌱' : '🐨';
+    const creditorIcon = r.acreedor === 'A' ? '🌱' : '';
     const debtorName = r.deudor === 'A' ? 'Raul' : 'Marta';
     const creditorName = r.acreedor === 'A' ? 'Raul' : 'Marta';
     return '<div class="expense-row" onclick="openDebtModal(\'pago\',' + i + ')">' +
       '<div class="exp-icon">💰</div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + (r.concepto || 'Abono') + '</div>' +
-        '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span> ' + r.fecha + '</span></div>' +
+        '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span>📅 ' + r.fecha + '</span></div>' +
       '</div>' +
       '<div class="exp-amount" style="color:var(--accent)">' + (+r.importe || 0).toFixed(2) + ' €</div>' +
     '</div>';
@@ -1754,7 +1764,7 @@ function openDebtModal(type, index = -1) {
   document.getElementById('debtModalIndex').value = index;
   document.getElementById('debtModalTitle').textContent = type === 'deuda' 
     ? (index >= 0 ? '✏️ Editar préstamo' : '💸 Registrar préstamo')
-    : (index >= 0 ? '️ Editar abono' : '💰 Registrar abono');
+    : (index >= 0 ? '✏️ Editar abono' : '💰 Registrar abono');
   document.getElementById('debtModalDelete').style.display = index >= 0 ? 'block' : 'none';
   
   const today = new Date().toISOString().slice(0, 10);
@@ -1847,7 +1857,7 @@ function updateDebtDisplay(){
   }
   if (acum) acum.textContent = d.abs.toFixed(2) + ' €';
   if (detalle2) {
-    if(d.neto > 0.01) detalle2.innerHTML = '🐨 Marta debe a 🌱 Raul';
+    if(d.neto > 0.01) detalle2.innerHTML = '🐨 Marta debe a  Raul';
     else if(d.neto < -0.01) detalle2.innerHTML = '🌱 Raul debe a 🐨 Marta';
     else detalle2.textContent = 'Equilibrado ✓';
   }
@@ -1877,7 +1887,7 @@ function renderAhorro(){
 
 function openSavingsModal(index = -1) {
   document.getElementById('savingsModalIndex').value = index;
-  document.getElementById('savingsModalTitle').textContent = index >= 0 ? '️ Editar ahorro' : '💎 Añadir ahorro';
+  document.getElementById('savingsModalTitle').textContent = index >= 0 ? '✏️ Editar ahorro' : '💎 Añadir ahorro';
   document.getElementById('savingsModalDelete').style.display = index >= 0 ? 'block' : 'none';
   
   const today = new Date().toISOString().slice(0, 10);
@@ -1930,6 +1940,9 @@ function deleteSavingsFromModal() {
   }
 }
 
+// ==========================================
+// CÁLCULO CORREGIDO DE GASTOS PERSONALES
+// ==========================================
 function recalcAll(){
   const m = curMonth();
   if(!m) return;
@@ -1948,11 +1961,12 @@ function recalcAll(){
   set('ahorroSobranteBox', (totC - gastC).toFixed(0) + ' €');
   set('gastoComunTotal', gastC.toFixed(0) + ' €');
 
-  const gR = m.suscripciones.filter(r => r.titular === 'A' && r.tipo === 'individual').reduce((s, r) => s + r.importe, 0) +
-             m.variablesAsociadas.filter(r => r.persona === 'A' && r.tipo === 'individual').reduce((s, r) => s + r.importe, 0);
+  // CÁLCULO CORREGIDO: Sumar todos los gastos individuales (tipo === 'individual')
+  const gR = m.suscripciones.filter(r => r.tipo === 'individual' && r.titular === 'A').reduce((s, r) => s + r.importe, 0) +
+             m.variablesAsociadas.filter(r => r.tipo === 'individual' && r.persona === 'A').reduce((s, r) => s + r.importe, 0);
 
-  const gM = m.suscripciones.filter(r => r.titular === 'B' && r.tipo === 'individual').reduce((s, r) => s + r.importe, 0) +
-             m.variablesAsociadas.filter(r => r.persona === 'B' && r.tipo === 'individual').reduce((s, r) => s + r.importe, 0);
+  const gM = m.suscripciones.filter(r => r.tipo === 'individual' && r.titular === 'B').reduce((s, r) => s + r.importe, 0) +
+             m.variablesAsociadas.filter(r => r.tipo === 'individual' && r.persona === 'B').reduce((s, r) => s + r.importe, 0);
 
   const gTotPersonal = gR + gM;
 
@@ -1971,7 +1985,7 @@ function renderChart(gR, gM){
   chartInstance = new Chart(canvas, {
     type: 'doughnut',
     data: {
-      labels: ['🌱 Raul', '🐨 Marta'],
+      labels: ['🌱 Raul', ' Marta'],
       datasets: [{data: [gR, gM], backgroundColor: ['#10b981', '#ec4899'], borderWidth: 0}]
     },
     options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {position: 'bottom', labels: {color: '#fff8f0', font: {size: 13}}}}, cutout: '65%'}
@@ -2068,9 +2082,9 @@ function renderGastosPrivadosDetalle(gastosMes) {
   }
   
   const categorias = {
-    'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '️🍽️ Comida',
-    'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': '🎁 Regalos',
-    'prestamo': '💰 Prestamo', 'banco': '🏦 Banco',
+    'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '🍽️ Comida',
+    'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': ' Regalos',
+    'prestamo': '💰 Préstamo', 'banco': '🏦 Banco',
     'otros': '📦 Otros'
   };
   
@@ -2082,7 +2096,7 @@ function renderGastosPrivadosDetalle(gastosMes) {
       '<div class="exp-icon">' + (CATEGORY_ICONS[g.categoria] || '📦') + '</div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + g.concepto + '</div>' +
-        '<div class="exp-meta"><span>' + catName + '</span> ' + fijoTag + '<span> ' + g.fecha + '</span></div>' +
+        '<div class="exp-meta"><span>' + catName + '</span> ' + fijoTag + '<span>📅 ' + g.fecha + '</span></div>' +
       '</div>' +
       '<div class="exp-amount">' + (+g.importe || 0).toFixed(2) + ' €</div>' +
     '</div>';
