@@ -526,6 +526,11 @@ let firebaseConfig = {
   appId: "1:256406017433:web:ee7060d23cf378adae2f08"
 };
 
+// Inicializar Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 let db = null;
 let firebaseReady = false;
 let unsubscribeFirestore = null;
