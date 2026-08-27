@@ -4,7 +4,7 @@
 <meta name="theme-color" content="#4a7c59">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MTM Home🐨">
+<meta name="apple-mobile-web-app-title" content="MTM Home🐨🌱">
 <meta name="mobile-web-app-capable" content="yes">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -33,84 +33,140 @@
     overflow-x: hidden;
   }
 
-  /* FONDO 1 - APP GENERAL */
+  /* FONDO 1 - APP GENERAL (Dinámico) */
   .bg-layer{
     position: fixed !important;
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     z-index: -10 !important;
     background: 
-      radial-gradient(ellipse at 20% 10%, rgba(16, 185, 129, 0.25) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.2) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 20% 10%, rgba(16, 185, 129, 0.3) 0%, transparent 55%) !important,
+      radial-gradient(ellipse at 80% 90%, rgba(236, 72, 153, 0.25) 0%, transparent 55%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 60%) !important,
       linear-gradient(160deg, #2d1f14 0%, #1a0f0a 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShift 20s ease-in-out infinite !important;
   }
   
-  /* FONDO 2 - PRIVADA RAUL (Verde Esmeralda) */
+  /* FONDO 2 - PRIVADA RAUL (Verde Esmeralda Dinámico) */
   .bg-layer.raul{
     background: 
-      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.6) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 10% 20%, rgba(16, 185, 129, 0.65) 0%, transparent 50%) !important,
       radial-gradient(ellipse at 90% 80%, rgba(20, 184, 166, 0.5) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(52, 211, 153, 0.35) 0%, transparent 60%) !important,
       linear-gradient(135deg, #064e3b 0%, #065f46 50%, #022c22 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftRaul 22s ease-in-out infinite !important;
   }
   
-  /* FONDO 3 - PRIVADA MARTA (Rosa/Morado) */
+  /* FONDO 3 - PRIVADA MARTA (Rosa/Morado Dinámico) */
   .bg-layer.marta{
     background: 
-      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.6) 0%, transparent 50%) !important,
-      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.5) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 15% 15%, rgba(236, 72, 153, 0.65) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 85% 85%, rgba(168, 85, 247, 0.55) 0%, transparent 50%) !important,
+      radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.35) 0%, transparent 60%) !important,
       linear-gradient(135deg, #701a75 0%, #86198f 50%, #4a044e 100%) !important;
     background-size: 200% 200% !important;
     animation: bgShiftMarta 22s ease-in-out infinite !important;
   }
   
   @keyframes bgShift {
-    0%, 100% { background-position: 0% 0%, 100% 100%, 0% 50%; }
-    50% { background-position: 100% 100%, 0% 0%, 100% 50%; }
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%, 100% 50%; }
   }
   @keyframes bgShiftRaul {
-    0%, 100% { background-position: 0% 0%, 100% 100%; }
-    50% { background-position: 100% 100%, 0% 0%; }
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%; }
   }
   @keyframes bgShiftMarta {
-    0%, 100% { background-position: 0% 0%, 100% 100%; }
-    50% { background-position: 100% 100%, 0% 0%; }
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%; }
   }
 
+  /* Orbes flotantes para efecto dinámico */
   .orb{
     position: fixed;
     border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.4;
+    filter: blur(60px);
+    opacity: 0.5;
     z-index: -9;
     pointer-events: none;
+    will-change: transform;
   }
   .orb-1{
-    width: 250px; height: 250px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.5), transparent 70%);
-    top: -30px; left: -30px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.55), transparent 70%);
+    top: -40px; left: -40px;
     animation: orbFloat1 25s ease-in-out infinite;
   }
   .orb-2{
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent 70%);
-    bottom: -50px; right: -50px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.45), transparent 70%);
+    bottom: -60px; right: -60px;
     animation: orbFloat2 30s ease-in-out infinite;
+  }
+  .orb-3{
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.35), transparent 70%);
+    top: 40%; left: 60%;
+    animation: orbFloat3 28s ease-in-out infinite;
   }
 
   @keyframes orbFloat1 {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(60px, 90px) scale(1.1); }
+    50% { transform: translate(70px, 100px) scale(1.15); }
   }
   @keyframes orbFloat2 {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-80px, -60px) scale(1.05); }
+    50% { transform: translate(-90px, -70px) scale(1.1); }
+  }
+  @keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-60px, 80px) scale(1.1); }
+  }
+
+  /* Hojas cayendo */
+  .leaves-container{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -8;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .leaf{
+    position: absolute;
+    opacity: 0.25;
+    animation: leafFall linear infinite;
+  }
+  @keyframes leafFall {
+    0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+    10% { opacity: 0.25; }
+    90% { opacity: 0.25; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(80px); opacity: 0; }
+  }
+
+  /* Partículas brillantes */
+  .particles{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -7;
+    pointer-events: none;
+  }
+  .particle{
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #fff8f0;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 248, 240, 0.8);
+    animation: particleTwinkle 4s ease-in-out infinite;
+  }
+  @keyframes particleTwinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.7; transform: scale(1.2); }
   }
 
   .container{max-width:768px;margin:0 auto;width:100%;position:relative;z-index:1}
   
+  /* ENCABEZADO RECUPERADO */
   .app-header{
     display:flex;
     justify-content:space-between;
@@ -119,28 +175,43 @@
     padding:6px 0;
   }
   .app-logo{
-    font-size:1.25rem;
+    font-size:1.4rem;
     font-weight:900;
     letter-spacing:-0.5px;
     display:flex;
     align-items:center;
-    gap:4px;
+    gap:6px;
     color:#fff8f0;
+    text-shadow:0 2px 8px rgba(0,0,0,0.4);
   }
-  .header-actions{display:flex;gap:6px;align-items:center;}
-  .sync-badge{font-size:.65rem;padding:4px 8px;border-radius:10px;font-weight:600;background:rgba(16,185,129,0.25);color:#6ee7b7;display:flex;align-items:center;gap:4px;backdrop-filter:blur(8px);border:1px solid rgba(16,185,129,0.3)}
-  .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24;border-color:rgba(245,158,11,0.3)}
+  .header-actions{display:flex;gap:8px;align-items:center;}
+  .sync-badge{
+    font-size:.75rem;
+    padding:6px 14px;
+    border-radius:20px;
+    font-weight:700;
+    background:rgba(16,185,129,0.25);
+    color:#6ee7b7;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(16,185,129,0.4);
+    box-shadow:0 2px 8px rgba(16,185,129,0.2);
+  }
+  .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
   .icon-btn{
     background:rgba(255,255,255,0.1);
     border:1px solid rgba(255,255,255,0.15);
     backdrop-filter:blur(8px);
-    padding:7px 10px;
-    min-height:34px;
-    border-radius:10px;
+    padding:8px 12px;
+    min-height:38px;
+    border-radius:12px;
     color:#fff8f0;
-    font-size:.85rem;
+    font-size:1rem;
     font-weight:600;
     display:inline-flex;align-items:center;gap:4px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);
   }
 
   .active-month-bar{
@@ -187,18 +258,12 @@
     border:1px solid rgba(255,255,255,0.08);
     box-shadow:0 4px 12px rgba(0,0,0,0.25);
   }
-  .card-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:8px;
-  }
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .card-title{font-size:.9rem;font-weight:800;color:#fff8f0;display:flex;align-items:center;gap:6px}
   .card h3{font-size:.65rem;margin-bottom:6px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
   .stat-value{font-size:1.4rem;font-weight:800;color:#fff8f0}
   .stat-sub{font-size:.75rem;color:var(--muted);margin-top:3px}
 
-  /* FILA COMPACTA DE GASTO */
   .expense-row{
     display:flex;
     align-items:center;
@@ -218,31 +283,12 @@
   .expense-row .exp-meta{font-size:.7rem;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
   .expense-row .exp-amount{font-weight:800;font-size:1rem;color:var(--primary);flex-shrink:0}
   
-  .exp-tag{
-    display:inline-flex;align-items:center;gap:3px;
-    padding:2px 6px;border-radius:6px;font-size:.6rem;font-weight:600;
-  }
+  .exp-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:6px;font-size:.6rem;font-weight:600}
   .exp-tag.comun{background:rgba(16,185,129,0.2);color:#6ee7b7}
   .exp-tag.personal{background:rgba(236,72,153,0.2);color:#f9a8d4}
   .exp-tag.fijo{background:rgba(245,158,11,0.2);color:#fbbf24}
   .exp-tag.puntual{background:rgba(100,116,139,0.3);color:#cbd5e1}
 
-  .add-btn-row{
-    color:var(--primary);
-    cursor:pointer;
-    font-size:.85rem;
-    font-weight:700;
-    background:none;
-    border:none;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    padding:8px 0;
-    width:100%;
-    justify-content:center;
-    margin-top:4px;
-  }
-  
   .bottom-nav{
     position:fixed;bottom:0;left:0;right:0;
     background:rgba(26, 15, 10, 0.95);
@@ -307,20 +353,23 @@
     transform:translateY(100%);
     transition:transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow:0 -10px 40px rgba(0,0,0,0.6);
+    position:relative;
   }
   .modal-overlay.active .modal{transform:translateY(0)}
   .modal h3{color:#fff8f0;margin-bottom:14px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
   .modal-close{
     position:absolute;top:12px;right:12px;
-    background:rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.15);
     border:none;color:#fff8f0;
     width:32px;height:32px;border-radius:50%;
     font-size:1.2rem;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
+    z-index:10;
   }
+  .modal-close:active{background:rgba(255,255,255,0.25)}
   
   .form-group{margin-bottom:12px}
-  .form-group label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .form-group label{display:block;font-size:.7rem;color:var(--muted);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
   .form-group input, .form-group select{
     width:100%;
     padding:11px 12px;
@@ -352,23 +401,10 @@
   .checkbox-row label{font-size:.85rem;color:#fff8f0;cursor:pointer;flex:1}
 
   .pin-display{display:flex;justify-content:center;gap:12px;margin:18px 0}
-  .pin-dot{
-    width:16px;height:16px;border-radius:50%;
-    background:rgba(255,255,255,0.1);
-    border:2px solid rgba(255,255,255,0.3);
-    transition:all 0.2s ease;
-  }
+  .pin-dot{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);transition:all 0.2s ease}
   .pin-dot.filled{background:var(--primary);border-color:var(--primary);box-shadow:0 0 10px rgba(16,185,129,0.6)}
   .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-  .pin-key{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.1);
-    color:#fff8f0;
-    font-size:1.2rem;font-weight:700;
-    padding:14px;min-height:52px;
-    border-radius:12px;
-    cursor:pointer;
-  }
+  .pin-key{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff8f0;font-size:1.2rem;font-weight:700;padding:14px;min-height:52px;border-radius:12px;cursor:pointer}
   .pin-key:active{background:rgba(16,185,129,0.3);transform:scale(0.95)}
   .pin-key.action{font-size:.95rem;color:var(--primary)}
   .pin-message{text-align:center;color:var(--muted);font-size:.8rem;margin-top:8px;min-height:18px}
@@ -388,16 +424,7 @@
   .change-pin-btn{background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.3);padding:6px 10px;font-size:.75rem;min-height:32px}
 
   .person-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
-  .person-card{
-    background:rgba(255,255,255,0.05);
-    border:2px solid rgba(255,255,255,0.1);
-    border-radius:14px;padding:18px;
-    cursor:pointer;text-align:center;
-    transition:all 0.2s ease;
-    color:#fff8f0;
-    min-height:90px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  }
+  .person-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px;cursor:pointer;text-align:center;transition:all 0.2s ease;color:#fff8f0;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
   .person-card:active{transform:scale(0.97)}
   .person-card.raul{border-color:rgba(16,185,129,0.4)}
   .person-card.raul:active{background:rgba(16,185,129,0.2)}
@@ -406,49 +433,36 @@
   .person-card .emoji{font-size:1.8rem}
   .person-card .name{font-weight:700;font-size:1rem}
 
-  .bg-indicator{
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    border-radius: 16px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
+  .bg-indicator{position: fixed;top: 10px;right: 10px;padding: 5px 10px;border-radius: 16px;font-size: 0.7rem;font-weight: 600;z-index: 1000;backdrop-filter: blur(10px);opacity: 0;transition: opacity 0.5s ease;pointer-events: none}
   .bg-indicator.visible{opacity: 1}
   .bg-indicator.raul{background: rgba(16, 185, 129, 0.3);color: #6ee7b7;border: 1px solid rgba(16, 185, 129, 0.5)}
   .bg-indicator.marta{background: rgba(236, 72, 153, 0.3);color: #f9a8d4;border: 1px solid rgba(236, 72, 153, 0.5)}
 
   .empty-state{text-align:center;color:var(--muted);padding:16px;font-size:.85rem}
-  .debt-summary{
-    background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(180,83,9,0.12));
-    border:1px solid rgba(245,158,11,0.3);
-    padding:14px;border-radius:var(--radius);margin-bottom:10px;
-  }
+  .debt-summary{background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(180,83,9,0.12));border:1px solid rgba(245,158,11,0.3);padding:14px;border-radius:var(--radius);margin-bottom:10px}
   .debt-summary .amount{font-size:1.4rem;font-weight:800;color:#fff8f0;margin-top:4px}
   .debt-summary .detail{font-size:.8rem;color:#fde68a;margin-top:4px}
 </style>
 </head>
 <body>
 
+<!-- FONDO DINÁMICO RECUPERADO -->
 <div class="bg-layer" id="bgLayer"></div>
 <div class="bg-indicator" id="bgIndicator"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="leaves-container" id="leavesContainer"></div>
+<div class="particles" id="particles"></div>
 
 <div class="container">
-  <!-- HEADER -->
+  <!-- ENCABEZADO RECUPERADO COMPLETO -->
   <div class="app-header">
-    <div class="app-logo">MTM Home🐨</div>
+    <div class="app-logo">MTM Home🐨🌱</div>
     <div class="header-actions">
-      <div class="sync-badge ok" id="syncStatus">● Sinc</div>
-      <button class="icon-btn" onclick="openUserSelect()">🔒</button>
-      <button class="icon-btn" onclick="openConfigModal()">⚙️</button>
+      <div class="sync-badge ok" id="syncStatus">● Sincronizado</div>
+      <button class="icon-btn" onclick="openUserSelect()" title="Mi Espacio Privado">🔒</button>
+      <button class="icon-btn" onclick="openConfigModal()" title="Configuración">⚙️</button>
     </div>
   </div>
 
@@ -499,7 +513,7 @@
 
     <div class="card">
       <h3>📊 Distribución Gastos Personales</h3>
-      <div class="chart-container" style="position:relative;height:200px;margin-top:8px"><canvas id="chartPersonales"></canvas></div>
+      <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartPersonales"></canvas></div>
     </div>
   </div>
 
@@ -523,7 +537,7 @@
 
     <div class="section-title">
       <span>🛒 Alimentación y Hogar</span>
-      <button class="btn-success btn-small" onclick="openExpenseModal('variablesAsociadas')">➕</button>
+      <button class="btn-success btn-small" onclick="openExpenseModal('variablesAsociadas')"></button>
     </div>
     <div class="card">
       <div id="listVariablesAsociadas"></div>
@@ -539,7 +553,7 @@
     </div>
 
     <div class="section-title">
-      <span> Préstamos</span>
+      <span>💸 Préstamos</span>
       <button class="btn-success btn-small" onclick="openDebtModal('deuda')">➕</button>
     </div>
     <div class="card">
@@ -547,7 +561,7 @@
     </div>
 
     <div class="section-title">
-      <span> Abonos/Pagos</span>
+      <span>💰 Abonos/Pagos</span>
       <button class="btn-success btn-small" onclick="openDebtModal('pago')">➕</button>
     </div>
     <div class="card">
@@ -564,7 +578,7 @@
     </div>
 
     <div class="section-title">
-      <span> Ahorros Puntuales</span>
+      <span>💎 Ahorros Puntuales</span>
       <button class="btn-success btn-small" onclick="openSavingsModal()">➕</button>
     </div>
     <div class="card">
@@ -601,7 +615,7 @@
 
     <div class="card">
       <h3>📊 Distribución Anual</h3>
-      <div class="chart-container" style="position:relative;height:200px;margin-top:8px"><canvas id="chartAnual"></canvas></div>
+      <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartAnual"></canvas></div>
     </div>
     
     <div class="section-title">👥 Desglose Personal Anual</div>
@@ -620,9 +634,9 @@
   <!-- TAB 6: MI ESPACIO 🔒 -->
   <div id="privado" class="tab-content">
     <div class="private-banner">
-      <div class="user-tag" id="privateUserTag"> Espacio Privado</div>
+      <div class="user-tag" id="privateUserTag">🔒 Espacio Privado</div>
       <div class="private-actions">
-        <button class="change-pin-btn" onclick="changePin()"></button>
+        <button class="change-pin-btn" onclick="changePin()" title="Cambiar PIN"></button>
         <button class="logout-btn" onclick="logoutPrivate()">🚪 Salir</button>
       </div>
     </div>
@@ -635,19 +649,19 @@
 
     <div class="grid">
       <div class="card">
-        <h3>💵 Este Mes</h3>
+        <h3> Este Mes</h3>
         <div class="stat-value" id="privadoTotalMesCard" style="color:var(--primary);font-size:1.3rem">0 €</div>
         <div class="stat-sub">Gastos mes actual</div>
       </div>
       <div class="card">
-        <h3>📈 Acumulado</h3>
+        <h3> Acumulado</h3>
         <div class="stat-value" id="privadoTotalAnual" style="color:var(--accent);font-size:1.3rem">0 €</div>
         <div class="stat-sub">Suma histórica</div>
       </div>
     </div>
 
     <div class="section-title">
-      <span> Mis Gastos Privados</span>
+      <span>📝 Mis Gastos Privados</span>
       <button class="btn-success btn-small" onclick="openPrivateExpenseModal()">➕</button>
     </div>
     <div class="card">
@@ -655,17 +669,17 @@
     </div>
 
     <div class="card">
-      <h3>📊 Distribución por Conceptos</h3>
-      <div class="chart-container" style="position:relative;height:200px;margin-top:8px"><canvas id="chartPrivado"></canvas></div>
+      <h3> Distribución por Conceptos</h3>
+      <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartPrivado"></canvas></div>
     </div>
   </div>
 
 </div>
 
-<!-- NAVEGACIÓN INFERIOR -->
+<!-- NAVEGACIÓN INFERIOR CON ICONO DE COMÚN RECUPERADO -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
-  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon"></span><span>Común</span></button>
+  <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon">🏠</span><span>Común</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
   <button class="nav-item" onclick="switchTab(event,'ahorro')"><span class="icon">💰</span><span>Ahorro</span></button>
   <button class="nav-item" onclick="switchTab(event,'anual')"><span class="icon">📅</span><span>Anual</span></button>
@@ -673,20 +687,20 @@
 
 <!-- MODAL CONFIG -->
 <div class="modal-overlay" id="configModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('configModal')">✕</button>
     <h3>⚙️ Configuración Firebase</h3>
     <textarea id="firebaseConfigInput" style="width:100%;height:120px;background:rgba(20,15,12,0.6);border:1px solid rgba(255,255,255,0.15);color:#fff8f0;padding:10px;border-radius:10px;font-family:monospace;font-size:13px;margin-bottom:14px;resize:none"></textarea>
     <div style="display:flex;justify-content:flex-end;gap:8px">
       <button onclick="closeModal('configModal')">Cancelar</button>
-      <button class="btn-primary" onclick="saveFirebaseConfig()">Guardar</button>
+      <button class="btn-primary" onclick="saveFirebaseConfig()">💾 Guardar</button>
     </div>
   </div>
 </div>
 
 <!-- MODAL SELECCIONAR USUARIO -->
 <div class="modal-overlay" id="userSelectModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('userSelectModal')">✕</button>
     <h3>🔒 Mi Espacio Privado</h3>
     <p style="color:var(--muted);font-size:.85rem;margin-bottom:6px">Selecciona tu perfil</p>
@@ -705,9 +719,9 @@
 
 <!-- MODAL PIN -->
 <div class="modal-overlay" id="pinModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('pinModal')">✕</button>
-    <h3 id="pinTitle"> Introduce tu PIN</h3>
+    <h3 id="pinTitle">🔐 Introduce tu PIN</h3>
     <p id="pinSubtitle" style="color:var(--muted);font-size:.8rem;text-align:center"></p>
     <div class="pin-display" id="pinDisplay">
       <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
@@ -725,16 +739,16 @@
       <button class="pin-key" onclick="pinInput('9')">9</button>
       <button class="pin-key action" onclick="closeModal('pinModal')">✕</button>
       <button class="pin-key" onclick="pinInput('0')">0</button>
-      <button class="pin-key action" onclick="pinBackspace()">⌫</button>
+      <button class="pin-key action" onclick="pinBackspace()"></button>
     </div>
   </div>
 </div>
 
 <!-- MODAL GASTO COMUN -->
 <div class="modal-overlay" id="expenseModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('expenseModal')">✕</button>
-    <h3 id="expenseModalTitle">➕ Añadir gasto</h3>
+    <h3 id="expenseModalTitle">✏️ Editar gasto</h3>
     <input type="hidden" id="expenseModalCategory">
     <input type="hidden" id="expenseModalIndex" value="-1">
     
@@ -758,7 +772,7 @@
       <label>Tipo de gasto</label>
       <select id="expenseModalType" onchange="toggleExpenseFields()">
         <option value="comun">👥 Común (compartido 50/50)</option>
-        <option value="individual"> Individual (aportación diferente)</option>
+        <option value="individual">👤 Individual (aportación diferente)</option>
       </select>
     </div>
     
@@ -777,21 +791,21 @@
     
     <div class="checkbox-row">
       <input type="checkbox" id="expenseModalFixed">
-      <label for="expenseModalFixed"> Gasto fijo (se duplica en meses nuevos)</label>
+      <label for="expenseModalFixed">📌 Gasto fijo (se duplica en meses nuevos)</label>
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn-danger" id="expenseModalDelete" onclick="deleteExpenseFromModal()" style="display:none;flex:1">🗑️</button>
-      <button class="btn-primary" onclick="saveExpenseFromModal()" style="flex:2">💾 Guardar</button>
+      <button class="btn-primary" onclick="saveExpenseFromModal()" style="flex:2"> Guardar</button>
     </div>
   </div>
 </div>
 
 <!-- MODAL DEUDA -->
 <div class="modal-overlay" id="debtModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('debtModal')">✕</button>
-    <h3 id="debtModalTitle">💸 Registrar préstamo</h3>
+    <h3 id="debtModalTitle"> Registrar préstamo</h3>
     <input type="hidden" id="debtModalType" value="deuda">
     <input type="hidden" id="debtModalIndex" value="-1">
     
@@ -822,7 +836,7 @@
       <div class="form-group">
         <label>Acreedor (recibe)</label>
         <select id="debtModalCreditor">
-          <option value="A"> Raul</option>
+          <option value="A">🌱 Raul</option>
           <option value="B">🐨 Marta</option>
         </select>
       </div>
@@ -837,7 +851,7 @@
 
 <!-- MODAL AHORRO -->
 <div class="modal-overlay" id="savingsModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('savingsModal')">✕</button>
     <h3 id="savingsModalTitle">💎 Añadir ahorro</h3>
     <input type="hidden" id="savingsModalIndex" value="-1">
@@ -861,21 +875,21 @@
     <div class="form-group">
       <label>Titular</label>
       <select id="savingsModalOwner">
-        <option value="A"> Raul</option>
+        <option value="A">🌱 Raul</option>
         <option value="B">🐨 Marta</option>
       </select>
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
       <button class="btn-danger" id="savingsModalDelete" onclick="deleteSavingsFromModal()" style="display:none;flex:1">🗑️</button>
-      <button class="btn-primary" onclick="saveSavingsFromModal()" style="flex:2">💾 Guardar</button>
+      <button class="btn-primary" onclick="saveSavingsFromModal()" style="flex:2"> Guardar</button>
     </div>
   </div>
 </div>
 
 <!-- MODAL GASTO PRIVADO -->
 <div class="modal-overlay" id="privateExpenseModal">
-  <div class="modal" style="position:relative">
+  <div class="modal">
     <button class="modal-close" onclick="closeModal('privateExpenseModal')">✕</button>
     <h3 id="privateExpenseModalTitle">➕ Añadir gasto personal</h3>
     <input type="hidden" id="privateExpenseModalIndex" value="-1">
@@ -905,6 +919,8 @@
         <option value="salud">💊 Salud</option>
         <option value="transporte">🚗 Transporte</option>
         <option value="regalos">🎁 Regalos</option>
+        <option value="Prestamo">💰 Regalos</option>
+        <option value="Banco">🏦 Banco</optio
         <option value="otros">📦 Otros</option>
       </select>
     </div>
@@ -950,10 +966,53 @@ let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { a
 let pinState = { mode: '', currentUser: '', buffer: '', firstPin: null, step: '' };
 
 const CATEGORY_ICONS = {
-  alquiler: '', suscripciones: '📺', variablesAsociadas: '🛒',
+  alquiler: '🏠', suscripciones: '📺', variablesAsociadas: '🛒',
   ocio: '🎮', ropa: '👕', comida: '🍽️', salud: '💊',
-  transporte: '🚗', regalos: '🎁', prestamo: '💰', bancos: '', otros: '📦'
+  transporte: '🚗', regalos: '🎁', prestamo: '💰', bancos: '🏦', otros: '📦'
 };
+
+// ==========================================
+// FONDO DINÁMICO: HOJAS Y PARTÍCULAS
+// ==========================================
+function createLeaves() {
+  const container = document.getElementById('leavesContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  const leafSVGs = [
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 10 20, 5 40, 20 80 C 35 40, 30 20, 20 0 Z" fill="#6ee7b7"/></svg>`,
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 8 25, 5 50, 20 80 C 35 50, 32 25, 20 0 Z" fill="#a7f3d0"/></svg>`,
+    `<svg viewBox="0 0 40 80" xmlns="http://www.w3.org/2000/svg"><path d="M20 0 C 12 20, 8 45, 20 80 C 32 45, 28 20, 20 0 Z" fill="#34d399"/></svg>`
+  ];
+  for (let i = 0; i < 7; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.innerHTML = leafSVGs[i % leafSVGs.length];
+    const size = 18 + Math.random() * 22;
+    leaf.style.width = size + 'px';
+    leaf.style.left = (Math.random() * 100) + '%';
+    leaf.style.animationDuration = (15 + Math.random() * 20) + 's';
+    leaf.style.animationDelay = (Math.random() * 15) + 's';
+    container.appendChild(leaf);
+  }
+}
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < 15; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.top = (Math.random() * 100) + '%';
+    p.style.animationDelay = (Math.random() * 4) + 's';
+    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+    container.appendChild(p);
+  }
+}
+
+createLeaves();
+createParticles();
 
 function closeModal(id){ 
   const modal = document.getElementById(id);
@@ -1217,7 +1276,7 @@ function enterPrivateSpace(user) {
     if (indicator) indicator.classList.remove('visible');
   }, 3000);
   
-  const name = user === 'A' ? '🌱 Raul' : ' Marta';
+  const name = user === 'A' ? '🌱 Raul' : '🐨 Marta';
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
@@ -1228,7 +1287,7 @@ function enterPrivateSpace(user) {
       const btn = document.createElement('button');
       btn.className = 'nav-item';
       btn.onclick = (e) => switchTab(e, 'privado');
-      btn.innerHTML = '<span class="icon"></span><span>Mi Espacio</span>';
+      btn.innerHTML = '<span class="icon">🔒</span><span>Mi Espacio</span>';
       nav.appendChild(btn);
     }
   }
@@ -1503,9 +1562,9 @@ function renderAll(){
 function renderExpenseRow(r, i, category) {
   const icon = CATEGORY_ICONS[category] || '📦';
   const tipoTag = r.tipo === 'individual' 
-    ? '<span class="exp-tag personal">👤 ' + (r.persona === 'A' || r.titular === 'A' ? '🌱' : '') + '</span>'
+    ? '<span class="exp-tag personal">👤 Individual</span>'
     : '<span class="exp-tag comun">👥 Común</span>';
-  const fijoTag = r.estable ? '<span class="exp-tag fijo"> Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
+  const fijoTag = r.estable ? '<span class="exp-tag fijo">📌 Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
   
   return '<div class="expense-row" onclick="openExpenseModal(\'' + category + '\',' + i + ')">' +
     '<div class="exp-icon">' + icon + '</div>' +
@@ -1570,8 +1629,9 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalAmount').value = r.importe || 0;
     document.getElementById('expenseModalDate').value = r.fecha || today;
     document.getElementById('expenseModalType').value = r.tipo === 'individual' ? 'individual' : 'comun';
-    document.getElementById('expenseModalAportaA').value = r.aportaA || 0;
-    document.getElementById('expenseModalAportaB').value = r.aportaB || 0;
+    // CORRECCIÓN: Cargar los importes individuales guardados
+    document.getElementById('expenseModalAportaA').value = r.aportaA !== undefined ? r.aportaA : 0;
+    document.getElementById('expenseModalAportaB').value = r.aportaB !== undefined ? r.aportaB : 0;
     document.getElementById('expenseModalFixed').checked = !!r.estable;
   } else {
     document.getElementById('expenseModalName').value = '';
@@ -1595,6 +1655,7 @@ function saveExpenseFromModal() {
   const amount = parseFloat(document.getElementById('expenseModalAmount').value) || 0;
   const date = document.getElementById('expenseModalDate').value;
   const type = document.getElementById('expenseModalType').value;
+  // CORRECCIÓN: Obtener los importes individuales
   const aportaA = parseFloat(document.getElementById('expenseModalAportaA').value) || 0;
   const aportaB = parseFloat(document.getElementById('expenseModalAportaB').value) || 0;
   const fixed = document.getElementById('expenseModalFixed').checked;
@@ -1609,15 +1670,15 @@ function saveExpenseFromModal() {
     estable: fixed
   };
   
-  if (category === 'alquiler') {
-    expense.compartido = type === 'comun';
-    expense.aportaA = type === 'individual' ? aportaA : 0;
-    expense.aportaB = type === 'individual' ? aportaB : 0;
-  } else if (category === 'suscripciones') {
-    expense.titular = type === 'individual' ? 'A' : 'A';
+  // CORRECCIÓN: Guardar los importes individuales correctamente
+  if (type === 'individual') {
+    expense.aportaA = aportaA;
+    expense.aportaB = aportaB;
+    expense.compartido = false;
   } else {
-    expense.concepto = name;
-    expense.persona = type === 'individual' ? 'A' : 'A';
+    expense.aportaA = 0;
+    expense.aportaB = 0;
+    expense.compartido = true;
   }
   
   if (index >= 0) {
@@ -1655,7 +1716,7 @@ function renderDeudas(){
     const debtorName = r.deudor === 'A' ? 'Raul' : 'Marta';
     const creditorName = r.acreedor === 'A' ? 'Raul' : 'Marta';
     return '<div class="expense-row" onclick="openDebtModal(\'deuda\',' + i + ')">' +
-      '<div class="exp-icon"></div>' +
+      '<div class="exp-icon">💸</div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + (r.descripcion || 'Préstamo') + '</div>' +
         '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span>📅 ' + r.fecha + '</span></div>' +
@@ -1681,7 +1742,7 @@ function renderPagos(){
       '<div class="exp-icon">💰</div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + (r.concepto || 'Abono') + '</div>' +
-        '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span>📅 ' + r.fecha + '</span></div>' +
+        '<div class="exp-meta"><span>' + debtorIcon + ' ' + debtorName + ' → ' + creditorIcon + ' ' + creditorName + '</span><span> ' + r.fecha + '</span></div>' +
       '</div>' +
       '<div class="exp-amount" style="color:var(--accent)">' + (+r.importe || 0).toFixed(2) + ' €</div>' +
     '</div>';
@@ -1692,8 +1753,8 @@ function openDebtModal(type, index = -1) {
   document.getElementById('debtModalType').value = type;
   document.getElementById('debtModalIndex').value = index;
   document.getElementById('debtModalTitle').textContent = type === 'deuda' 
-    ? (index >= 0 ? '️ Editar préstamo' : '💸 Registrar préstamo')
-    : (index >= 0 ? '✏️ Editar abono' : '💰 Registrar abono');
+    ? (index >= 0 ? '✏️ Editar préstamo' : '💸 Registrar préstamo')
+    : (index >= 0 ? '️ Editar abono' : '💰 Registrar abono');
   document.getElementById('debtModalDelete').style.display = index >= 0 ? 'block' : 'none';
   
   const today = new Date().toISOString().slice(0, 10);
@@ -1728,11 +1789,7 @@ function saveDebtFromModal() {
   
   if (amount <= 0) { alert('Introduce un importe válido'); return; }
   
-  const record = {
-    fecha: date,
-    deudor: debtor,
-    acreedor: creditor
-  };
+  const record = { fecha: date, deudor: debtor, acreedor: creditor };
   
   if (type === 'deuda') {
     record.total = amount;
@@ -1791,7 +1848,7 @@ function updateDebtDisplay(){
   if (acum) acum.textContent = d.abs.toFixed(2) + ' €';
   if (detalle2) {
     if(d.neto > 0.01) detalle2.innerHTML = '🐨 Marta debe a 🌱 Raul';
-    else if(d.neto < -0.01) detalle2.innerHTML = '🌱 Raul debe a  Marta';
+    else if(d.neto < -0.01) detalle2.innerHTML = '🌱 Raul debe a 🐨 Marta';
     else detalle2.textContent = 'Equilibrado ✓';
   }
 }
@@ -1820,7 +1877,7 @@ function renderAhorro(){
 
 function openSavingsModal(index = -1) {
   document.getElementById('savingsModalIndex').value = index;
-  document.getElementById('savingsModalTitle').textContent = index >= 0 ? '✏️ Editar ahorro' : '💎 Añadir ahorro';
+  document.getElementById('savingsModalTitle').textContent = index >= 0 ? '️ Editar ahorro' : '💎 Añadir ahorro';
   document.getElementById('savingsModalDelete').style.display = index >= 0 ? 'block' : 'none';
   
   const today = new Date().toISOString().slice(0, 10);
@@ -2011,8 +2068,9 @@ function renderGastosPrivadosDetalle(gastosMes) {
   }
   
   const categorias = {
-    'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '🍽️ Comida',
+    'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '️🍽️ Comida',
     'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': '🎁 Regalos',
+    'prestamo': '💰 Prestamo', 'banco': '🏦 Banco',
     'otros': '📦 Otros'
   };
   
@@ -2024,7 +2082,7 @@ function renderGastosPrivadosDetalle(gastosMes) {
       '<div class="exp-icon">' + (CATEGORY_ICONS[g.categoria] || '📦') + '</div>' +
       '<div class="exp-info">' +
         '<div class="exp-name">' + g.concepto + '</div>' +
-        '<div class="exp-meta"><span>' + catName + '</span> ' + fijoTag + '<span>📅 ' + g.fecha + '</span></div>' +
+        '<div class="exp-meta"><span>' + catName + '</span> ' + fijoTag + '<span> ' + g.fecha + '</span></div>' +
       '</div>' +
       '<div class="exp-amount">' + (+g.importe || 0).toFixed(2) + ' €</div>' +
     '</div>';
@@ -2130,9 +2188,10 @@ function renderPrivateChart() {
   });
 }
 
+// Inicialización de sesión privada al cargar
 if (privateSession.authenticated) {
   const user = privateSession.user;
-  const name = user === 'A' ? '🌱 Raul' : ' Marta';
+  const name = user === 'A' ? '🌱 Raul' : '🐨 Marta';
   const tag = document.getElementById('privateUserTag');
   if (tag) tag.innerHTML = name + ' - Espacio Privado';
   
@@ -2141,7 +2200,7 @@ if (privateSession.authenticated) {
   if (bgLayer) bgLayer.className = 'bg-layer ' + (user === 'A' ? 'raul' : 'marta');
   if (indicator) {
     indicator.className = 'bg-indicator ' + (user === 'A' ? 'raul' : 'marta') + ' visible';
-    indicator.textContent = (user === 'A' ? ' Modo Raul' : '🐨 Modo Marta');
+    indicator.textContent = (user === 'A' ? '🌱 Modo Raul' : '🐨 Modo Marta');
     setTimeout(() => { indicator.classList.remove('visible'); }, 3000);
   }
   
