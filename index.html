@@ -397,7 +397,6 @@ function ensureDataStructure(){
   if(keys.length === 0){ data.mesActivo = currentMonthKey(); data.meses[data.mesActivo] = defaultMonthData(); }
   else if(!data.mesActivo || !data.meses[data.mesActivo]) data.mesActivo = keys[keys.length - 1];
   
-  // Compatibilidad con versiones anteriores
   Object.values(data.meses).forEach(m => {
     if(!m.aportacionesExtra) m.aportacionesExtra = [];
     if(m.aportacionExtra && m.aportacionExtra > 0 && m.aportacionesExtra.length === 0) {
@@ -459,7 +458,10 @@ function deleteCurrentMonth(){
 function curMonth(){ return data.meses[data.mesActivo]; }
 
 function switchTab(e, id){
-  if(e && e.currentTarget) document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active')), e.currentTarget.classList.add('active');
+  if(e && e.currentTarget) {
+    document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+  }
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if(id === 'resumen') recalcAll();
@@ -725,7 +727,6 @@ function recalcAll(){
 
   let sobrante = totC - gastC;
   
-  // Gastos individuales y desglose
   let indA = 0, indB = 0;
   ['alquiler', 'suscripciones', 'variablesAsociadas'].forEach(cat => {
     m[cat].forEach(item => {
@@ -736,7 +737,6 @@ function recalcAll(){
     });
   });
   
-  // Añadir gastos personales de suscripciones/variables
   m.suscripciones.filter(r => r.tipo === 'personal').forEach(r => {
     if(r.titular === 'A') indA += r.importe; else indB += r.importe;
   });
@@ -777,18 +777,25 @@ function renderChart(comun, indA, indB){
 
 function renderAnual(){
   let totalAnual = 0;
-  Object.values(data.meses).forEach(m => {
-    totalAnual += m.alquiler.reduce((s, r) => s + r.importe, 0);
-    totalAnual += m.suscripciones.reduce((s, r) => s + r.importe, 0);
-    totalAnual += m.variablesAsociadas.reduce((s, r) => s + r.importe, 0);
+  let mesesKeys = Object.keys(data.meses).sort();
+  let totalesPorMes = [];
+
+  mesesKeys.forEach(k => {
+    let m = data.meses[k];
+    let gastMes = m.alquiler.reduce((s, r) => s + r.importe, 0) +
+                  m.suscripciones.reduce((s, r) => s + r.importe, 0) +
+                  m.variablesAsociadas.reduce((s, r) => s + r.importe, 0);
+    totalAnual += gastMes;
+    totalesPorMes.push(gastMes);
   });
+
   document.getElementById('anualTotalGastos').textContent = totalAnual.toFixed(2) + ' €';
   
   let canvas = document.getElementById('chartAnual'); if(!canvas) return;
   if(chartInstanceAnual) chartInstanceAnual.destroy();
   chartInstanceAnual = new Chart(canvas, {
     type: 'bar',
-    data: { labels: Object.keys(data.meses), datasets: [{ label: 'Gastos Mes', data: Object.values(data.meses).map(m => m.alquiler.reduce((s,r)=>s+r.importe,0)), backgroundColor: '#10b981' }] },
+    data: { labels: mesesKeys.map(k => getMonthLabel(k)), datasets: [{ label: 'Gastos Mes', data: totalesPorMes, backgroundColor: '#10b981' }] },
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
   });
 }
@@ -800,7 +807,7 @@ function renderPrivateSpace() {
   box.innerHTML = '';
   let totalMes = 0;
   
-  gastos.forEach((g, idx) => {
+  gastos.forEach((g) => {
     totalMes += (+g.importe || 0);
     box.innerHTML += `
       <div class="compact-item">
