@@ -1489,20 +1489,47 @@ function renderChart(gR, gM){
 }
 
 function calcularAcumuladoAnual() {
-  let acum = { vivienda: 0, variablesComun: 0, suscripcionesComun: 0, personalRaul: 0, personalMarta: 0, totalGastos: 0 };
+  let acum = {
+    vivienda: 0,
+    variablesComun: 0,
+    suscripcionesComun: 0,
+    personalRaul: 0,
+    personalMarta: 0,
+    totalGastos: 0
+  };
+
   Object.values(data.meses).forEach(m => {
-    m.alquiler.forEach(r => { acum.vivienda += r.importe; acum.totalGastos += r.importe; });
-    m.suscripciones.forEach(r => {
-      if (r.tipo === 'comun' || !r.tipo) { acum.suscripcionesComun += r.importe; } 
-      else { acum.personalRaul += (r.aportaA || 0); acum.personalMarta += (r.aportaB || 0); }
+
+    m.alquiler.forEach(r => {
+      acum.vivienda += r.importe;
       acum.totalGastos += r.importe;
     });
+
+    m.suscripciones.forEach(r => {
+      // Sumar todas las suscripciones al acumulado anual
+      acum.suscripcionesComun += r.importe;
+
+      // Mantener las aportaciones personales
+      if (r.tipo !== 'comun' && r.tipo) {
+        acum.personalRaul += r.aportaA || 0;
+        acum.personalMarta += r.aportaB || 0;
+      }
+
+      acum.totalGastos += r.importe;
+    });
+
     m.variablesAsociadas.forEach(r => {
-      if (r.tipo === 'comun' || !r.tipo) { acum.variablesComun += r.importe; } 
-      else { acum.personalRaul += (r.aportaA || 0); acum.personalMarta += (r.aportaB || 0); }
+      if (r.tipo === 'comun' || !r.tipo) {
+        acum.variablesComun += r.importe;
+      } else {
+        acum.personalRaul += r.aportaA || 0;
+        acum.personalMarta += r.aportaB || 0;
+      }
+
       acum.totalGastos += r.importe;
     });
   });
+
   return acum;
 }
 
