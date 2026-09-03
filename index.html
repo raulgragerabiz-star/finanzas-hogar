@@ -200,6 +200,7 @@
     box-shadow:0 2px 8px rgba(16,185,129,0.2);
   }
   .sync-badge.syncing{background:rgba(245,158,11,0.25);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
+  .sync-badge.error{background:rgba(239,68,68,0.25);color:#fca5a5;border-color:rgba(239,68,68,0.4)}
   .icon-btn{
     background:rgba(255,255,255,0.1);
     border:1px solid rgba(255,255,255,0.15);
@@ -1443,7 +1444,8 @@ function save(){ localStorage.setItem('hogarDataComunesMTM', JSON.stringify(data
 function setSyncStatus(cls, text){
   const el = document.getElementById('syncStatus');
   if(!el) return;
-  el.className = 'sync-badge ' + (cls === 'ok' ? 'ok' : 'syncing');
+  const claseFinal = cls === 'ok' ? 'ok' : (cls === 'error' ? 'error' : 'syncing');
+  el.className = 'sync-badge ' + claseFinal;
   el.textContent = '● ' + text;
 }
 
@@ -1457,13 +1459,28 @@ function saveToFirebase(){
     return;
   }
   setSyncStatus('syncing', 'Guardando...');
+
+  let resuelto = false;
+  // Si en 8s no hay respuesta (ni éxito ni error), lo más probable es que no
+  // haya conexión real con Firestore. Los datos ya están a salvo en local
+  // (se guardan antes de llamar a esta función), así que avisamos sin bloquear la app.
+  const watchdog = setTimeout(() => {
+    if (!resuelto) {
+      console.warn("Firestore no respondió a tiempo: posible problema de red/conexión.");
+      setSyncStatus('error', 'Sin conexión (guardado local)');
+    }
+  }, 8000);
   
   db.collection('hogar').doc('dataFinanzasComunes').set(data)
     .then(() => {
+      resuelto = true;
+      clearTimeout(watchdog);
       console.log("Sincronización con Firebase exitosa");
       setSyncStatus('ok', 'Sincronizado');
     })
     .catch((error) => {
+      resuelto = true;
+      clearTimeout(watchdog);
       console.error("ERROR CRÍTICO DE FIREBASE:", error);
       setSyncStatus('error', 'Error de BD');
       // Fallback: después de 2 segundos, muestra que se guardó en local para que no se quede colgado
@@ -1481,12 +1498,31 @@ function debouncedSave(){
   }, 400);
 }
 
+let firestoreConfigurado = false;
+
 function initFirebase(){
   try{
     if(!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
     db = firebase.firestore();
+
+    // ==========================================
+    // FIX: conexión colgada en "Guardando..."
+    // Detrás de proxies (Codespaces, algunos routers/firewalls corporativos)
+    // el canal WebSocket que usa Firestore por defecto no logra abrirse, y
+    // el .set()/.onSnapshot() se queda pendiente para siempre sin resolver
+    // ni fallar. Forzar long-polling automático evita ese cuelgue.
+    // settings() solo puede llamarse una vez por instancia de Firestore.
+    // ==========================================
+    if (!firestoreConfigurado) {
+      try {
+        db.settings({ experimentalAutoDetectLongPolling: true, useFetchStreams: false, merge: true });
+      } catch (e) {
+        console.warn("No se pudieron aplicar los settings de Firestore (puede que ya estuvieran fijados):", e);
+      }
+      firestoreConfigurado = true;
+    }
     
     if (!db) {
         console.error("Firestore no disponible");
@@ -1496,8 +1532,17 @@ function initFirebase(){
 
     setSyncStatus('syncing', 'Conectando...');
     if(unsubscribeFirestore) unsubscribeFirestore();
+
+    let primerSnapshotRecibido = false;
+    setTimeout(() => {
+      if (!primerSnapshotRecibido) {
+        console.warn("Firestore no confirmó conexión en 8s: revisa red/reglas de seguridad.");
+        setSyncStatus('error', 'Sin conexión (modo local)');
+      }
+    }, 8000);
     
     unsubscribeFirestore = db.collection('hogar').doc('dataFinanzasComunes').onSnapshot((doc) => {
+      primerSnapshotRecibido = true;
       if(doc.exists){
         const remote = doc.data();
         // Evitamos bucles infinitos comparando cadenas
@@ -1515,6 +1560,7 @@ function initFirebase(){
         setSyncStatus('ok', 'Sincronizado');
       }
     }, (error) => {
+        primerSnapshotRecibido = true;
         console.error("Error en la suscripción de Firestore:", error);
         setSyncStatus('error', 'Error de conexión');
     });
