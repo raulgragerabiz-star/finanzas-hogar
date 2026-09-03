@@ -611,6 +611,7 @@
       <div class="card">
         <h3>👤 Personales</h3>
         <div class="stat-value" id="anualPersonales" style="color:#ec4899;font-size:1.2rem">0 €</div>
+        <div class="stat-sub" style="font-size:.6rem">Parte repartida dentro de Variables/Suscripciones</div>
       </div>
     </div>
 
@@ -2286,24 +2287,30 @@ function renderChart(gR, gM){
 }
 
 function calcularAcumuladoAnual() {
-  let acum = { vivienda: 0, variablesComun: 0, suscripcionesComun: 0, personalRaul: 0, personalMarta: 0, totalGastos: 0 };
+  // "suscripcionesTotal"/"variablesTotal" = todo lo gastado en esa categoría,
+  // sea 'comun' o 'individual' (antes solo sumaba lo 'comun' y las
+  // suscripciones/variables con reparto individual desaparecían de esta
+  // tarjeta aunque sí contaban en el Total Acumulado Anual).
+  // "personalRaul"/"personalMarta" es una vista distinta: cuánto de esas
+  // mismas categorías corresponde a reparto individual de cada persona.
+  let acum = { vivienda: 0, variablesTotal: 0, suscripcionesTotal: 0, personalRaul: 0, personalMarta: 0, totalGastos: 0 };
   Object.values(data.meses).forEach(m => {
-    m.alquiler.forEach(r => { acum.vivienda += r.importe; acum.totalGastos += r.importe; });
-    m.suscripciones.forEach(r => {
-      if (r.tipo === 'comun' || !r.tipo) { acum.suscripcionesComun += r.importe; } 
-      else { 
+    (m.alquiler || []).forEach(r => { acum.vivienda += (r.importe || 0); acum.totalGastos += (r.importe || 0); });
+    (m.suscripciones || []).forEach(r => {
+      acum.suscripcionesTotal += (r.importe || 0);
+      if (r.tipo === 'individual') {
         acum.personalRaul += (r.aportaA || 0);
         acum.personalMarta += (r.aportaB || 0);
       }
-      acum.totalGastos += r.importe;
+      acum.totalGastos += (r.importe || 0);
     });
-    m.variablesAsociadas.forEach(r => {
-      if (r.tipo === 'comun' || !r.tipo) { acum.variablesComun += r.importe; } 
-      else {
+    (m.variablesAsociadas || []).forEach(r => {
+      acum.variablesTotal += (r.importe || 0);
+      if (r.tipo === 'individual') {
         acum.personalRaul += (r.aportaA || 0);
         acum.personalMarta += (r.aportaB || 0);
       }
-      acum.totalGastos += r.importe;
+      acum.totalGastos += (r.importe || 0);
     });
   });
   return acum;
@@ -2315,8 +2322,8 @@ function renderAcumuladoAnual() {
   
   set('anualTotalGastos', acum.totalGastos.toFixed(0) + ' €');
   set('anualVivienda', acum.vivienda.toFixed(0) + ' €');
-  set('anualVariables', acum.variablesComun.toFixed(0) + ' €');
-  set('anualSuscripciones', acum.suscripcionesComun.toFixed(0) + ' €');
+  set('anualVariables', acum.variablesTotal.toFixed(0) + ' €');
+  set('anualSuscripciones', acum.suscripcionesTotal.toFixed(0) + ' €');
   
   const totalPersonal = acum.personalRaul + acum.personalMarta;
   set('anualPersonales', totalPersonal.toFixed(0) + ' €');
@@ -2333,7 +2340,7 @@ function renderAcumuladoAnual() {
       labels: ['🏠 Vivienda', '🔄 Variables', '📺 Suscripciones', '👥 Personales'],
       datasets: [{
         label: 'Acumulado Anual (€)',
-        data: [acum.vivienda, acum.variablesComun, acum.suscripcionesComun, totalPersonal],
+        data: [acum.vivienda, acum.variablesTotal, acum.suscripcionesTotal, totalPersonal],
         backgroundColor: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899'],
         borderRadius: 8,
         borderWidth: 0
