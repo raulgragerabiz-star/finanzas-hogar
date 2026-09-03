@@ -1423,7 +1423,7 @@ function generarFijosParaMes(mesKey){
       aportaA: tpl.tipo === 'individual' ? (tpl.aportaA || 0) : 0,
       aportaB: tpl.tipo === 'individual' ? (tpl.aportaB || 0) : 0,
       compartido: tpl.tipo === 'comun',
-      payer: tpl.tipo === 'individual' ? tpl.payer : undefined,
+      payer: tpl.tipo === 'individual' ? tpl.payer : null,
       templateId: tpl.id
     };
     if (tpl.categoria === 'suscripciones') item.titular = tpl.tipo === 'individual' ? tpl.payer : 'A';
@@ -1517,7 +1517,12 @@ function initFirebase(){
     // ==========================================
     if (!firestoreConfigurado) {
       try {
-        db.settings({ experimentalAutoDetectLongPolling: true, useFetchStreams: false, merge: true });
+        db.settings({
+          experimentalAutoDetectLongPolling: true,
+          useFetchStreams: false,
+          ignoreUndefinedProperties: true,
+          merge: true
+        });
       } catch (e) {
         console.warn("No se pudieron aplicar los settings de Firestore (puede que ya estuvieran fijados):", e);
       }
@@ -1926,8 +1931,8 @@ function saveExpenseFromModal() {
     aportaA: type === 'individual' ? aportaA : 0,
     aportaB: type === 'individual' ? aportaB : 0,
     compartido: type === 'comun',
-    payer: type === 'individual' ? payer : undefined,
-    templateId: existing ? existing.templateId : undefined
+    payer: type === 'individual' ? payer : null,
+    templateId: (existing && existing.templateId) ? existing.templateId : null
   };
   
   if (category === 'suscripciones') {
@@ -1970,7 +1975,7 @@ function saveExpenseFromModal() {
   } else if (expense.templateId) {
     // Se desmarcó "gasto fijo": deja de generarse en meses futuros
     data.gastosFijosTemplates = data.gastosFijosTemplates.filter(t => t.id !== expense.templateId);
-    expense.templateId = undefined;
+    expense.templateId = null;
   }
   
   if (index >= 0) {
