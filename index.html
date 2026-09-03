@@ -799,8 +799,21 @@
     </div>
     
     <div class="checkbox-row">
-      <input type="checkbox" id="expenseModalFixed">
+      <input type="checkbox" id="expenseModalFixed" onchange="toggleFixedFields()">
       <label for="expenseModalFixed">📌 Gasto fijo (se duplica en meses nuevos)</label>
+    </div>
+
+    <div class="form-group" id="expenseModalFrecuenciaGroup" style="display:none">
+      <label>Frecuencia</label>
+      <select id="expenseModalFrecuencia">
+        <option value="mensual">🔁 Todos los meses</option>
+        <option value="bimensual">🔀 Cada 2 meses (alterno)</option>
+      </select>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:5px;line-height:1.4">
+        "Cada 2 meses" empieza a contar desde el mes activo actual y se alterna mes sí, mes no.
+        Para alternar dos gastos (p.ej. agua un mes, gas al siguiente), crea ambos como
+        "Cada 2 meses" pero el segundo un mes después que el primero.
+      </div>
     </div>
     
     <div style="display:flex;gap:8px;margin-top:14px">
@@ -1352,6 +1365,71 @@ function ensureDataStructure(){
       data.mesActivo = keys[keys.length - 1];
     }
   }
+
+  // ==========================================
+  // PLANTILLAS DE GASTOS FIJOS (frecuencia mensual / bimensual alterna)
+  // Migración: la primera vez que se carga esta versión no existe el array,
+  // así que se generan plantillas "mensuales" a partir de los gastos fijos
+  // ya existentes en el mes activo, para no perder nada y mantener el
+  // comportamiento anterior (todos mensuales) hasta que el usuario ajuste
+  // la frecuencia de los que correspondan (ej. agua/gas).
+  // ==========================================
+  if(!Array.isArray(data.gastosFijosTemplates)){
+    data.gastosFijosTemplates = [];
+    const refKey = data.mesActivo && data.meses[data.mesActivo] ? data.mesActivo : keys[keys.length - 1];
+    const refMes = refKey ? data.meses[refKey] : null;
+    if (refMes) {
+      ['alquiler', 'suscripciones', 'variablesAsociadas'].forEach(cat => {
+        (refMes[cat] || []).forEach(item => {
+          if (item.estable && !item.templateId) {
+            const tpl = {
+              id: 'tpl-' + Date.now() + Math.random().toString(36).slice(2, 6),
+              categoria: cat, nombre: item.nombre, importe: item.importe,
+              tipo: item.tipo || 'comun', aportaA: item.aportaA || 0, aportaB: item.aportaB || 0,
+              payer: item.payer, frecuencia: 'mensual', mesInicio: refKey
+            };
+            data.gastosFijosTemplates.push(tpl);
+            item.templateId = tpl.id;
+          }
+        });
+      });
+    }
+  }
+}
+
+function mesIndex(key){
+  const [y, m] = key.split('-').map(Number);
+  return y * 12 + (m - 1);
+}
+
+// Determina si una plantilla de gasto fijo aplica en un mes concreto
+function plantillaAplicaEnMes(tpl, mesKey){
+  if (tpl.frecuencia !== 'bimensual') return true;
+  if (!tpl.mesInicio) return true;
+  let diff = mesIndex(mesKey) - mesIndex(tpl.mesInicio);
+  diff = ((diff % 2) + 2) % 2;
+  return diff === 0;
+}
+
+// Genera los gastos fijos que corresponden a un mes a partir de las plantillas
+function generarFijosParaMes(mesKey){
+  const cats = { alquiler: [], suscripciones: [], variablesAsociadas: [] };
+  data.gastosFijosTemplates.forEach(tpl => {
+    if (!plantillaAplicaEnMes(tpl, mesKey)) return;
+    const item = {
+      nombre: tpl.nombre, importe: tpl.importe, fecha: mesKey + '-01',
+      tipo: tpl.tipo, estable: true,
+      aportaA: tpl.tipo === 'individual' ? (tpl.aportaA || 0) : 0,
+      aportaB: tpl.tipo === 'individual' ? (tpl.aportaB || 0) : 0,
+      compartido: tpl.tipo === 'comun',
+      payer: tpl.tipo === 'individual' ? tpl.payer : undefined,
+      templateId: tpl.id
+    };
+    if (tpl.categoria === 'suscripciones') item.titular = tpl.tipo === 'individual' ? tpl.payer : 'A';
+    if (tpl.categoria === 'variablesAsociadas') item.persona = tpl.tipo === 'individual' ? tpl.payer : 'A';
+    cats[tpl.categoria].push(item);
+  });
+  return cats;
 }
 
 function loadLocal(){
@@ -1502,12 +1580,13 @@ function createNewMonth(){
                   prevM.variablesAsociadas.filter(r => r.tipo === 'comun' || !r.tipo).reduce((s, r) => s + r.importe, 0);
   let sobrantePrev = Math.max(0, totCPrev - gastCPrev);
 
+  const fijos = generarFijosParaMes(key);
   data.meses[key] = {
     aportaCuentaA: prevM.aportaCuentaA,
     aportaCuentaB: prevM.aportaCuentaB,
-    alquiler: prevM.alquiler.filter(r => r.estable).map(r => ({...r})),
-    suscripciones: prevM.suscripciones.filter(r => r.estable).map(r => ({...r})),
-    variablesAsociadas: prevM.variablesAsociadas.filter(r => r.estable).map(r => ({...r})),
+    alquiler: fijos.alquiler,
+    suscripciones: fijos.suscripciones,
+    variablesAsociadas: fijos.variablesAsociadas,
     ahorro: sobrantePrev > 0 ? [{fecha: key + '-01', concepto: 'Ahorro mes anterior', importe: sobrantePrev, persona: 'A', estable: false}] : []
   };
   
@@ -1622,7 +1701,15 @@ function renderExpenseRow(r, i, category) {
     payerInfo = '<span class="exp-tag comun">👥 Común</span>';
   }
   
-  const fijoTag = r.estable ? '<span class="exp-tag fijo">📌 Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
+  let fijoTag = '<span class="exp-tag puntual">Puntual</span>';
+  if (r.estable) {
+    let label = '📌 Fijo';
+    if (r.templateId) {
+      const tpl = data.gastosFijosTemplates.find(t => t.id === r.templateId);
+      if (tpl && tpl.frecuencia === 'bimensual') label = '🔀 Cada 2 meses';
+    }
+    fijoTag = '<span class="exp-tag fijo">' + label + '</span>';
+  }
   
   return '<div class="expense-row" onclick="openExpenseModal(\'' + category + '\',' + i + ')">' +
     '<div class="exp-icon">' + icon + '</div>' +
@@ -1712,6 +1799,12 @@ function updateSplitHint(){
   }
 }
 
+function toggleFixedFields() {
+  const checked = document.getElementById('expenseModalFixed').checked;
+  const group = document.getElementById('expenseModalFrecuenciaGroup');
+  if (group) group.style.display = checked ? 'block' : 'none';
+}
+
 function openExpenseModal(category, index = -1) {
   document.getElementById('expenseModalCategory').value = category;
   document.getElementById('expenseModalIndex').value = index;
@@ -1719,6 +1812,7 @@ function openExpenseModal(category, index = -1) {
   document.getElementById('expenseModalDelete').style.display = index >= 0 ? 'block' : 'none';
   
   const today = new Date().toISOString().slice(0, 10);
+  let frecuencia = 'mensual';
   
   if (index >= 0) {
     const r = curMonth()[category][index];
@@ -1730,6 +1824,10 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalAportaB').value = r.aportaB !== undefined ? r.aportaB : 0;
     document.getElementById('expenseModalPayer').value = r.payer || 'A';
     document.getElementById('expenseModalFixed').checked = !!r.estable;
+    if (r.templateId) {
+      const tpl = data.gastosFijosTemplates.find(t => t.id === r.templateId);
+      if (tpl) frecuencia = tpl.frecuencia || 'mensual';
+    }
   } else {
     document.getElementById('expenseModalName').value = '';
     document.getElementById('expenseModalAmount').value = '';
@@ -1740,8 +1838,10 @@ function openExpenseModal(category, index = -1) {
     document.getElementById('expenseModalPayer').value = 'A';
     document.getElementById('expenseModalFixed').checked = false;
   }
+  document.getElementById('expenseModalFrecuencia').value = frecuencia;
   
   toggleExpenseFields();
+  toggleFixedFields();
   updateSplitHint();
   const modal = document.getElementById('expenseModal');
   if (modal) modal.classList.add('active');
@@ -1758,6 +1858,7 @@ function saveExpenseFromModal() {
   const aportaB = parseFloat(document.getElementById('expenseModalAportaB').value) || 0;
   const payer = document.getElementById('expenseModalPayer').value;
   const fixed = document.getElementById('expenseModalFixed').checked;
+  const frecuencia = document.getElementById('expenseModalFrecuencia').value;
   
   if (!name) { alert('Introduce un concepto'); return; }
 
@@ -1768,6 +1869,8 @@ function saveExpenseFromModal() {
     return;
   }
 
+  const existing = index >= 0 ? curMonth()[category][index] : null;
+
   const expense = {
     nombre: name,
     importe: amount,
@@ -1777,13 +1880,51 @@ function saveExpenseFromModal() {
     aportaA: type === 'individual' ? aportaA : 0,
     aportaB: type === 'individual' ? aportaB : 0,
     compartido: type === 'comun',
-    payer: type === 'individual' ? payer : undefined
+    payer: type === 'individual' ? payer : undefined,
+    templateId: existing ? existing.templateId : undefined
   };
   
   if (category === 'suscripciones') {
     expense.titular = type === 'individual' ? payer : 'A';
   } else if (category === 'variablesAsociadas') {
     expense.persona = type === 'individual' ? payer : 'A';
+  }
+
+  // ==========================================
+  // Gestión de la plantilla de gasto fijo (frecuencia mensual / bimensual)
+  // ==========================================
+  if (fixed) {
+    if (expense.templateId) {
+      const tpl = data.gastosFijosTemplates.find(t => t.id === expense.templateId);
+      if (tpl) {
+        const pasaABimensual = frecuencia === 'bimensual' && tpl.frecuencia !== 'bimensual';
+        tpl.nombre = name; tpl.importe = amount; tpl.tipo = type;
+        tpl.aportaA = expense.aportaA; tpl.aportaB = expense.aportaB; tpl.payer = payer;
+        tpl.frecuencia = frecuencia;
+        // Si pasa de mensual a bimensual ahora, fijamos el mes activo como referencia de fase
+        if (pasaABimensual) tpl.mesInicio = data.mesActivo;
+      } else {
+        const tpl = {
+          id: 'tpl-' + Date.now() + Math.random().toString(36).slice(2, 6),
+          categoria: category, nombre: name, importe: amount, tipo: type,
+          aportaA: expense.aportaA, aportaB: expense.aportaB, payer, frecuencia, mesInicio: data.mesActivo
+        };
+        data.gastosFijosTemplates.push(tpl);
+        expense.templateId = tpl.id;
+      }
+    } else {
+      const tpl = {
+        id: 'tpl-' + Date.now() + Math.random().toString(36).slice(2, 6),
+        categoria: category, nombre: name, importe: amount, tipo: type,
+        aportaA: expense.aportaA, aportaB: expense.aportaB, payer, frecuencia, mesInicio: data.mesActivo
+      };
+      data.gastosFijosTemplates.push(tpl);
+      expense.templateId = tpl.id;
+    }
+  } else if (expense.templateId) {
+    // Se desmarcó "gasto fijo": deja de generarse en meses futuros
+    data.gastosFijosTemplates = data.gastosFijosTemplates.filter(t => t.id !== expense.templateId);
+    expense.templateId = undefined;
   }
   
   if (index >= 0) {
@@ -1800,7 +1941,16 @@ function saveExpenseFromModal() {
 function deleteExpenseFromModal() {
   const category = document.getElementById('expenseModalCategory').value;
   const index = parseInt(document.getElementById('expenseModalIndex').value);
-  if (index >= 0 && confirm('¿Eliminar este gasto?')) {
+  if (index >= 0) {
+    const item = curMonth()[category][index];
+    const esFijo = !!(item && item.templateId);
+    const msg = esFijo
+      ? '¿Eliminar este gasto? También dejará de generarse automáticamente en los próximos meses.'
+      : '¿Eliminar este gasto?';
+    if (!confirm(msg)) return;
+    if (esFijo) {
+      data.gastosFijosTemplates = data.gastosFijosTemplates.filter(t => t.id !== item.templateId);
+    }
     curMonth()[category].splice(index, 1);
     debouncedSave();
     closeModal('expenseModal');
