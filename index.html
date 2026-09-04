@@ -643,23 +643,55 @@
       </div>
     </div>
 
-    <div class="card" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(236,72,153,0.15));border:1px solid rgba(16,185,129,0.3)">
-      <h3 style="color:#93c5fd;font-size:.95rem">💼 Mi Economía Personal</h3>
-      <div class="stat-value" id="privadoTotalMes" style="color:#fff8f0;margin-top:4px;font-size:1.4rem">0 €</div>
-      <div class="stat-sub" style="color:#bfdbfe">Total este mes</div>
+    <div class="card" id="privadoBalanceBox" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(236,72,153,0.15));border:1px solid rgba(16,185,129,0.3)">
+      <h3 style="color:#93c5fd;font-size:.95rem">💼 Balance Real de Este Mes</h3>
+      <div class="stat-value" id="privadoBalanceMes" style="color:#fff8f0;margin-top:4px;font-size:1.6rem">0 €</div>
+      <div class="stat-sub" id="privadoBalanceDetalle" style="color:#bfdbfe">Ingresos − Aportación común − Gastos privados</div>
+      <div class="stat-sub" id="privadoVsMesAnterior" style="margin-top:4px;font-weight:700"></div>
     </div>
 
     <div class="grid">
       <div class="card">
-        <h3>💵 Este Mes</h3>
-        <div class="stat-value" id="privadoTotalMesCard" style="color:var(--primary);font-size:1.3rem">0 €</div>
-        <div class="stat-sub">Gastos mes actual</div>
+        <h3>📈 Ingresos</h3>
+        <div class="stat-value" id="privadoIngresosMes" style="color:#6ee7b7;font-size:1.2rem">0 €</div>
+        <div class="stat-sub">Este mes</div>
       </div>
       <div class="card">
-        <h3> Acumulado</h3>
-        <div class="stat-value" id="privadoTotalAnual" style="color:var(--accent);font-size:1.3rem">0 €</div>
-        <div class="stat-sub">Suma histórica</div>
+        <h3>💵 Gastos</h3>
+        <div class="stat-value" id="privadoTotalMesCard" style="color:var(--marta);font-size:1.2rem">0 €</div>
+        <div class="stat-sub">Este mes</div>
       </div>
+      <div class="card">
+        <h3>🏦 Aportación</h3>
+        <div class="stat-value" id="privadoAportacionMes" style="color:#fbbf24;font-size:1.2rem">0 €</div>
+        <div class="stat-sub">A la cuenta común</div>
+      </div>
+      <div class="card">
+        <h3>🎯 Tasa de ahorro</h3>
+        <div class="stat-value" id="privadoTasaAhorro" style="color:#a78bfa;font-size:1.2rem">0%</div>
+        <div class="stat-sub">Del ingreso mensual</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <span>📈 Mis Ingresos</span>
+      <button class="btn-success btn-small" onclick="openPrivateIncomeModal()">➕</button>
+    </div>
+    <div class="card">
+      <div id="listIngresosPrivados"></div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Evolución Mensual (Ingresos vs Gastos)</h3>
+      <div style="position:relative;height:220px;margin-top:8px"><canvas id="chartEvolucionPersonal"></canvas></div>
+    </div>
+
+    <div class="section-title">
+      <span>🎚️ Presupuestos por Categoría</span>
+      <button class="btn-success btn-small" onclick="openBudgetModal()">⚙️</button>
+    </div>
+    <div class="card">
+      <div id="listPresupuestos"></div>
     </div>
 
     <div class="section-title">
@@ -674,12 +706,65 @@
       <h3> Distribución por Conceptos</h3>
       <div style="position:relative;height:200px;margin-top:8px"><canvas id="chartPrivado"></canvas></div>
     </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>💵 Acumulado</h3>
+        <div class="stat-value" id="privadoTotalAnual" style="color:var(--accent);font-size:1.3rem">0 €</div>
+        <div class="stat-sub">Suma histórica de gastos</div>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- NAVEGACIÓN INFERIOR CON ICONO DE COMÚN RECUPERADO -->
-<div class="bottom-nav">
+<!-- MODAL INGRESO PRIVADO -->
+<div class="modal-overlay" id="privateIncomeModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('privateIncomeModal')">✕</button>
+    <h3 id="privateIncomeModalTitle">➕ Añadir ingreso</h3>
+    <input type="hidden" id="privateIncomeModalIndex" value="-1">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" id="privateIncomeModalDate">
+      </div>
+      <div class="form-group">
+        <label>Importe (€)</label>
+        <input type="number" inputmode="decimal" step="0.01" id="privateIncomeModalAmount" placeholder="0.00">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Concepto</label>
+      <input type="text" id="privateIncomeModalConcept" placeholder="Ej: Nómina, Extra, Freelance...">
+    </div>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="privateIncomeModalFixed">
+      <label for="privateIncomeModalFixed">🔄 Ingreso fijo (se repite cada mes)</label>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn-danger" id="privateIncomeModalDelete" onclick="deletePrivateIncomeFromModal()" style="display:none;flex:1">🗑️</button>
+      <button class="btn-primary" onclick="savePrivateIncomeFromModal()" style="flex:2">💾 Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRESUPUESTOS -->
+<div class="modal-overlay" id="budgetModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('budgetModal')">✕</button>
+    <h3>🎚️ Presupuestos mensuales por categoría</h3>
+    <p style="color:var(--muted);font-size:.8rem;margin-bottom:10px">Deja en 0 las categorías sin límite.</p>
+    <div id="budgetModalFields"></div>
+    <div style="display:flex;justify-content:flex-end;margin-top:14px">
+      <button class="btn-primary" onclick="saveBudgetsFromModal()" style="flex:1">💾 Guardar</button>
+    </div>
+  </div>
+</div>
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
   <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon">🏠</span><span>Común</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
@@ -977,12 +1062,13 @@ let data = {
   deudas: [], 
   pagos: [], 
   mesActivo: "",
-  espaciosPrivados: { A: { pin: null, gastos: [] }, B: { pin: null, gastos: [] } }
+  espaciosPrivados: { A: { pin: null, gastos: [], ingresos: [], presupuestos: {} }, B: { pin: null, gastos: [], ingresos: [], presupuestos: {} } }
 };
 let saveTimeout = null;
 let chartInstance = null;
 let chartInstanceAnual = null;
 let chartInstancePrivado = null;
+let chartInstanceEvolucionPersonal = null;
 const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
 let privateSession = JSON.parse(sessionStorage.getItem('privateSession')) || { authenticated: false, user: null };
@@ -992,6 +1078,13 @@ const CATEGORY_ICONS = {
   alquiler: '🏠', suscripciones: '📺', variablesAsociadas: '🛒',
   ocio: '🎮', ropa: '👕', comida: '🍽️', salud: '💊',
   transporte: '🚗', regalos: '🎁', prestamo: '💰', banco: '🏦', otros: '📦'
+};
+
+const PRIVATE_CATEGORIES = ['ocio','ropa','comida','salud','transporte','regalos','prestamo','banco','otros'];
+const PRIVATE_CATEGORY_LABELS = {
+  ocio: '🎮 Ocio', ropa: '👕 Ropa', comida: '🍽️ Comida', salud: '💊 Salud',
+  transporte: '🚗 Transporte', regalos: '🎁 Regalos', prestamo: '💰 Préstamo',
+  banco: '🏦 Banco', otros: '📦 Otros'
 };
 
 // ==========================================
@@ -1356,6 +1449,10 @@ function ensureDataStructure(){
   if(!data.espaciosPrivados.B) data.espaciosPrivados.B = { pin: null, gastos: [] };
   if(!Array.isArray(data.espaciosPrivados.A.gastos)) data.espaciosPrivados.A.gastos = [];
   if(!Array.isArray(data.espaciosPrivados.B.gastos)) data.espaciosPrivados.B.gastos = [];
+  if(!Array.isArray(data.espaciosPrivados.A.ingresos)) data.espaciosPrivados.A.ingresos = [];
+  if(!Array.isArray(data.espaciosPrivados.B.ingresos)) data.espaciosPrivados.B.ingresos = [];
+  if(!data.espaciosPrivados.A.presupuestos || typeof data.espaciosPrivados.A.presupuestos !== 'object') data.espaciosPrivados.A.presupuestos = {};
+  if(!data.espaciosPrivados.B.presupuestos || typeof data.espaciosPrivados.B.presupuestos !== 'object') data.espaciosPrivados.B.presupuestos = {};
   
   const keys = Object.keys(data.meses).sort();
   if(keys.length === 0){
@@ -1402,6 +1499,22 @@ function ensureDataStructure(){
 function mesIndex(key){
   const [y, m] = key.split('-').map(Number);
   return y * 12 + (m - 1);
+}
+
+function mesKeyFromIndex(idx){
+  const y = Math.floor(idx / 12);
+  const m = idx % 12;
+  return y + '-' + String(m + 1).padStart(2, '0');
+}
+
+// Genera un array de n claves de mes (YYYY-MM) consecutivas terminando en mesFinal
+function generarRangoMeses(mesFinal, n){
+  const idxFinal = mesIndex(mesFinal);
+  const meses = [];
+  for (let i = n - 1; i >= 0; i--) {
+    meses.push(mesKeyFromIndex(idxFinal - i));
+  }
+  return meses;
 }
 
 // Determina si una plantilla de gasto fijo aplica en un mes concreto
@@ -1648,6 +1761,13 @@ function createNewMonth(){
     gastosEstables.forEach(g => {
       const newGasto = {...g, fecha: key + g.fecha.slice(7)};
       data.espaciosPrivados[user].gastos.push(newGasto);
+    });
+
+    const prevIngresos = data.espaciosPrivados[user].ingresos || [];
+    const ingresosEstables = prevIngresos.filter(g => g.estable && g.fecha && g.fecha.startsWith(last));
+    ingresosEstables.forEach(g => {
+      const newIngreso = {...g, fecha: key + g.fecha.slice(7)};
+      data.espaciosPrivados[user].ingresos.push(newIngreso);
     });
   });
   
@@ -2361,19 +2481,63 @@ function renderPrivateSpace(forceRender = true) {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
   const gastos = data.espaciosPrivados[user].gastos;
+  const ingresos = data.espaciosPrivados[user].ingresos || [];
   const currentMonth = data.mesActivo;
-  
+  const prevMonth = mesKeyFromIndex(mesIndex(currentMonth) - 1);
+
   const gastosMes = gastos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
+  const ingresosMes = ingresos.filter(g => g.fecha && g.fecha.startsWith(currentMonth));
+  const gastosMesAnterior = gastos.filter(g => g.fecha && g.fecha.startsWith(prevMonth));
+  const ingresosMesAnterior = ingresos.filter(g => g.fecha && g.fecha.startsWith(prevMonth));
+
   const totalMes = gastosMes.reduce((s, g) => s + (+g.importe || 0), 0);
+  const totalIngresosMes = ingresosMes.reduce((s, g) => s + (+g.importe || 0), 0);
   const totalAnual = gastos.reduce((s, g) => s + (+g.importe || 0), 0);
-  
+
+  // Balance real = lo que entra menos lo que sale (aportación a la cuenta común + gastos propios)
+  const mesData = data.meses[currentMonth];
+  const aportacionMes = mesData ? (user === 'A' ? (mesData.aportaCuentaA || 0) : (mesData.aportaCuentaB || 0)) : 0;
+  const balanceMes = totalIngresosMes - aportacionMes - totalMes;
+
+  const totalMesAnterior = gastosMesAnterior.reduce((s, g) => s + (+g.importe || 0), 0);
+  const totalIngresosMesAnterior = ingresosMesAnterior.reduce((s, g) => s + (+g.importe || 0), 0);
+  const mesAnteriorData = data.meses[prevMonth];
+  const aportacionMesAnterior = mesAnteriorData ? (user === 'A' ? (mesAnteriorData.aportaCuentaA || 0) : (mesAnteriorData.aportaCuentaB || 0)) : 0;
+  const balanceMesAnterior = totalIngresosMesAnterior - aportacionMesAnterior - totalMesAnterior;
+
+  const tasaAhorro = totalIngresosMes > 0 ? (balanceMes / totalIngresosMes) * 100 : 0;
+
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('privadoTotalMes', totalMes.toFixed(2) + ' €');
+  set('privadoBalanceMes', (balanceMes >= 0 ? '+' : '') + balanceMes.toFixed(2) + ' €');
+  const balanceValEl = document.getElementById('privadoBalanceMes');
+  if (balanceValEl) balanceValEl.style.color = balanceMes >= 0 ? '#6ee7b7' : '#fca5a5';
+
+  set('privadoIngresosMes', totalIngresosMes.toFixed(2) + ' €');
   set('privadoTotalMesCard', totalMes.toFixed(2) + ' €');
+  set('privadoAportacionMes', aportacionMes.toFixed(2) + ' €');
+  set('privadoTasaAhorro', (isFinite(tasaAhorro) ? tasaAhorro.toFixed(0) : '0') + '%');
   set('privadoTotalAnual', totalAnual.toFixed(2) + ' €');
-  
-  if (forceRender) renderGastosPrivadosDetalle(gastosMes);
+
+  const vsEl = document.getElementById('privadoVsMesAnterior');
+  if (vsEl) {
+    const huboMesAnterior = totalIngresosMesAnterior > 0 || totalMesAnterior > 0;
+    if (!huboMesAnterior) {
+      vsEl.textContent = '';
+    } else {
+      const diff = balanceMes - balanceMesAnterior;
+      const flecha = diff > 0.5 ? '▲' : (diff < -0.5 ? '▼' : '►');
+      const color = diff > 0.5 ? '#6ee7b7' : (diff < -0.5 ? '#fca5a5' : '#e8d5c4');
+      vsEl.innerHTML = '<span style="color:' + color + '">' + flecha + ' ' + (diff >= 0 ? '+' : '') + diff.toFixed(0) + ' € vs mes anterior</span>';
+    }
+  }
+
+  if (forceRender) {
+    renderGastosPrivadosDetalle(gastosMes);
+    renderIngresosPrivados(ingresosMes);
+    renderPresupuestos(gastosMes);
+  }
   renderPrivateChart();
+  renderEvolucionPersonal(user);
 }
 
 function renderGastosPrivadosDetalle(gastosMes) {
@@ -2385,16 +2549,9 @@ function renderGastosPrivadosDetalle(gastosMes) {
     return;
   }
   
-  const categorias = {
-    'ocio': '🎮 Ocio', 'ropa': '👕 Ropa', 'comida': '🍽️ Comida',
-    'salud': '💊 Salud', 'transporte': '🚗 Transporte', 'regalos': '🎁 Regalos',
-    'prestamo': '💰 Préstamo', 'banco': '🏦 Banco',
-    'otros': '📦 Otros'
-  };
-  
   box.innerHTML = gastosMes.map((g) => {
     const realIdx = data.espaciosPrivados[privateSession.user].gastos.indexOf(g);
-    const catName = categorias[g.categoria] || '📦 Otros';
+    const catName = PRIVATE_CATEGORY_LABELS[g.categoria] || '📦 Otros';
     const fijoTag = g.estable ? '<span class="exp-tag fijo">🔄 Estable</span>' : '<span class="exp-tag puntual">Puntual</span>';
     return '<div class="expense-row" onclick="openPrivateExpenseModal(' + realIdx + ')">' +
       '<div class="exp-icon">' + (CATEGORY_ICONS[g.categoria] || '📦') + '</div>' +
@@ -2465,6 +2622,155 @@ function deletePrivateExpenseFromModal() {
   }
 }
 
+// ==========================================
+// INGRESOS PERSONALES
+// ==========================================
+function renderIngresosPrivados(ingresosMes) {
+  const box = document.getElementById('listIngresosPrivados');
+  if (!box) return;
+
+  if (ingresosMes.length === 0) {
+    box.innerHTML = '<div class="empty-state">Sin ingresos registrados este mes</div>';
+    return;
+  }
+
+  box.innerHTML = ingresosMes.map((g) => {
+    const realIdx = data.espaciosPrivados[privateSession.user].ingresos.indexOf(g);
+    const fijoTag = g.estable ? '<span class="exp-tag fijo">🔄 Fijo</span>' : '<span class="exp-tag puntual">Puntual</span>';
+    return '<div class="expense-row" onclick="openPrivateIncomeModal(' + realIdx + ')">' +
+      '<div class="exp-icon">📈</div>' +
+      '<div class="exp-info">' +
+        '<div class="exp-name">' + g.concepto + '</div>' +
+        '<div class="exp-meta">' + fijoTag + '<span>📅 ' + g.fecha + '</span></div>' +
+      '</div>' +
+      '<div class="exp-amount" style="color:#6ee7b7">+' + (+g.importe || 0).toFixed(2) + ' €</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openPrivateIncomeModal(index = -1) {
+  document.getElementById('privateIncomeModalIndex').value = index;
+  document.getElementById('privateIncomeModalTitle').textContent = index >= 0 ? '✏️ Editar ingreso' : '➕ Añadir ingreso';
+  document.getElementById('privateIncomeModalDelete').style.display = index >= 0 ? 'block' : 'none';
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  if (index >= 0) {
+    const r = data.espaciosPrivados[privateSession.user].ingresos[index];
+    document.getElementById('privateIncomeModalDate').value = r.fecha || today;
+    document.getElementById('privateIncomeModalAmount').value = r.importe || 0;
+    document.getElementById('privateIncomeModalConcept').value = r.concepto || '';
+    document.getElementById('privateIncomeModalFixed').checked = !!r.estable;
+  } else {
+    document.getElementById('privateIncomeModalDate').value = today;
+    document.getElementById('privateIncomeModalAmount').value = '';
+    document.getElementById('privateIncomeModalConcept').value = '';
+    document.getElementById('privateIncomeModalFixed').checked = false;
+  }
+
+  const modal = document.getElementById('privateIncomeModal');
+  if (modal) modal.classList.add('active');
+}
+
+function savePrivateIncomeFromModal() {
+  const index = parseInt(document.getElementById('privateIncomeModalIndex').value);
+  const date = document.getElementById('privateIncomeModalDate').value;
+  const amount = parseFloat(document.getElementById('privateIncomeModalAmount').value) || 0;
+  const concept = document.getElementById('privateIncomeModalConcept').value.trim();
+  const fixed = document.getElementById('privateIncomeModalFixed').checked;
+
+  if (!concept) { alert('Introduce un concepto'); return; }
+
+  const record = { fecha: date, concepto: concept, importe: amount, estable: fixed };
+  const user = privateSession.user;
+
+  if (index >= 0) data.espaciosPrivados[user].ingresos[index] = record;
+  else data.espaciosPrivados[user].ingresos.push(record);
+
+  debouncedSave();
+  closeModal('privateIncomeModal');
+  renderPrivateSpace(true);
+}
+
+function deletePrivateIncomeFromModal() {
+  const index = parseInt(document.getElementById('privateIncomeModalIndex').value);
+  const user = privateSession.user;
+  if (index >= 0 && confirm('¿Eliminar este ingreso?')) {
+    data.espaciosPrivados[user].ingresos.splice(index, 1);
+    debouncedSave();
+    closeModal('privateIncomeModal');
+    renderPrivateSpace(true);
+  }
+}
+
+// ==========================================
+// PRESUPUESTOS POR CATEGORÍA
+// ==========================================
+function renderPresupuestos(gastosMes) {
+  const box = document.getElementById('listPresupuestos');
+  if (!box) return;
+  const user = privateSession.user;
+  const presupuestos = data.espaciosPrivados[user].presupuestos || {};
+  const activos = PRIVATE_CATEGORIES.filter(c => (presupuestos[c] || 0) > 0);
+
+  if (activos.length === 0) {
+    box.innerHTML = '<div class="empty-state">Sin presupuestos configurados. Pulsa ⚙️ para poner límites por categoría.</div>';
+    return;
+  }
+
+  const gastoPorCategoria = {};
+  gastosMes.forEach(g => {
+    const c = g.categoria || 'otros';
+    gastoPorCategoria[c] = (gastoPorCategoria[c] || 0) + (+g.importe || 0);
+  });
+
+  box.innerHTML = activos.map(cat => {
+    const limite = presupuestos[cat] || 0;
+    const gastado = gastoPorCategoria[cat] || 0;
+    const pct = limite > 0 ? (gastado / limite) * 100 : 0;
+    let color = '#6ee7b7';
+    if (pct >= 100) color = '#fca5a5';
+    else if (pct >= 80) color = '#fbbf24';
+    return '<div style="margin-bottom:14px">' +
+      '<div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px">' +
+        '<span>' + (PRIVATE_CATEGORY_LABELS[cat] || cat) + '</span>' +
+        '<span style="font-weight:700;color:' + color + '">' + gastado.toFixed(0) + ' € / ' + limite.toFixed(0) + ' €</span>' +
+      '</div>' +
+      '<div style="background:rgba(255,255,255,0.08);border-radius:8px;height:8px;overflow:hidden">' +
+        '<div style="width:' + Math.min(100, pct) + '%;background:' + color + ';height:100%"></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openBudgetModal() {
+  const user = privateSession.user;
+  const presupuestos = data.espaciosPrivados[user].presupuestos || {};
+  const box = document.getElementById('budgetModalFields');
+  if (box) {
+    box.innerHTML = PRIVATE_CATEGORIES.map(cat => {
+      return '<div class="form-group"><label>' + (PRIVATE_CATEGORY_LABELS[cat] || cat) + '</label>' +
+        '<input type="number" inputmode="decimal" step="1" min="0" id="budget_' + cat + '" value="' + (presupuestos[cat] || 0) + '"></div>';
+    }).join('');
+  }
+  const modal = document.getElementById('budgetModal');
+  if (modal) modal.classList.add('active');
+}
+
+function saveBudgetsFromModal() {
+  const user = privateSession.user;
+  const presupuestos = {};
+  PRIVATE_CATEGORIES.forEach(cat => {
+    const el = document.getElementById('budget_' + cat);
+    const val = el ? (parseFloat(el.value) || 0) : 0;
+    if (val > 0) presupuestos[cat] = val;
+  });
+  data.espaciosPrivados[user].presupuestos = presupuestos;
+  debouncedSave();
+  closeModal('budgetModal');
+  renderPrivateSpace(true);
+}
+
 function renderPrivateChart() {
   if (!privateSession.authenticated) return;
   const user = privateSession.user;
@@ -2502,6 +2808,43 @@ function renderPrivateChart() {
         legend: { position: 'bottom', labels: { color: '#fff8f0', font: {size: 11}, padding: 10 } }
       },
       cutout: '60%'
+    }
+  });
+}
+
+// ==========================================
+// EVOLUCIÓN MENSUAL: INGRESOS VS GASTOS (últimos 6 meses)
+// ==========================================
+function renderEvolucionPersonal(user) {
+  const canvas = document.getElementById('chartEvolucionPersonal');
+  if (!canvas) return;
+
+  const meses = generarRangoMeses(data.mesActivo, 6);
+  const gastos = data.espaciosPrivados[user].gastos;
+  const ingresos = data.espaciosPrivados[user].ingresos || [];
+
+  const gastosPorMes = meses.map(mk => gastos.filter(g => g.fecha && g.fecha.startsWith(mk)).reduce((s, g) => s + (+g.importe || 0), 0));
+  const ingresosPorMes = meses.map(mk => ingresos.filter(g => g.fecha && g.fecha.startsWith(mk)).reduce((s, g) => s + (+g.importe || 0), 0));
+  const labels = meses.map(mk => getMonthLabel(mk).slice(0, 3) + ' ' + mk.split('-')[0].slice(2));
+
+  if (chartInstanceEvolucionPersonal) chartInstanceEvolucionPersonal.destroy();
+
+  chartInstanceEvolucionPersonal = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Ingresos', data: ingresosPorMes, borderColor: '#6ee7b7', backgroundColor: 'rgba(110,231,183,0.15)', fill: true, tension: 0.3 },
+        { label: 'Gastos', data: gastosPorMes, borderColor: '#f9a8d4', backgroundColor: 'rgba(249,168,212,0.15)', fill: true, tension: 0.3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { color: '#fff8f0', font: {size: 11} } } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#e8d5c4', font: {size: 10} } },
+        x: { grid: { display: false }, ticks: { color: '#fff8f0', font: {size: 10} } }
+      }
     }
   });
 }
