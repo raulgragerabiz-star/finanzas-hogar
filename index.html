@@ -646,7 +646,7 @@
     <div class="card" id="privadoBalanceBox" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(236,72,153,0.15));border:1px solid rgba(16,185,129,0.3)">
       <h3 style="color:#93c5fd;font-size:.95rem">💼 Balance Real de Este Mes</h3>
       <div class="stat-value" id="privadoBalanceMes" style="color:#fff8f0;margin-top:4px;font-size:1.6rem">0 €</div>
-      <div class="stat-sub" id="privadoBalanceDetalle" style="color:#bfdbfe">Ingresos − Aportación común − Gastos privados</div>
+      <div class="stat-sub" id="privadoBalanceDetalle" style="color:#bfdbfe">Ingresos − Gastos privados</div>
       <div class="stat-sub" id="privadoVsMesAnterior" style="margin-top:4px;font-weight:700"></div>
     </div>
 
@@ -660,11 +660,6 @@
         <h3>💵 Gastos</h3>
         <div class="stat-value" id="privadoTotalMesCard" style="color:var(--marta);font-size:1.2rem">0 €</div>
         <div class="stat-sub">Este mes</div>
-      </div>
-      <div class="card">
-        <h3>🏦 Aportación</h3>
-        <div class="stat-value" id="privadoAportacionMes" style="color:#fbbf24;font-size:1.2rem">0 €</div>
-        <div class="stat-sub">A la cuenta común</div>
       </div>
       <div class="card">
         <h3>🎯 Tasa de ahorro</h3>
@@ -696,7 +691,10 @@
 
     <div class="section-title">
       <span>📝 Mis Gastos Privados</span>
-      <button class="btn-success btn-small" onclick="openPrivateExpenseModal()">➕</button>
+      <div style="display:flex;gap:6px">
+        <button class="icon-btn btn-small" onclick="openImportComunModal()" title="Importar de Común">📥</button>
+        <button class="btn-success btn-small" onclick="openPrivateExpenseModal()">➕</button>
+      </div>
     </div>
     <div class="card">
       <div id="listGastosPrivadosDetalle"></div>
@@ -765,6 +763,25 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL IMPORTAR DE COMÚN -->
+<div class="modal-overlay" id="importComunModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('importComunModal')">✕</button>
+    <h3>📥 Importar de Común</h3>
+    <p style="color:var(--muted);font-size:.8rem;margin-bottom:10px">
+      Gastos individuales tuyos en el mes activo de Común. Elige cuáles quieres copiar a tu espacio privado
+      (se copian una sola vez; a partir de ahí son independientes, puedes editarlos o borrarlos sin que afecte a Común).
+    </p>
+    <div id="importComunModalFields"></div>
+    <div style="display:flex;justify-content:flex-end;margin-top:14px">
+      <button class="btn-primary" onclick="confirmImportComun()" style="flex:1">📥 Importar seleccionados</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAVEGACIÓN INFERIOR (pie de página fijo) -->
+<div class="bottom-nav">
   <button class="nav-item active" onclick="switchTab(event,'resumen')"><span class="icon">📊</span><span>Resumen</span></button>
   <button class="nav-item" onclick="switchTab(event,'comun')"><span class="icon">🏠</span><span>Común</span></button>
   <button class="nav-item" onclick="switchTab(event,'deudas')"><span class="icon">💳</span><span>Deudas</span></button>
@@ -2494,16 +2511,14 @@ function renderPrivateSpace(forceRender = true) {
   const totalIngresosMes = ingresosMes.reduce((s, g) => s + (+g.importe || 0), 0);
   const totalAnual = gastos.reduce((s, g) => s + (+g.importe || 0), 0);
 
-  // Balance real = lo que entra menos lo que sale (aportación a la cuenta común + gastos propios)
-  const mesData = data.meses[currentMonth];
-  const aportacionMes = mesData ? (user === 'A' ? (mesData.aportaCuentaA || 0) : (mesData.aportaCuentaB || 0)) : 0;
-  const balanceMes = totalIngresosMes - aportacionMes - totalMes;
+  // Balance real, 100% independiente del espacio Común (sin leer aportaciones ni datos compartidos):
+  // Ingresos propios − Gastos propios. Si el usuario quiere reflejar su aportación a la cuenta común
+  // aquí, puede importarla manualmente con el botón "📥 Importar de Común".
+  const balanceMes = totalIngresosMes - totalMes;
 
   const totalMesAnterior = gastosMesAnterior.reduce((s, g) => s + (+g.importe || 0), 0);
   const totalIngresosMesAnterior = ingresosMesAnterior.reduce((s, g) => s + (+g.importe || 0), 0);
-  const mesAnteriorData = data.meses[prevMonth];
-  const aportacionMesAnterior = mesAnteriorData ? (user === 'A' ? (mesAnteriorData.aportaCuentaA || 0) : (mesAnteriorData.aportaCuentaB || 0)) : 0;
-  const balanceMesAnterior = totalIngresosMesAnterior - aportacionMesAnterior - totalMesAnterior;
+  const balanceMesAnterior = totalIngresosMesAnterior - totalMesAnterior;
 
   const tasaAhorro = totalIngresosMes > 0 ? (balanceMes / totalIngresosMes) * 100 : 0;
 
@@ -2514,7 +2529,6 @@ function renderPrivateSpace(forceRender = true) {
 
   set('privadoIngresosMes', totalIngresosMes.toFixed(2) + ' €');
   set('privadoTotalMesCard', totalMes.toFixed(2) + ' €');
-  set('privadoAportacionMes', aportacionMes.toFixed(2) + ' €');
   set('privadoTasaAhorro', (isFinite(tasaAhorro) ? tasaAhorro.toFixed(0) : '0') + '%');
   set('privadoTotalAnual', totalAnual.toFixed(2) + ' €');
 
@@ -2620,6 +2634,76 @@ function deletePrivateExpenseFromModal() {
     closeModal('privateExpenseModal');
     renderPrivateSpace(true);
   }
+}
+
+// ==========================================
+// IMPORTAR DE COMÚN (manual, selectivo, sin vínculo automático)
+// El área privada nunca lee datos de Común por sí sola; solo si el usuario
+// pulsa "Importar" y elige explícitamente qué gastos copiar. A partir de ahí
+// son copias independientes en el espacio privado, editables sin afectar a Común.
+// ==========================================
+let candidatosImportComun = [];
+
+function getGastosComunesImportables(){
+  const user = privateSession.user;
+  const mes = curMonth();
+  if (!mes) return [];
+  const candidatos = [];
+  ['alquiler', 'suscripciones', 'variablesAsociadas'].forEach(cat => {
+    (mes[cat] || []).forEach(item => {
+      if (item.tipo !== 'individual') return;
+      const share = user === 'A' ? (item.aportaA || 0) : (item.aportaB || 0);
+      if (share <= 0) return;
+      const fecha = item.fecha || (data.mesActivo + '-01');
+      candidatos.push({
+        origenKey: cat + '|' + fecha + '|' + item.nombre + '|' + item.importe,
+        categoriaComun: cat, nombre: item.nombre, importe: share, fecha: fecha
+      });
+    });
+  });
+  return candidatos;
+}
+
+function openImportComunModal(){
+  const user = privateSession.user;
+  const yaImportados = new Set((data.espaciosPrivados[user].gastos || []).map(g => g.origenComunKey).filter(Boolean));
+  candidatosImportComun = getGastosComunesImportables().filter(c => !yaImportados.has(c.origenKey));
+
+  const box = document.getElementById('importComunModalFields');
+  if (box) {
+    if (candidatosImportComun.length === 0) {
+      box.innerHTML = '<div class="empty-state">No hay gastos individuales tuyos en Común este mes (o ya los has importado todos).</div>';
+    } else {
+      const catLabel = { alquiler: '🏠 Alquiler', suscripciones: '📺 Suscripción', variablesAsociadas: '🛒 Alimentación/Hogar' };
+      box.innerHTML = candidatosImportComun.map((c, i) => {
+        return '<div class="checkbox-row"><input type="checkbox" id="import_' + i + '" checked>' +
+          '<label for="import_' + i + '">' + c.nombre + ' — <b>' + c.importe.toFixed(2) + ' €</b>' +
+          ' <span style="opacity:.65;font-size:.72rem">(' + (catLabel[c.categoriaComun] || c.categoriaComun) + ')</span></label></div>';
+      }).join('');
+    }
+  }
+  const modal = document.getElementById('importComunModal');
+  if (modal) modal.classList.add('active');
+}
+
+function confirmImportComun(){
+  const user = privateSession.user;
+  let importados = 0;
+  candidatosImportComun.forEach((c, i) => {
+    const chk = document.getElementById('import_' + i);
+    if (chk && chk.checked) {
+      data.espaciosPrivados[user].gastos.push({
+        fecha: c.fecha, concepto: c.nombre + ' (Común)', importe: c.importe,
+        categoria: 'otros', estable: false, origenComunKey: c.origenKey
+      });
+      importados++;
+    }
+  });
+  if (importados > 0) {
+    debouncedSave();
+    renderPrivateSpace(true);
+  }
+  closeModal('importComunModal');
 }
 
 // ==========================================
